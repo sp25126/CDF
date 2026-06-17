@@ -1,0 +1,42 @@
+[
+  {
+    "chunk_id": "de06b1bc-b1e3-4e2c-83da-ab986c946ffe",
+    "source_id": "958edc6d-d633-4745-88ba-fbaad0d66d0a",
+    "source_title": "Section 1 Docs",
+    "text": "Section 1: Photosynthesis is how plants cook food. They use sunlight, water, and chlorophyll. Leaves act as the kitchen.",
+    "page_number": 1,
+    "section_label": "Section 1"
+  },
+  {
+    "chunk_id": "35b91f8b-083c-43c7-87c0-0b34e68bbca5",
+    "source_id": "096c7924-a9f7-4128-8dd6-dbd704f802ae",
+    "source_title": "Section 2 Docs",
+    "text": "Section 2: Gravity is the invisible pull of the Earth. Newton saw an apple fall and discovered gravity.",
+    "page_number": 1,
+    "section_label": "Section 2"
+  },
+  {
+    "chunk_id": "a583d5b2-03ac-4459-934f-5fe7a50cf356",
+    "source_id": "e030fe7d-f5f9-446e-bdd7-bc40612ad4df",
+    "source_title": "Section 3 Docs",
+    "text": "Section 3: Fractions represent parts of a whole. Half is 1/2, quarter is 1/4. Denominators are the bottom numbers.",
+    "page_number": 1,
+    "section_label": "Section 3"
+  },
+  {
+    "chunk_id": "fd8edab1-b990-4677-b296-86f4746ac53f",
+    "source_id": "51c66167-c597-4708-9b8d-358e86c3b8df",
+    "source_title": "Section 4 Docs",
+    "text": "Section 4: Food chains represent energy transfer. Plants are producers, grasshoppers are primary consumers.",
+    "page_number": 1,
+    "section_label": "Section 4"
+  },
+  {
+    "chunk_id": "9a9ac051-ff62-4a74-8f2c-ff47599a8651",
+    "source_id": "ba04b087-e5e2-4a36-a934-92a7558505d6",
+    "source_title": "Section 5 Docs",
+    "text": "Section 5: Wrestling is a popular sport in Haryana villages. Matches are held in clay arenas called Akhadas.",
+    "page_number": 1,
+    "section_label": "Section 5"
+  }
+]
