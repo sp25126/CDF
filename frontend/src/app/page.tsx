@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Mic, RotateCcw, Trash2, Send, Upload, Trash, BookOpen, FileText, Headset } from "lucide-react";
 import { ResponseRenderer, AvatarSync } from "../components";
-import { useHandsFree } from "../lib/useHandsFree";
+import { useVoiceSession } from "../voice/voiceRouter";
+import { voiceStateLabel } from "../voice/voiceSessionState";
 
 export default function Home() {
   const [inputText, setInputText] = useState("");
@@ -85,23 +86,17 @@ export default function Home() {
         if (result.data.audio_base64) {
           const audio = new Audio(result.data.audio_base64);
           audioRef.current = audio;
+          notifyAnswerStarted();
           audio.play();
-          
+
           audio.onended = () => {
-            if (result.data.follow_up_prompt && handsFreeMode) {
-              // start listening again
-              setAvatarState("listening");
-              startListening();
-            } else {
-              setAvatarState("idle");
-            }
+            notifyAnswerEnded();
+            // voiceRouter transitions speaking → wake_listening automatically
           };
         } else {
-            // Text only response
-            if (result.data.follow_up_prompt && handsFreeMode) {
-              setAvatarState("listening");
-              startListening();
-            }
+          // Text-only response — immediately mark answer as done
+          notifyAnswerStarted();
+          setTimeout(() => notifyAnswerEnded(), 100);
         }
       }
     } catch (error) {
@@ -113,35 +108,32 @@ export default function Home() {
   }, [sourceMode, handsFreeMode]);
 
   const {
-    isActive: isHandsFreeListening,
-    setIsActive: setIsHandsFreeListening,
+    voiceState,
+    isHandsFreeOn,
     isListening: isMicActive,
-    startListening,
-    stopListening
-  } = useHandsFree({
+    enable:  enableVoice,
+    disable: disableVoice,
+    notifyAnswerStarted,
+    notifyAnswerEnded,
+  } = useVoiceSession({
     onCommand: (text) => {
       submitCommand(text);
     },
     onStateChange: (state) => {
-      if (handsFreeMode && state !== "idle" && state !== "thinking") {
-         setAvatarState(state);
-      }
-    }
+      // voiceRouter already maps voice states → avatar states
+      setAvatarState(state as any);
+    },
   });
 
   const toggleHandsFree = () => {
     const nextMode = !handsFreeMode;
     setHandsFreeMode(nextMode);
     if (nextMode) {
-      submitCommand("hands_free_start");
-      setIsHandsFreeListening(true);
+      enableVoice();
       setAvatarState("waving");
-      setTimeout(() => {
-        setAvatarState("listening");
-      }, 2000);
+      setTimeout(() => setAvatarState("listening"), 2000);
     } else {
-      submitCommand("hands_free_stop");
-      setIsHandsFreeListening(false);
+      disableVoice();
       setAvatarState("idle");
     }
   };
@@ -558,7 +550,7 @@ export default function Home() {
           {/* Avatar Sync Overlay */}
           {handsFreeMode && (
             <div className="absolute top-4 right-4 z-10">
-              <AvatarSync state={avatarState} />
+              <AvatarSync state={avatarState} voiceState={voiceState} />
             </div>
           )}
 
@@ -641,15 +633,22 @@ export default function Home() {
           <div className="flex gap-4 items-center">
             
             {/* Hands Free Mode Toggle */}
-            <button
-              onClick={toggleHandsFree}
-              className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold shadow-lg transition-colors ${
-                handsFreeMode ? "bg-purple-600 hover:bg-purple-500 text-white" : "bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
-              }`}
-            >
-              <Headset size={24} />
-              <span>Hands Free</span>
-            </button>
+            <div className="flex flex-col items-center gap-1">
+              <button
+                onClick={toggleHandsFree}
+                className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold shadow-lg transition-colors ${
+                  handsFreeMode ? "bg-purple-600 hover:bg-purple-500 text-white" : "bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
+                }`}
+              >
+                <Headset size={24} />
+                <span>Hands Free</span>
+              </button>
+              {handsFreeMode && (
+                <span className="text-xs font-semibold text-purple-300 animate-pulse tracking-wide">
+                  {voiceStateLabel(voiceState)}
+                </span>
+              )}
+            </div>
 
             {/* Source Mode Toggle Switch */}
             <div className="flex items-center gap-3 bg-slate-800 px-5 py-3 rounded-xl border border-slate-700">

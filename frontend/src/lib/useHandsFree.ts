@@ -1,4 +1,15 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+/**
+ * useHandsFree.ts
+ * ─────────────────────────────────────────────────────────
+ * Backward-compatible shim over useVoiceSession.
+ *
+ * The original interface is preserved so page.tsx keeps compiling
+ * with zero changes to its import / call-site.  The real logic now
+ * lives in ../voice/voiceRouter.ts.
+ */
+
+import { useCallback } from "react";
+import { useVoiceSession } from "../voice/voiceRouter";
 
 interface UseHandsFreeProps {
   onCommand: (text: string) => void;
@@ -6,112 +17,37 @@ interface UseHandsFreeProps {
 }
 
 export function useHandsFree({ onCommand, onStateChange }: UseHandsFreeProps) {
-  const [isActive, setIsActive] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<any>(null);
-  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const {
+    voiceState,
+    isHandsFreeOn,
+    isListening,
+    enable,
+    disable,
+    notifyAnswerStarted,
+    notifyAnswerEnded,
+  } = useVoiceSession({ onCommand, onStateChange });
 
-  const stopListening = useCallback(() => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
-    setIsListening(false);
-    if (onStateChange) onStateChange("idle");
-  }, [onStateChange]);
+  // Legacy setIsActive shim: true → enable, false → disable
+  const setIsActive = useCallback(
+    (active: boolean) => {
+      if (active) enable();
+      else         disable();
+    },
+    [enable, disable],
+  );
 
-  const startListening = useCallback(() => {
-    if (!isActive) return;
-    
-    try {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        console.warn("Speech recognition not supported");
-        return;
-      }
-
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-
-      const rec = new SpeechRecognition();
-      rec.continuous = true;
-      rec.interimResults = true;
-      rec.lang = "hi-IN"; // Good default for Hinglish/Hindi
-
-      rec.onstart = () => {
-        setIsListening(true);
-        if (onStateChange) onStateChange("listening");
-      };
-
-      rec.onresult = (event: any) => {
-        let finalTranscript = "";
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
-        }
-
-        if (finalTranscript.trim()) {
-          // User spoke a final phrase
-          if (pauseTimeoutRef.current) {
-            clearTimeout(pauseTimeoutRef.current);
-          }
-          
-          // Wait 1.5 seconds of silence before submitting
-          pauseTimeoutRef.current = setTimeout(() => {
-            stopListening();
-            if (onStateChange) onStateChange("thinking");
-            onCommand(finalTranscript.trim());
-          }, 1500);
-        }
-      };
-
-      rec.onerror = (e: any) => {
-        console.error("Hands-free recognition error:", e.error);
-        if (e.error === "no-speech" || e.error === "network") {
-            // Keep trying if it's active
-            setTimeout(() => {
-                if (isActive) startListening();
-            }, 1000);
-        } else {
-            setIsListening(false);
-            if (onStateChange) onStateChange("idle");
-        }
-      };
-
-      rec.onend = () => {
-        setIsListening(false);
-        // Automatically restart if still active
-        if (isActive) {
-          startListening();
-        }
-      };
-
-      recognitionRef.current = rec;
-      rec.start();
-    } catch (err) {
-      console.error("Error starting hands-free listening", err);
-    }
-  }, [isActive, onCommand, onStateChange, stopListening]);
-
-  useEffect(() => {
-    if (isActive) {
-      startListening();
-    } else {
-      stopListening();
-    }
-    
-    return () => {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-      stopListening();
-    };
-  }, [isActive, startListening, stopListening]);
+  // Legacy startListening / stopListening (no-ops now; router manages this)
+  const startListening = useCallback(() => {}, []);
+  const stopListening  = useCallback(() => {}, []);
 
   return {
-    isActive,
+    isActive:    isHandsFreeOn,
     setIsActive,
     isListening,
     startListening,
-    stopListening
+    stopListening,
+    voiceState,
+    notifyAnswerStarted,
+    notifyAnswerEnded,
   };
 }
