@@ -8,3 +8,4 @@ export { LanguageBadge } from "./LanguageBadge";
 export { NextActions } from "./NextActions";
 export { ClarificationState } from "./ClarificationState";
 export { ResponseRenderer } from "./ResponseRenderer";
+export { AvatarSync } from "./AvatarSync";

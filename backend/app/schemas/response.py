@@ -18,21 +18,8 @@ class SourceRef(BaseModel):
     url: Optional[str] = None
 
 
-class VisualRef(BaseModel):
-    """Reference to a visual asset."""
-    type: str = Field(..., description="image, diagram, chart, etc.")
-    url: str
-    description: Optional[str] = None
-    visual_id: Optional[str] = None
-
-
-class VideoRef(BaseModel):
-    """Reference to a video."""
-    title: str
-    youtube_id: str
-    duration: Optional[int] = None
-    video_id: Optional[str] = None
-    url: Optional[str] = None
+from app.schemas.visual import VisualRef
+from app.schemas.video import VideoRef
 
 class QuizQuestion(BaseModel):
     """A single quiz question."""
@@ -97,9 +84,29 @@ class AssistantResponse(BaseModel):
         default=False,
         description="True if the assistant needs clarification"
     )
+    hands_free_mode: bool = Field(
+        default=False,
+        description="True if the hands-free loop is active"
+    )
+    voice_command_mode: bool = Field(
+        default=False,
+        description="True if currently expecting a short voice command"
+    )
+    assistant_state: str = Field(
+        default="idle",
+        description="Overall assistant state: idle, listening, explaining, quizzing, awaiting_followup"
+    )
     avatar_state: str = Field(
         default="idle",
-        description="Avatar state: idle, speaking, listening, thinking"
+        description="Avatar visual state: idle, speaking, listening, thinking"
+    )
+    follow_up_prompt: Optional[str] = Field(
+        default=None,
+        description="Follow-up question asked to the user"
+    )
+    next_voice_commands: List[str] = Field(
+        default_factory=list,
+        description="Expected short voice commands to guide the user"
     )
     source_refs: List[SourceRef] = Field(
         default_factory=list,
@@ -112,6 +119,14 @@ class AssistantResponse(BaseModel):
     videos: List[VideoRef] = Field(
         default_factory=list,
         description="References to videos (future layer)"
+    )
+    visual_reason: Optional[str] = Field(
+        default=None,
+        description="Reasoning for attaching visual"
+    )
+    video_reason: Optional[str] = Field(
+        default=None,
+        description="Reasoning for attaching video"
     )
     
     # Backwards compatibility: explain card attributes
@@ -135,11 +150,31 @@ class AssistantResponse(BaseModel):
         default=None,
         description="Recap/summary text (backwards compatibility)"
     )
+    response_text: Optional[str] = Field(
+        default=None,
+        description="Response text (backwards compatibility)"
+    )
     
     # Backwards compatibility: quiz card attributes
     questions: List[QuizQuestion] = Field(
         default_factory=list,
         description="Questions list (backwards compatibility, use quiz.questions)"
+    )
+    message: Optional[str] = Field(
+        default=None,
+        description="Clarification message (backwards compatibility)"
+    )
+    suggestions: List[str] = Field(
+        default_factory=list,
+        description="Suggested actions (backwards compatibility)"
+    )
+    citations: List[SourceRef] = Field(
+        default_factory=list,
+        description="Citations list (backwards compatibility, use source_refs)"
+    )
+    source_mode: bool = Field(
+        default=False,
+        description="Source mode (backwards compatibility)"
     )
     audio_base64: Optional[str] = Field(
         default=None,

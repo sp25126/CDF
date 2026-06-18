@@ -1,0 +1,29 @@
+{
+  "test-user": {
+    "user_id": "test-user",
+    "preferred_language": "english",
+    "preferred_class_level": null,
+    "recurring_topics": [],
+    "source_preferences": [],
+    "corrections": [
+      {
+        "text": "that is wrong, photosythesis uses water not oil.",
+        "timestamp": "2026-06-18T07:31:12.353541+00:00"
+      }
+    ],
+    "failure_patterns": []
+  },
+  "default_teacher": {
+    "user_id": "default_teacher",
+    "preferred_language": "hinglish",
+    "preferred_class_level": null,
+    "recurring_topics": [
+      "Start a quiz on gravity",
+      "how is photosynthesis done?",
+      "explain photosynthesis with pictures"
+    ],
+    "source_preferences": [],
+    "corrections": [],
+    "failure_patterns": []
+  }
+}

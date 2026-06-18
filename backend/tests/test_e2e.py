@@ -13,7 +13,7 @@ def test_explain_default():
     assert res["status"] == "success"
     data = res["data"]
     assert data["mode"] == "explain"
-    assert data["language_mode"] == "default"
+    assert data["language_mode"] == "hinglish"
     assert "bullets" in data
     assert "example" in data
     assert "response_text" in data
@@ -72,7 +72,7 @@ def test_quiz_default():
     assert res["status"] == "success"
     data = res["data"]
     assert data["mode"] == "quiz"
-    assert data["language_mode"] == "default"
+    assert data["language_mode"] == "hinglish"
     assert "questions" in data
     assert len(data["questions"]) == 3
     print("=> Quiz (Default) Passed!")
@@ -121,8 +121,8 @@ def test_clarify():
     res = r.json()
     assert res["status"] == "success"
     data = res["data"]
-    assert data["mode"] == "clarify"
-    assert data["language_mode"] == "default"
+    assert data["mode"] == "unclear"
+    assert data["language_mode"] == "hinglish"
     assert "message" in data
     assert "suggestions" in data
     print("=> Clarify Passed!")

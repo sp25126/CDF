@@ -26,10 +26,10 @@ async def process_text(request: CommandRequest):
         source_mode=request.source_mode
     )
     
-    return {
-        "status": "success",
-        "data": response_payload
-    }
+    dump = response_payload.model_dump()
+    dump["status"] = "success"
+    dump["data"] = dump.copy()
+    return dump
 
 @router.post("/audio")
 async def process_audio(
@@ -54,7 +54,7 @@ async def process_audio(
             
     # 2. Check for empty transcript
     if not transcript.strip():
-        language_mode, _ = detect_language(text_hint or "")
+        language_mode = detect_language(text_hint or "")
         lang_key = language_mode if language_mode in UNCLEAR_RESPONSES else "hinglish"
         conf = UNCLEAR_RESPONSES[lang_key]
         
@@ -87,10 +87,10 @@ async def process_audio(
             audio_base64=audio_base64,
             title="Clarification Requested"
         )
-        return {
-            "status": "success",
-            "data": response_payload
-        }
+        dump = response_payload.model_dump()
+        dump["status"] = "success"
+        dump["data"] = dump.copy()
+        return dump
         
     # 3. Process transcribed text via orchestrator
     response_payload = await build_assistant_response(
@@ -99,7 +99,7 @@ async def process_audio(
         source_mode=source_mode
     )
     
-    return {
-        "status": "success",
-        "data": response_payload
-    }
+    dump = response_payload.model_dump()
+    dump["status"] = "success"
+    dump["data"] = dump.copy()
+    return dump

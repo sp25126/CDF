@@ -57,53 +57,37 @@ def normalize_text(text: str) -> str:
     return text
 
 
-def detect_intent(text: str) -> Tuple[str, float]:
+def detect_intent(text: str) -> str:
     """
     Detect the user's intent from their command.
     
-    Rules (in priority order):
-    1. Check for stop keywords -> "stop" (confidence: 0.9)
-    2. Check for quiz keywords -> "quiz" (confidence: 0.85)
-    3. Check for followup keywords -> "followup" (confidence: 0.8)
-    4. Check for explain keywords -> "explain" (confidence: 0.85)
-    5. Short multi-word text -> "explain" (confidence: 0.5)
-    6. Otherwise -> "unclear" (confidence: 0.3)
-    
-    Args:
-        text: User's command (raw input)
-        
-    Returns:
-        Tuple[intent, confidence] where confidence is 0.0-1.0
+    Intent rules:
+    - "explain", "teach", "what is", "how does" -> explain
+    - "quiz", "test", "question", "mcq" -> quiz
+    - "repeat", "slower", "again" -> followup
+    - "stop", "cancel", "pause" -> stop
+    - otherwise -> unclear
     """
     if not text:
-        return ("unclear", 0.0)
-    
-    norm_text = normalize_text(text)
-    tokens = norm_text.split()
-    
-    # Check stop first (highest priority)
-    for keyword in STOP_KEYWORDS:
-        if keyword in norm_text:
-            return ("stop", 0.9)
-    
-    # Check quiz keywords
-    for keyword in QUIZ_KEYWORDS:
-        if keyword in norm_text:
-            return ("quiz", 0.85)
-    
-    # Check followup keywords
-    for keyword in FOLLOWUP_KEYWORDS:
-        if keyword in norm_text:
-            return ("followup", 0.8)
+        return "unclear"
+        
+    t = text.lower()
     
     # Check explain keywords
-    for keyword in EXPLAIN_KEYWORDS:
-        if keyword in norm_text:
-            return ("explain", 0.85)
-    
-    # If text is reasonable length and contains alphanumeric, might be a topic
-    if len(tokens) >= 2 and len(text) > 3:
-        return ("explain", 0.5)  # Lower confidence, could be unclear
-    
-    # Otherwise unclear
-    return ("unclear", 0.3)
+    if any(k in t for k in ["explain", "teach", "what is", "how does"]):
+        return "explain"
+        
+    # Check quiz keywords
+    if any(k in t for k in ["quiz", "test", "question", "mcq"]):
+        return "quiz"
+        
+    # Check followup keywords
+    if any(k in t for k in ["repeat", "slower", "again"]):
+        return "followup"
+        
+    # Check stop keywords
+    if any(k in t for k in ["stop", "cancel", "pause"]):
+        return "stop"
+        
+    return "unclear"
+

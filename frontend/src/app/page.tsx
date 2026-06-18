@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Mic, RotateCcw, Trash2, Send, Upload, Trash, BookOpen, FileText } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Mic, RotateCcw, Trash2, Send, Upload, Trash, BookOpen, FileText, Headset } from "lucide-react";
+import { ResponseRenderer, AvatarSync } from "../components";
+import { useHandsFree } from "../lib/useHandsFree";
 
 export default function Home() {
   const [inputText, setInputText] = useState("");
@@ -20,11 +22,129 @@ export default function Home() {
   const [handoffActive, setHandoffActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
+  // Hands Free Mode states
+  const [avatarState, setAvatarState] = useState<"idle" | "listening" | "speaking" | "thinking" | "waving">("idle");
+  const [handsFreeMode, setHandsFreeMode] = useState(false);
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const recognitionRef = useRef<any>(null);
-  const speechTextHintRef = useRef<string>("");
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const recognitionRef = useRef<any>(null);
+
+  // When backend response changes, update avatar state if hands-free is on
+  useEffect(() => {
+    if (response && handsFreeMode) {
+      if (response.assistant_state) {
+        setAvatarState(response.assistant_state as any);
+      }
+      
+      // If we are awaiting followup, start listening again after audio finishes
+      // Handled in audio onended
+    }
+  }, [response, handsFreeMode]);
+
+  const submitCommand = useCallback(async (commandText: string) => {
+    if (!commandText.trim()) return;
+
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+
+    setIsLoading(true);
+    setAvatarState("thinking");
+    
+    try {
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const res = await fetch(`${apiBaseUrl}/command/text`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: commandText,
+          session_id: "demo-session-123",
+          context: { grade_level: 7, subject: "Science" },
+          source_mode: sourceMode
+        }),
+      });
+
+      const result = await res.json();
+      if (result.status === "success") {
+        setResponse(result.data);
+        setTranscript((prev) => [...prev, commandText]);
+        setInputText("");
+
+        // Set avatar state based on backend response
+        const nextState = result.data.avatar_state || result.data.assistant_state || "idle";
+        setAvatarState(nextState as any);
+
+        // Play the base64 audio response if present
+        if (result.data.audio_base64) {
+          const audio = new Audio(result.data.audio_base64);
+          audioRef.current = audio;
+          audio.play();
+          
+          audio.onended = () => {
+            if (result.data.follow_up_prompt && handsFreeMode) {
+              // start listening again
+              setAvatarState("listening");
+              startListening();
+            } else {
+              setAvatarState("idle");
+            }
+          };
+        } else {
+            // Text only response
+            if (result.data.follow_up_prompt && handsFreeMode) {
+              setAvatarState("listening");
+              startListening();
+            }
+        }
+      }
+    } catch (error) {
+      console.error("Error sending command:", error);
+      setAvatarState("idle");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [sourceMode, handsFreeMode]);
+
+  const {
+    isActive: isHandsFreeListening,
+    setIsActive: setIsHandsFreeListening,
+    isListening: isMicActive,
+    startListening,
+    stopListening
+  } = useHandsFree({
+    onCommand: (text) => {
+      submitCommand(text);
+    },
+    onStateChange: (state) => {
+      if (handsFreeMode && state !== "idle" && state !== "thinking") {
+         setAvatarState(state);
+      }
+    }
+  });
+
+  const toggleHandsFree = () => {
+    const nextMode = !handsFreeMode;
+    setHandsFreeMode(nextMode);
+    if (nextMode) {
+      submitCommand("hands_free_start");
+      setIsHandsFreeListening(true);
+      setAvatarState("waving");
+      setTimeout(() => {
+        setAvatarState("listening");
+      }, 2000);
+    } else {
+      submitCommand("hands_free_stop");
+      setIsHandsFreeListening(false);
+      setAvatarState("idle");
+    }
+  };
 
   useEffect(() => {
     if (activeTab === "materials") {
@@ -156,55 +276,9 @@ export default function Home() {
     });
   };
 
-  const submitCommand = async (commandText: string) => {
-    if (!commandText.trim()) return;
-
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-    }
-
-    setIsLoading(true);
-    try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-      const res = await fetch(`${apiBaseUrl}/command/text`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text: commandText,
-          session_id: "demo-session-123",
-          context: { grade_level: 7, subject: "Science" },
-          source_mode: sourceMode
-        }),
-      });
-
-      const result = await res.json();
-      if (result.status === "success") {
-        setResponse(result.data);
-        setTranscript((prev) => [...prev, commandText]);
-        setInputText("");
-
-        // Play the base64 audio response if present
-        if (result.data.audio_base64) {
-          const audio = new Audio(result.data.audio_base64);
-          audioRef.current = audio;
-          audio.play();
-        }
-      }
-    } catch (error) {
-      console.error("Error sending command:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const startRecording = async () => {
+    if (handsFreeMode) return; // Prevent manual recording in hands-free mode
     audioChunksRef.current = [];
-    speechTextHintRef.current = "";
     setInputText("");
 
     if (audioRef.current) {
@@ -234,9 +308,6 @@ export default function Home() {
           formData.append("session_id", "demo-session-123");
           formData.append("audio", audioBlob, "audio.wav");
           formData.append("source_mode", String(sourceMode));
-          if (speechTextHintRef.current) {
-            formData.append("text_hint", speechTextHintRef.current);
-          }
 
           const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
           const res = await fetch(`${apiBaseUrl}/command/audio`, {
@@ -247,7 +318,7 @@ export default function Home() {
           const result = await res.json();
           if (result.status === "success") {
             setResponse(result.data);
-            setTranscript((prev) => [...prev, result.data.transcript || speechTextHintRef.current || "Voice Input"]);
+            setTranscript((prev) => [...prev, result.data.transcript || "Voice Input"]);
             if (result.data.audio_base64) {
               const audio = new Audio(result.data.audio_base64);
               audioRef.current = audio;
@@ -260,35 +331,6 @@ export default function Home() {
           setIsLoading(false);
         }
       };
-
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        const rec = new SpeechRecognition();
-        rec.continuous = true;
-        rec.interimResults = true;
-        rec.lang = "hi-IN";
-        rec.onresult = (event: any) => {
-          let finalTranscript = "";
-          let interimTranscript = "";
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
-              finalTranscript += event.results[i][0].transcript;
-            } else {
-              interimTranscript += event.results[i][0].transcript;
-            }
-          }
-          const currentText = finalTranscript || interimTranscript;
-          if (currentText.trim()) {
-            setInputText(currentText);
-            speechTextHintRef.current = currentText;
-          }
-        };
-        rec.onerror = (e: any) => {
-          console.error("Speech recognition error:", e.error);
-        };
-        recognitionRef.current = rec;
-        rec.start();
-      }
 
       mediaRecorder.start();
       setIsRecording(true);
@@ -321,12 +363,14 @@ export default function Home() {
       audioRef.current.currentTime = 0;
     }
 
+    const textToSpeak = response.answer_text || response.response_text;
+
     if (response.audio_base64) {
       const audio = new Audio(response.audio_base64);
       audioRef.current = audio;
       audio.play();
-    } else if (response.response_text && typeof window !== "undefined" && window.speechSynthesis) {
-      const utterance = new SpeechSynthesisUtterance(response.response_text);
+    } else if (textToSpeak && typeof window !== "undefined" && window.speechSynthesis) {
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.lang = "hi-IN";
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
@@ -509,7 +553,15 @@ export default function Home() {
         </div>
 
         {/* Right Panel: Main Response */}
-        <div className="w-full md:w-2/3 flex flex-col bg-white rounded-xl shadow-lg border border-slate-200 p-6">
+        <div className="w-full md:w-2/3 flex flex-col bg-white rounded-xl shadow-lg border border-slate-200 p-6 relative">
+          
+          {/* Avatar Sync Overlay */}
+          {handsFreeMode && (
+            <div className="absolute top-4 right-4 z-10">
+              <AvatarSync state={avatarState} />
+            </div>
+          )}
+
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-blue-800">AI Response</h2>
           <div className="flex-1 overflow-y-auto">
             {!response && !isLoading && (
@@ -526,109 +578,31 @@ export default function Home() {
 
             {response && (
               <div className="space-y-6 animate-in fade-in duration-500 relative pt-2">
-                {/* Language Badge in top right */}
-                {response.language_mode && (
-                  <div className="absolute top-0 right-0 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-lg font-bold text-blue-800 shadow-sm flex items-center gap-2">
-                    {response.language_mode === "english" && "🇬🇧 English"}
-                    {response.language_mode === "hindi" && "🕉 Hindi"}
-                    {response.language_mode === "hinglish" && "🇮🇳 Hinglish"}
-                  </div>
-                )}
+                <ResponseRenderer
+                  response={response}
+                  onNextAction={submitCommand}
+                  onQuizNavigate={(newIndex) => {
+                    if (response && response.quiz) {
+                      setResponse({
+                        ...response,
+                        quiz: {
+                          ...response.quiz,
+                          current_index: newIndex
+                        }
+                      });
+                    }
+                  }}
+                  onQuizAnswerSubmit={(questionIndex, selectedIndex) => {
+                    console.log(`Question ${questionIndex} answered: Option ${selectedIndex}`);
+                  }}
+                />
 
-                {/* Explain View */}
-                {(response.mode === "explain" || response.intent === "explain") && (
-                  <div className="space-y-4">
-                    <h3 className="text-3xl font-bold text-blue-900 pr-36">{response.title}</h3>
-                    <p className="text-2xl leading-relaxed text-slate-700 font-medium italic bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                      "{response.response_text}"
-                    </p>
-                    {response.bullets && response.bullets.length > 0 && (
-                      <div className="space-y-3">
-                        <h4 className="text-xl font-semibold text-slate-800">Key Points:</h4>
-                        <ul className="list-disc list-inside space-y-2 text-xl text-slate-700">
-                          {response.bullets.map((b: string, i: number) => (
-                            <li key={i}>{b}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {response.example && (
-                      <div className="mt-6 p-5 bg-amber-50 rounded-xl border border-amber-200 shadow-sm">
-                        <h4 className="text-xl font-bold text-amber-900 mb-2">Local Analogy:</h4>
-                        <p className="text-2xl text-amber-950 font-medium">{response.example}</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Quiz View */}
-                {(response.mode === "quiz" || response.intent === "quiz") && (
-                  <div className="space-y-4">
-                    <h3 className="text-3xl font-bold text-green-900 pr-36">{response.title}</h3>
-                    <p className="text-2xl leading-relaxed text-slate-700 font-medium italic mb-4">
-                      "{response.response_text}"
-                    </p>
-                    <div className="space-y-6">
-                      {response.questions.map((q: any) => (
-                        <div key={q.id} className="p-5 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-                          <p className="text-2xl font-bold text-slate-900 mb-4">{q.id}. {q.question}</p>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            {q.options.map((opt: string, idx: number) => (
-                              <div key={idx} className="p-3 bg-white border-2 border-slate-300 rounded-lg text-xl font-semibold text-center hover:border-blue-500 cursor-default transition-colors">
-                                {opt}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Clarify View */}
-                {(response.mode === "clarify" || response.intent === "clarify") && (
-                  <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
-                    <p className="text-3xl font-medium text-slate-800 pr-36">
-                      {response.message}
-                    </p>
-                    <div className="flex flex-wrap gap-4 justify-center">
-                      {response.suggestions.map((s: string, i: number) => (
-                        <button
-                          key={i}
-                          onClick={() => {
-                            submitCommand(s);
-                          }}
-                          className="px-6 py-3 bg-blue-100 text-blue-800 rounded-full text-xl font-bold hover:bg-blue-200 transition-colors border-2 border-blue-300"
-                        >
-                          {s}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Citations Renderer & NotebookLM Learning Handoff */}
+                {/* NotebookLM Learning Handoff */}
                 {response.citations && response.citations.length > 0 && (
                   <div className="mt-6 p-5 bg-slate-50 border border-slate-200 rounded-xl shadow-inner animate-in slide-in-from-bottom duration-300">
-                    <h4 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
-                      <span>📄 Grounded Sources & Citations</span>
-                    </h4>
-                    <div className="space-y-3">
-                      {response.citations.map((c: any, i: number) => (
-                        <div key={i} className="text-lg text-slate-700 border-l-4 border-indigo-400 pl-3">
-                          <p className="font-bold text-indigo-950">
-                            {c.source_title} 
-                            {c.page_number && <span className="text-slate-500 font-semibold"> (Page {c.page_number})</span>}
-                            {c.section_label && <span className="text-slate-500 font-semibold"> - {c.section_label}</span>}
-                          </p>
-                          <p className="italic text-slate-600 mt-1">"{c.snippet}"</p>
-                        </div>
-                      ))}
-                    </div>
-
                     <button
                       onClick={handleNotebookLMHandoff}
-                      className="mt-5 w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xl font-extrabold shadow-lg transition-transform active:scale-95 duration-200"
+                      className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-xl text-xl font-extrabold shadow-lg transition-transform active:scale-95 duration-200"
                     >
                       <span>Launch NotebookLM Study Guide</span>
                     </button>
@@ -652,10 +626,11 @@ export default function Home() {
               onKeyDown={(e) => e.key === "Enter" && handleSendCommand()}
               placeholder="Enter teacher command (e.g., 'Explain Gravity')"
               className="flex-1 px-5 py-4 bg-slate-800 border-2 border-slate-700 rounded-xl text-xl focus:outline-none focus:border-blue-500 transition-all text-white placeholder:text-slate-500"
+              disabled={handsFreeMode}
             />
             <button
               onClick={handleSendCommand}
-              disabled={isLoading || !inputText.trim()}
+              disabled={isLoading || !inputText.trim() || handsFreeMode}
               className="p-4 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 rounded-xl transition-colors shadow-lg"
             >
               <Send size={32} />
@@ -664,6 +639,18 @@ export default function Home() {
 
           {/* Action Buttons */}
           <div className="flex gap-4 items-center">
+            
+            {/* Hands Free Mode Toggle */}
+            <button
+              onClick={toggleHandsFree}
+              className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold shadow-lg transition-colors ${
+                handsFreeMode ? "bg-purple-600 hover:bg-purple-500 text-white" : "bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
+              }`}
+            >
+              <Headset size={24} />
+              <span>Hands Free</span>
+            </button>
+
             {/* Source Mode Toggle Switch */}
             <div className="flex items-center gap-3 bg-slate-800 px-5 py-3 rounded-xl border border-slate-700">
               <span className="text-lg font-bold text-slate-300">Source Mode</span>
@@ -690,7 +677,8 @@ export default function Home() {
 
             <button
               onClick={isRecording ? stopRecording : startRecording}
-              className={`flex items-center gap-3 px-8 py-4 rounded-xl text-2xl font-bold shadow-lg transition-transform active:scale-95 ${
+              disabled={handsFreeMode}
+              className={`flex items-center gap-3 px-8 py-4 rounded-xl text-2xl font-bold shadow-lg transition-transform active:scale-95 disabled:opacity-50 disabled:bg-slate-700 ${
                 isRecording ? "bg-amber-600 hover:bg-amber-500 animate-pulse" : "bg-red-600 hover:bg-red-500"
               }`}
             >
@@ -699,7 +687,7 @@ export default function Home() {
             </button>
             <button
               onClick={handleRepeat}
-              disabled={!response || !response.response_text}
+              disabled={!response || (!response.answer_text && !response.response_text)}
               className="flex items-center gap-3 px-8 py-4 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 rounded-xl text-2xl font-bold shadow-lg transition-transform active:scale-95"
             >
               <RotateCcw size={32} />

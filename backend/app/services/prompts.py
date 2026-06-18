@@ -1,11 +1,11 @@
 from typing import Dict, Any
 
 LANGUAGE_INSTRUCTIONS: Dict[str, str] = {
-    "default": "For response_text, mix Hindi and English naturally (Hinglish) speaking conversationally like a desi teacher. For title, bullets, example, recap, instructions, questions, options, and answer_key, respond entirely in plain English. Do not include any Hindi words in written card components.",
-    "hinglish": "Mix Hindi and English naturally. Speak conversationally like a desi teacher.",
-    "english": "Respond entirely in plain English. No Hindi words at all.",
-    "hindi": "Respond entirely in Hindi. No English words except technical terms."
+    "hinglish": "For response_text, mix Hindi and English naturally (Hinglish) speaking conversationally like a desi teacher. For title, bullets, example, and recap, respond in plain English or Hinglish.",
+    "english": "Respond entirely in plain English. No Hindi words at all. Title, bullets, example, recap, and response_text must all be entirely in English.",
+    "hindi": "Respond entirely in Hindi. No English words except technical terms. Title, bullets, example, recap, and response_text must all be entirely in Hindi."
 }
+
 
 SYSTEM_PROMPT = """You are 'Shiksha Sahayak', a smart teaching assistant for government schools in Haryana. Your goal is to help teachers explain complex topics simply and conduct quick oral quizzes.
 

@@ -1,0 +1,263 @@
+{
+  "test-session": {
+    "session_id": "test-session",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Hello assistant"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello student"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "demo-session-123": {
+    "session_id": "demo-session-123",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "hands_free_start"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "how is photosynthesis done?"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "explain photosynthesis with pictures"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "hands_free_start"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Explain Photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-hf": {
+    "session_id": "test-hf",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "maafi chahta hu"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "stop"
+      },
+      {
+        "role": "assistant",
+        "content": "Stopping. Let me know when you're ready."
+      },
+      {
+        "role": "user",
+        "content": "hands_free_start"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "maafi chahta hu"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "stop"
+      },
+      {
+        "role": "assistant",
+        "content": "Stopping. Let me know when you're ready."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-ans": {
+    "session_id": "test-ans",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-ans2": {
+    "session_id": "test-ans2",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Start a quiz on gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Start a quiz on gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Start a quiz on gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-media": {
+    "session_id": "test-media",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-media2": {
+    "session_id": "test-media2",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain water cycle with an animated lesson"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Explain water cycle with an animated lesson"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      },
+      {
+        "role": "user",
+        "content": "Explain water cycle with an animated lesson"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble thinking right now."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  }
+}

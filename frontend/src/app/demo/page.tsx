@@ -6,7 +6,7 @@
 "use client";
 
 import { useState } from "react";
-import { ResponseRenderer } from "@/components";
+import { ResponseRenderer } from "../../components";
 import { AssistantResponse } from "@/types/api";
 import { Send, Loader2 } from "lucide-react";
 

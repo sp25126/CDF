@@ -1,16 +1,31 @@
 import uuid
 import base64
 import logging
+import json
 from typing import Optional
 
 from app.schemas.response import AssistantResponse, QuizPayload, QuizQuestion, SourceRef
 from app.services.language_router import detect_language
 from app.services.intent_router import detect_intent, normalize_text
-from app.services.explain_service import generate_explanation
-from app.services.quiz_service import generate_quiz
-from app.services.tts_service import tts_service
+from app.services.llm_service import llm_service
+from app.services.response_builder import build_final_response
+
+from app.services.retrieval import retrieve_relevant_chunks
+from app.services.visual_classifier import detect_visual_need
+from app.services.visual_retrieval import retrieve_visuals
+from app.services.video_suggester import suggest_video
+
+from app.services.memory_retriever import memory_retriever
+from app.services.memory_writer import memory_writer
+from app.services.session_memory import session_memory_service
+from app.services.prompt_assembler import prompt_assembler
 
 logger = logging.getLogger(__name__)
+
+from app.services.explain_interactive import generate_interactive_explanation
+from app.services.quiz_interactive import generate_interactive_quiz, process_quiz_answer
+from app.services.voice_command_router import voice_command_router
+from app.services.hands_free_state import state_manager
 
 # Basic fallbacks for unclear commands
 UNCLEAR_RESPONSES = {
@@ -35,25 +50,32 @@ async def build_assistant_response(
     session_id: str,
     text: str,
     mode_hint: Optional[str] = None,
-    source_mode: bool = False
+    source_mode: bool = False,
+    user_id: str = "default_teacher"
 ) -> AssistantResponse:
     """
-    Main orchestrator service that coordinates intent, language, explanation/quiz logic,
+    Main orchestrator service that coordinates intent, language, memory,
     and returns a unified AssistantResponse schema.
     """
     normalized = normalize_text(text)
+    language_mode = detect_language(text)
     
-    # 1. Determine intent and language mode
-    if mode_hint:
-        intent = mode_hint
-        confidence = 1.0  # Manual hint has highest confidence
-    else:
-        intent, confidence = detect_intent(normalized)
+    # 1. Retrieve Memory Context
+    memory_context = memory_retriever.retrieve_memory_context(session_id, user_id, normalized)
     
-    language_mode_str, lang_confidence = detect_language(text)
-    language_mode = language_mode_str  # Use string directly
-    
-    logger.info(f"Orchestrator: raw_text='{text}', normalized='{normalized}', intent='{intent}' (conf={confidence:.2f}), lang='{language_mode}' (conf={lang_confidence:.2f})")
+    # Update session state with current inputs for later assembly
+    session = session_memory_service.get_session(session_id)
+    session.language_mode = language_mode
+    session_memory_service.update_session(session)
+
+    # Manage Hands Free Mode toggle
+    if mode_hint == "hands_free_start" or text.lower().strip() == "hands_free_start":
+        state_manager.enable_hands_free(session_id)
+    elif mode_hint == "hands_free_stop" or text.lower().strip() in ["hands_free_stop", "stop hands free", "stop hands-free"]:
+        state_manager.disable_hands_free(session_id)
+        
+    is_hf = state_manager.is_hands_free(session_id)
+    current_hf_state = state_manager.get_state(session_id).get("assistant_state", "idle")
     
     # Defaults
     requires_clarification = False
@@ -62,8 +84,14 @@ async def build_assistant_response(
     next_actions = []
     avatar_state = "idle"
     source_refs = []
+    visuals = []
+    videos = []
+    visual_reason = None
+    video_reason = None
+    follow_up_prompt = None
+    next_voice_commands = []
+    voice_command_mode = False
     
-    # Compatibility attributes
     title = None
     grade_level = None
     bullets = []
@@ -71,137 +99,141 @@ async def build_assistant_response(
     recap = None
     questions_compat = []
     
-    # 2. Route based on intent
-    if intent == "explain":
-        avatar_state = "speaking"
-        res = await generate_explanation(session_id, normalized, language_mode, source_mode)
-        
-        title = res.get("title")
-        grade_level = res.get("grade_level")
-        bullets = res.get("bullets", [])
-        example = res.get("example")
-        recap = res.get("recap")
-        answer_text = res.get("answer_text")
-        
-        # Citations mapping
-        if "citations" in res:
-            source_refs = [
-                SourceRef(
-                    title=c["source_title"],
-                    snippet=c["snippet"],
-                    page_number=c.get("page_number"),
-                    section_label=c.get("section_label")
-                )
-                for c in res["citations"]
-            ]
-            
-        next_actions = ["Explain Photosynthesis", "Start a Quiz"]
-        
-    elif intent == "quiz":
-        avatar_state = "speaking"
-        res = await generate_quiz(session_id, normalized, language_mode, source_mode)
-        
-        title = res.get("title")
-        answer_text = res.get("response_text")
-        
-        raw_qs = res.get("questions", [])
-        questions = [
-            QuizQuestion(
-                question=q["question"],
-                options=q["options"],
-                correct_index=q["correct_index"],
-                explanation=q["explanation"]
-            )
-            for q in raw_qs
-        ]
-        
-        if questions:
-            quiz_payload = QuizPayload(
-                title=res.get("title", "Quiz"),
-                topic=normalized,
-                questions=questions,
-                total_questions=len(questions)
-            )
-            questions_compat = questions
-            
-        # Citations mapping
-        if "citations" in res:
-            source_refs = [
-                SourceRef(
-                    title=c["source_title"],
-                    snippet=c["snippet"],
-                    page_number=c.get("page_number"),
-                    section_label=c.get("section_label")
-                )
-                for c in res["citations"]
-            ]
-            
-        next_actions = ["Explain topic", "Ask next question"]
-        
-    elif intent == "stop":
-        avatar_state = "idle"
-        if language_mode == "english":
-            answer_text = "Stopping lesson. Let me know when you are ready to continue."
-        elif language_mode == "hindi":
-            answer_text = "पढ़ाई रोक दी गई है। जब आप तैयार हों तो बताइएगा।"
-        else:
-            answer_text = "Class pause kar di gayi hai. Jab aap ready ho bataiye."
-        next_actions = ["Resume teaching"]
-        
-    elif intent == "followup":
-        # Followup handles repeat logic, routing back to last explanation if possible
-        # Default to a generic Hinglish/Hindi/English repeat message
-        avatar_state = "speaking"
-        if language_mode == "english":
-            answer_text = "Alright, let's explain this topic once more."
-        elif language_mode == "hindi":
-            answer_text = "ठीक है, चलिए इस विषय को एक बार फिर से समझते हैं।"
-        else:
-            answer_text = "Theek hai, chaliye is topic ko ek baar fir se samajhte hain."
-        next_actions = ["Explain Photosynthesis", "Quiz on Gravity"]
-        
-    else:
-        # Unclear/clarify intent
-        requires_clarification = True
-        lang_key = language_mode if language_mode in UNCLEAR_RESPONSES else "hinglish"
-        conf = UNCLEAR_RESPONSES[lang_key]
-        
-        title = "Clarification Requested"
-        answer_text = conf["response_text"]
-        next_actions = conf["suggestions"]
+    # Fast-path: Check Voice Command Router if in Hands Free
+    voice_cmd = voice_command_router.route_command(normalized, is_hands_free=is_hf)
     
-    # 3. Generate TTS audio base64 payload
-    audio_base64 = None
+    if current_hf_state == "quizzing" and not voice_cmd:
+        intent = "quiz_answer"
+        confidence = 1.0
+        res = process_quiz_answer(session_id, normalized, language_mode)
+        title = res.get("title")
+        answer_text = res.get("answer_text")
+        follow_up_prompt = res.get("follow_up_prompt")
+        next_voice_commands = res.get("next_voice_commands", [])
+        next_actions = next_voice_commands
+        avatar_state = "speaking"
+        voice_command_mode = True
+        questions_compat = res.get("questions", [])
+        if title == "Quiz Finished":
+            state_manager.set_state(session_id, "idle", follow_up_prompt, next_voice_commands)
+        else:
+            state_manager.set_state(session_id, "quizzing", follow_up_prompt, next_voice_commands)
+
+    else:
+        # Determine intent
+        if voice_cmd:
+            intent = voice_cmd
+            confidence = 1.0
+        elif mode_hint and mode_hint not in ["hands_free_start", "hands_free_stop"]:
+            intent = mode_hint
+            confidence = 1.0
+        else:
+            intent = detect_intent(normalized)
+            confidence = 0.85 if intent != "unclear" else 0.3
+                
+        logger.info(f"Orchestrator: intent='{intent}', lang='{language_mode}'")
+        
+        if intent in ["explain", "example", "simpler", "quiz", "ask_question"]:
+            avatar_state = "speaking"
+            
+            # 2. Retrieve Source Chunks if needed
+            chunks = []
+            if source_mode:
+                chunks = retrieve_relevant_chunks(normalized, limit=3)
+            
+            # 3. Assemble Memory-Aware Prompt
+            final_prompt = prompt_assembler.assemble_prompt(
+                query=normalized,
+                memory_context=memory_context,
+                source_chunks=chunks,
+                source_mode=source_mode
+            )
+            
+            # 4. Call LLM
+            try:
+                raw_response = await llm_service.generate_response(final_prompt)
+                res = json.loads(raw_response)
+            except Exception as e:
+                logger.error(f"LLM failure in orchestrator: {e}")
+                res = {"title": "Error", "answer_text": "I'm having trouble thinking right now.", "next_actions": ["Try again"]}
+
+            title = res.get("title")
+            answer_text = res.get("answer_text")
+            next_actions = res.get("next_actions", ["Explain more", "Start a quiz"])
+            
+            # Citations for source mode
+            if source_mode and chunks:
+                source_refs = [SourceRef(title=c.source_title, snippet=c.text[:100], page_number=c.page_number) for c in chunks]
+            
+            # Visuals/Videos
+            visual_info = await detect_visual_need(normalized, answer_text)
+            if visual_info.get("needs_visual"):
+                visuals = retrieve_visuals(normalized)
+                visual_reason = visual_info.get("visual_reason")
+
+            video_info = await suggest_video(normalized, answer_text)
+            if video_info:
+                videos = [video_info["video"]]
+                video_reason = video_info["video_reason"]
+            
+            # Quiz specific payload extraction
+            if intent in ["quiz", "ask_question"] and "questions" in res:
+                questions_compat = res["questions"]
+                quiz_payload = QuizPayload(title=title, topic=normalized, questions=questions_compat, total_questions=len(questions_compat))
+            
+            state_manager.set_state(session_id, "idle")
+
+        elif intent == "stop":
+            avatar_state = "idle"
+            state_manager.set_state(session_id, "idle")
+            answer_text = "Stopping. Let me know when you're ready."
+            next_actions = ["Resume"]
+            
+        else:
+            intent = "unclear"
+            requires_clarification = True
+            lang_key = language_mode if language_mode in UNCLEAR_RESPONSES else "hinglish"
+            conf = UNCLEAR_RESPONSES[lang_key]
+            answer_text = conf["response_text"]
+            next_actions = conf["suggestions"]
+
+    # 5. Update Memory (Write-back)
+    session_memory_service.add_turn(session_id, "user", text)
+    if answer_text:
+        session_memory_service.add_turn(session_id, "assistant", answer_text)
+    
+    memory_writer.process_turn_for_long_term_memory(user_id, text)
+
+    # 6. Build Final Response
+    from app.services.tts_service import tts_service
+    audio_content = None
     if answer_text:
         try:
             audio_content = await tts_service.speak(answer_text)
-            if audio_content:
-                audio_b64 = base64.b64encode(audio_content).decode("utf-8")
-                audio_base64 = f"data:audio/mp3;base64,{audio_b64}"
         except Exception as e:
-            logger.error(f"Orchestrator TTS failed: {e}")
+            logger.error(f"TTS failed: {e}")
             
-    return AssistantResponse(
+    hf_state_data = state_manager.get_state(session_id)
+            
+    return build_final_response(
         session_id=session_id,
-        mode=intent,
+        intent=intent,
         language_mode=language_mode,
-        transcript_text=text,
+        text=text,
         answer_text=answer_text,
-        quiz=quiz_payload,
+        quiz_payload=quiz_payload,
         next_actions=next_actions,
         confidence=confidence,
         requires_clarification=requires_clarification,
         avatar_state=avatar_state,
         source_refs=source_refs,
-        audio_base64=audio_base64,
-        
-        # Explain card attributes
+        visuals=visuals,
+        videos=videos,
+        visual_reason=visual_reason,
+        video_reason=video_reason,
+        audio_content=audio_content,
         title=title,
-        grade_level=grade_level,
-        bullets=bullets,
-        example=example,
-        recap=recap,
-        
-        # Quiz card compatibility
-        questions=questions_compat
+        source_mode=source_mode,
+        hands_free_mode=is_hf,
+        assistant_state=hf_state_data["assistant_state"]
     )

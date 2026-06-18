@@ -2,7 +2,8 @@ import re
 import logging
 from typing import Dict, Any, List
 from app.services.llm_service import llm_service
-from app.services.source_service import source_service
+from app.services.source_ingest import source_ingest_service
+from app.services.retrieval import retrieve_relevant_chunks
 from app.services.prompts import (
     SYSTEM_PROMPT, QUIZ_PROMPT_TEMPLATE, LANGUAGE_INSTRUCTIONS,
     SOURCE_SYSTEM_PROMPT, SOURCE_QUIZ_PROMPT_TEMPLATE
@@ -563,7 +564,7 @@ def normalize_quiz_question(q: dict) -> dict:
         "explanation": explanation
     }
 
-async def generate_quiz(session_id: str, text: str, language_mode: str = "default", source_mode: bool = False):
+async def generate_quiz(session_id: str, text: str, language_mode: str = "hinglish", source_mode: bool = False):
     """
     Generate quiz using the live LLM, falling back to a structured mock database if the LLM fails.
     """
@@ -592,10 +593,11 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "defaul
     topic = clean_text.title() or "Fractions"
     topic_lower = topic.lower()
 
-    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["default"])
+    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["hinglish"])
+
 
     if source_mode:
-        all_sources = source_service.list_sources()
+        all_sources = source_ingest_service.list_sources()
         if not all_sources:
             return {
                 "mode": "quiz",
@@ -605,7 +607,8 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "defaul
                 "citations": []
             }
 
-        chunks = source_service.retrieve_chunks(text, limit=3)
+        chunks = retrieve_relevant_chunks(text, limit=3)
+        chunks = [c.model_dump() for c in chunks]
         if not chunks:
             return {
                 "mode": "quiz",

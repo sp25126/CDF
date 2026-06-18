@@ -69,4 +69,6 @@ export interface AssistantResponse {
   recap?: string;
   questions: QuizQuestion[];
   audio_base64?: string;
+  visual_reason?: string;
+  video_reason?: string;
 }

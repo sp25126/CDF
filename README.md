@@ -9,3 +9,14 @@ MVP for Haryana Government Schools.
 ## Features
 1. Live Concept Simplification
 2. Voice-Triggered Quizzing
+
+## Memory System Testing
+
+The memory system tracks session state and learns long-term user preferences to improve context-aware responses. To verify the memory logic and prompt assembly, run the following test scripts from the backend directory:
+
+```bash
+cd backend
+.\venv\Scripts\python.exe tests\test_memory.py
+.\venv\Scripts\python.exe tests\test_prompt_assembly.py
+```
+

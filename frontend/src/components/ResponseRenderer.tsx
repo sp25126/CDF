@@ -11,6 +11,9 @@ import { LanguageBadge } from "./LanguageBadge";
 import { NextActions } from "./NextActions";
 import { ClarificationState } from "./ClarificationState";
 import { AlertCircle, CheckCircle } from "lucide-react";
+import { SourceChips } from "./SourceChips";
+import { VisualCards } from "./VisualCards";
+import { VideoCards } from "./VideoCards";
 
 interface ResponseRendererProps {
   response: AssistantResponse;
@@ -99,37 +102,27 @@ export function ResponseRenderer({
         />
       )}
 
+      {/* Visual Retrieval Layer */}
+      {response.visuals && response.visuals.length > 0 && (
+        <VisualCards visuals={response.visuals} reason={response.visual_reason} />
+      )}
+
+      {/* YouTube Learning Card Layer */}
+      {response.videos && response.videos.length > 0 && (
+        <VideoCards videos={response.videos} reason={response.video_reason} />
+      )}
+
+      {/* Source Chips Layer */}
+      {response.source_refs && response.source_refs.length > 0 && (
+        <SourceChips citations={response.source_refs} />
+      )}
+
       {/* Next Actions Panel */}
-      {response.next_actions.length > 0 && (
+      {response.next_actions && response.next_actions.length > 0 && (
         <NextActions
           next_actions={response.next_actions}
           onActionClick={onNextAction}
         />
-      )}
-
-      {/* Source References (if available) */}
-      {response.source_refs && response.source_refs.length > 0 && (
-        <div className="border-t-2 border-gray-200 pt-4">
-          <p className="text-sm font-semibold text-gray-700 mb-3">
-            Source References:
-          </p>
-          <div className="space-y-2">
-            {response.source_refs.map((ref, idx) => (
-              <div
-                key={idx}
-                className="bg-gray-50 p-3 rounded border border-gray-200"
-              >
-                <p className="font-medium text-gray-900">{ref.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{ref.snippet}</p>
-                {ref.page_number && (
-                  <p className="text-xs text-gray-500 mt-2">
-                    Page {ref.page_number}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
       )}
 
       {/* Footer - Transcript for Debugging */}

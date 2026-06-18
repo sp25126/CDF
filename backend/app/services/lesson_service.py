@@ -2,7 +2,8 @@ from typing import Optional, List, Dict, Any
 import re
 import logging
 from app.services.llm_service import llm_service
-from app.services.source_service import source_service
+from app.services.source_ingest import source_ingest_service
+from app.services.retrieval import retrieve_relevant_chunks
 from app.services.prompts import (
     SYSTEM_PROMPT, EXPLAIN_PROMPT_TEMPLATE, LANGUAGE_INSTRUCTIONS,
     SOURCE_SYSTEM_PROMPT, SOURCE_EXPLAIN_PROMPT_TEMPLATE
@@ -228,7 +229,7 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
 
     if source_mode:
         # Check if we have any documents uploaded
-        all_sources = source_service.list_sources()
+        all_sources = source_ingest_service.list_sources()
         if not all_sources:
             return {
                 "mode": "explain",
@@ -244,7 +245,8 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
             }
 
         # Retrieve relevant chunks
-        chunks = source_service.retrieve_chunks(text, limit=3)
+        chunks = retrieve_relevant_chunks(text, limit=3)
+        chunks = [c.model_dump() for c in chunks]
         if not chunks:
             # Source mode refusal
             return {

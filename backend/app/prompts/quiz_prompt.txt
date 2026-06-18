@@ -1,0 +1,6 @@
+Generate a short quiz on the topic. 
+Include 2-3 multiple-choice questions. 
+Ensure the tone is encouraging.
+For the response, include a short explanation or rationale for the answers.
+Always emit "avatar_state": "speaking" so the avatar animates during the quiz.
+Format: { "questions": [ { "text": "...", "options": [...], "answer": "...", "explanation": "..." } ], "avatar_state": "speaking" }

@@ -2,7 +2,8 @@ import re
 import logging
 from typing import Dict, Any
 from app.services.llm_service import llm_service
-from app.services.source_service import source_service
+from app.services.source_ingest import source_ingest_service
+from app.services.retrieval import retrieve_relevant_chunks
 from app.services.lesson_service import _get_mock_explanation
 from app.services.prompts import (
     SYSTEM_PROMPT, EXPLAIN_PROMPT_TEMPLATE, LANGUAGE_INSTRUCTIONS,
@@ -11,11 +12,22 @@ from app.services.prompts import (
 
 logger = logging.getLogger(__name__)
 
+def get_explain_followup(language_mode: str) -> tuple[str, list[str]]:
+    """
+    Get interactive follow-up question and action suggestions based on language mode.
+    """
+    if language_mode == "english":
+        return "Should I explain it more simply?", ["Explain simply", "Give an example", "Start a Quiz"]
+    elif language_mode == "hindi":
+        return "क्या मैं इसे और सरल तरीके से समझाऊं?", ["सरल शब्दों में समझाएं", "उदाहरण दें", "क्विज़ शुरू करें"]
+    else:  # hinglish
+        return "Kya main isko aur simply samjhaoon?", ["Explain simply", "Give an example", "Start a Quiz"]
+
 def build_explain_prompt(topic: str, language_mode: str, class_level: str | None = None) -> str:
     """
     Constructs the prompt for explain mode.
     """
-    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["default"])
+    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["hinglish"])
     return EXPLAIN_PROMPT_TEMPLATE.format(
         topic=topic,
         grade=class_level or "6",
@@ -45,12 +57,14 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
     topic = clean_text.title() or "Photosynthesis"
     topic_lower = topic.lower()
 
-    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["default"])
+    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["hinglish"])
+
+    result = {}
 
     if source_mode:
-        all_sources = source_service.list_sources()
+        all_sources = source_ingest_service.list_sources()
         if not all_sources:
-            return {
+            result = {
                 "title": "No Source Uploaded",
                 "grade_level": 6,
                 "bullets": ["Please upload classroom materials first in the sources panel."],
@@ -59,37 +73,81 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
                 "answer_text": "Please upload some classroom materials first in the sources panel.",
                 "citations": []
             }
+        else:
+            chunks = retrieve_relevant_chunks(text, limit=3)
+            # Adapt chunks to dictionary structure to match the rest of the legacy code here, or we can just access attributes
+            # The legacy code expects dicts: c["source_title"], c["text"]. `retrieve_relevant_chunks` returns `Chunk` Pydantic models.
+            chunks = [c.model_dump() for c in chunks]
+            if not chunks:
+                result = {
+                    "title": "Not Found",
+                    "grade_level": 6,
+                    "bullets": [],
+                    "example": "",
+                    "recap": "",
+                    "answer_text": "I cannot find the answer to this question in the provided source material.",
+                    "citations": []
+                }
+            else:
+                snippets_str = "\n---\n".join([f"Source: {c['source_title']} (Page {c['page_number']}):\n{c['text']}" for c in chunks])
+                sys_prompt = SOURCE_SYSTEM_PROMPT.format(LANGUAGE_MODE=lang_instruction)
+                user_prompt = SOURCE_EXPLAIN_PROMPT_TEMPLATE.format(
+                    topic=topic,
+                    grade=6,
+                    language_instruction=lang_instruction,
+                    snippets=snippets_str
+                )
 
-        chunks = source_service.retrieve_chunks(text, limit=3)
-        if not chunks:
-            return {
-                "title": "Not Found",
-                "grade_level": 6,
-                "bullets": [],
-                "example": "",
-                "recap": "",
-                "answer_text": "I cannot find the answer to this question in the provided source material.",
-                "citations": []
-            }
+                citations = [
+                    {
+                        "source_title": c["source_title"],
+                        "snippet": c["text"][:150] + "...",
+                        "page_number": c["page_number"],
+                        "section_label": c["section_label"]
+                    }
+                    for c in chunks
+                ]
 
-        snippets_str = "\n---\n".join([f"Source: {c['source_title']} (Page {c['page_number']}):\n{c['text']}" for c in chunks])
-        sys_prompt = SOURCE_SYSTEM_PROMPT.format(LANGUAGE_MODE=lang_instruction)
-        user_prompt = SOURCE_EXPLAIN_PROMPT_TEMPLATE.format(
-            topic=topic,
-            grade=6,
-            language_instruction=lang_instruction,
-            snippets=snippets_str
-        )
-
-        citations = [
-            {
-                "source_title": c["source_title"],
-                "snippet": c["text"][:150] + "...",
-                "page_number": c["page_number"],
-                "section_label": c["section_label"]
-            }
-            for c in chunks
-        ]
+                try:
+                    response_json = await llm_service.get_chat_completion([
+                        {"role": "system", "content": sys_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ], response_format={"type": "json_object"})
+                    
+                    ans_text = response_json.get("response_text") or response_json.get("answer_text")
+                    if "provided source material" in str(ans_text).lower() or response_json.get("title") == "Not Found":
+                        cits = []
+                    else:
+                        cits = citations
+                        
+                    result = {
+                        "title": response_json.get("title", f"Explain {topic}"),
+                        "grade_level": response_json.get("grade_level", 6),
+                        "bullets": response_json.get("bullets", []),
+                        "example": response_json.get("example", ""),
+                        "recap": response_json.get("recap", ""),
+                        "answer_text": ans_text,
+                        "citations": cits
+                    }
+                except Exception as e:
+                    logger.error(f"Source explain generation failed: {e}")
+                    top_chunk = chunks[0]
+                    bullets = [top_chunk["text"][:120] + "..."]
+                    if len(top_chunk["text"]) > 120:
+                        bullets.append(top_chunk["text"][120:240] + "...")
+                    result = {
+                        "title": f"From: {top_chunk['source_title']}",
+                        "grade_level": 6,
+                        "bullets": bullets,
+                        "example": f"Verified from page {top_chunk['page_number']}.",
+                        "recap": "Grounded direct source chunk fallback.",
+                        "answer_text": top_chunk["text"][:300] + "...",
+                        "citations": [citations[0]]
+                    }
+    else:
+        # Standard Explain Mode
+        sys_prompt = SYSTEM_PROMPT.format(LANGUAGE_MODE=lang_instruction)
+        user_prompt = build_explain_prompt(topic, language_mode)
 
         try:
             response_json = await llm_service.get_chat_completion([
@@ -97,79 +155,49 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
                 {"role": "user", "content": user_prompt}
             ], response_format={"type": "json_object"})
             
-            ans_text = response_json.get("response_text") or response_json.get("answer_text")
-            if "provided source material" in str(ans_text).lower() or response_json.get("title") == "Not Found":
-                cits = []
-            else:
-                cits = citations
-                
-            return {
-                "title": response_json.get("title", f"Explain {topic}"),
+            result = {
+                "title": response_json.get("title", f"Simplifying {topic}"),
                 "grade_level": response_json.get("grade_level", 6),
                 "bullets": response_json.get("bullets", []),
                 "example": response_json.get("example", ""),
                 "recap": response_json.get("recap", ""),
-                "answer_text": ans_text,
-                "citations": cits
+                "answer_text": response_json.get("response_text") or response_json.get("answer_text")
             }
         except Exception as e:
-            logger.error(f"Source explain generation failed: {e}")
-            top_chunk = chunks[0]
-            bullets = [top_chunk["text"][:120] + "..."]
-            if len(top_chunk["text"]) > 120:
-                bullets.append(top_chunk["text"][120:240] + "...")
-            return {
-                "title": f"From: {top_chunk['source_title']}",
-                "grade_level": 6,
-                "bullets": bullets,
-                "example": f"Verified from page {top_chunk['page_number']}.",
-                "recap": "Grounded direct source chunk fallback.",
-                "answer_text": top_chunk["text"][:300] + "...",
-                "citations": [citations[0]]
-            }
+            logger.error(f"LLM explanation generation failed: {e}")
+            # Fallback to mock explanation database
+            mock_lang = "english" if language_mode == "english" else ("hindi" if language_mode == "hindi" else "hinglish")
+            
+            # Merge English written content with Hinglish spoken if default (which maps to hinglish/default here)
+            if language_mode == "default" or language_mode == "hinglish":
+                eng = _get_mock_explanation(topic_lower, "english", topic)
+                hing = _get_mock_explanation(topic_lower, "hinglish", topic)
+                result = {
+                    "title": eng["title"],
+                    "grade_level": eng["grade_level"],
+                    "bullets": eng["bullets"],
+                    "example": eng["example"],
+                    "recap": eng["recap"],
+                    "answer_text": hing["response_text"]
+                }
+            else:
+                mock_data = _get_mock_explanation(topic_lower, mock_lang, topic)
+                result = {
+                    "title": mock_data["title"],
+                    "grade_level": mock_data["grade_level"],
+                    "bullets": mock_data["bullets"],
+                    "example": mock_data["example"],
+                    "recap": mock_data["recap"],
+                    "answer_text": mock_data["response_text"]
+                }
 
-    # Standard Explain Mode
-    sys_prompt = SYSTEM_PROMPT.format(LANGUAGE_MODE=lang_instruction)
-    user_prompt = build_explain_prompt(topic, language_mode)
+    # Append interactive follow-up question and action suggestions
+    q_text, actions = get_explain_followup(language_mode)
+    ans_text = result.get("answer_text") or ""
+    # Only append if explanation is found/provided and follow-up question is not already in text
+    if ans_text and "cannot find the answer" not in ans_text.lower() and q_text not in ans_text:
+        result["answer_text"] = f"{ans_text.strip()} {q_text}"
+    result["next_actions"] = actions
+    
+    return result
 
-    try:
-        response_json = await llm_service.get_chat_completion([
-            {"role": "system", "content": sys_prompt},
-            {"role": "user", "content": user_prompt}
-        ], response_format={"type": "json_object"})
-        
-        return {
-            "title": response_json.get("title", f"Simplifying {topic}"),
-            "grade_level": response_json.get("grade_level", 6),
-            "bullets": response_json.get("bullets", []),
-            "example": response_json.get("example", ""),
-            "recap": response_json.get("recap", ""),
-            "answer_text": response_json.get("response_text") or response_json.get("answer_text")
-        }
-    except Exception as e:
-        logger.error(f"LLM explanation generation failed: {e}")
-        # Fallback to mock explanation database
-        mock_lang = "english" if language_mode == "english" else ("hindi" if language_mode == "hindi" else "hinglish")
-        
-        # Merge English written content with Hinglish spoken if default (which maps to hinglish/default here)
-        if language_mode == "default" or language_mode == "hinglish":
-            eng = _get_mock_explanation(topic_lower, "english", topic)
-            hing = _get_mock_explanation(topic_lower, "hinglish", topic)
-            return {
-                "title": eng["title"],
-                "grade_level": eng["grade_level"],
-                "bullets": eng["bullets"],
-                "example": eng["example"],
-                "recap": eng["recap"],
-                "answer_text": hing["response_text"]
-            }
-        else:
-            mock_data = _get_mock_explanation(topic_lower, mock_lang, topic)
-            return {
-                "title": mock_data["title"],
-                "grade_level": mock_data["grade_level"],
-                "bullets": mock_data["bullets"],
-                "example": mock_data["example"],
-                "recap": mock_data["recap"],
-                "answer_text": mock_data["response_text"]
-            }
