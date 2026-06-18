@@ -39,43 +39,43 @@
     "recent_turns": [
       {
         "role": "user",
-        "content": "explain photon"
+        "content": "explain photons"
       },
       {
         "role": "assistant",
-        "content": "I'm having trouble thinking right now."
+        "content": "The AI service is currently busy (Rate Limit Exceeded). Error detail: OpenRouter 429 Too Many Requests. Please try again in a moment."
       },
       {
         "role": "user",
-        "content": "explain photon"
+        "content": "explain photons"
       },
       {
         "role": "assistant",
-        "content": "I'm having trouble thinking right now."
+        "content": "Bachon, jaise hamare ghar mein rasoi mein khana banta hai, waise hi patton mein dhoop se khana banta hai. Plants use sunlight, water, and carbon dioxide to create oxygen and energy in the form of sugar."
       },
       {
         "role": "user",
-        "content": "explain light"
+        "content": "explain photons"
       },
       {
         "role": "assistant",
-        "content": "I'm having trouble thinking right now."
+        "content": "The AI service is currently busy (Rate Limit or Quota Reached). Error detail: OpenRouter 429 Too Many Requests. Please try again later."
       },
       {
         "role": "user",
-        "content": "explain photon"
-      },
-      {
-        "role": "user",
-        "content": "Explain more"
-      },
-      {
-        "role": "user",
-        "content": "what is photosynthesis explain photons"
+        "content": "explain photons"
       },
       {
         "role": "assistant",
-        "content": "I'm having trouble thinking right now."
+        "content": "The AI service is currently busy (Rate Limit or Quota Reached). Error detail: OpenRouter 429 Too Many Requests. Please try again later."
+      },
+      {
+        "role": "user",
+        "content": "explain microorganisms"
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, **microorganisms** chhote jeev hote hain jo humse alag hote hain. Inke baare mein jaanne ke liye, yeh points dhyaan mein rakhna zaroori hai:\n* **Microorganisms** ki size bohot chhoti hoti hai, jisse hum unhein nakad nahi dekh sakte.\n* Ye **bacteria**, **virus**, **fungi**, aur **protozoa** jaise alag-alag prakaar ke hote hain.\n* Inka mahatvapoorn kaam hai **parivesh** ko saaf rakhna aur **padarth** ko tootna.\n* **Microorganisms** humare **shareer** mein bhi rehte hain, jahaan ve **rogon** se ladte hain aur **prateeksha** banate hain.\n* Ye **udhyog** mein bhi upyog kiye jate hain, jaise ki **dhoodh** aur **panir** banane mein.\n* Ek **udaharan** ke roop mein, **Lactobacillus** bacteria **dahi** banane mein madad karta hai.\nRecap: **Microorganisms** chhote jeev hote hain jo humse alag hote hain aur parivesh ko saaf rakhne mein mahatvapoorn bhoomika nibhate hain. Ab, bachon, aap bataiye: **Microorganisms** ka sabse mahatvapoorn kaam kya hai?"
       }
     ],
     "assistant_state": "idle",
@@ -286,6 +286,44 @@
       {
         "role": "assistant",
         "content": "*Photosynthesis* is a process used by plants, algae, and some bacteria to convert sunlight, carbon dioxide, and water into oxygen and energy in the form of sugar. This process not only helps these organisms survive but also provides food for animals that eat them or rely on their waste products.\n\nAlso, let's look at the second part:\n\n- **Photons** are tiny units of light and other forms of electromagnetic radiation. They behave both like particles and waves, a property known as wave-particle duality.\n\n- Each photon carries energy proportional to its frequency. The higher the frequency, the more energy it carries.\n\n- In photosynthesis, photons provide the energy needed for plants to convert light into chemical energy. These photons are absorbed by chlorophyll in leaves and other plant cells.\n\n- **Example**: When you look at a white object under sunlight, what you're seeing is the reflection of photons that hit its surface."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-123": {
+    "session_id": "test-123",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain photons"
+      },
+      {
+        "role": "assistant",
+        "content": "Photons ko samajhne ke liye, yeh baatein jaaniye:\n* **Photons** ka matlab hota hai **prakash ki ek-ek unit**.\n* Photons **urja** ka ek roop hote hain, jo **prakash** ke roop mein hoti hai.\n* Jab **surya** se prakash aata hai, toh vah **photons** ki tarah hota hai.\n* **Photons** ki **urja** alag-alag hoti hai, jiske kaaran unka **rang** alag hota hai.\n* **Photosynthesis** mein, **photons** ki **urja** paudhon dwara **bhoomi** se **paani** aur **carbon dioxide** ko **glucose** mein badalne ke liye upyog ki jati hai.\n* Ek udaharan ke liye, **surya** ki **kiranein** paudhe ke **patte** par padti hain, jisse **photons** ki **urja** paudhe ko **bhoomi** se **paani** aur **carbon dioxide** ko **glucose** mein badalne mein madad karti hai.\nRecap: **Photons** **prakash ki ek-ek unit** hote hain, jo **urja** ka ek roop hote hain. \nAb, aap bataiye ki **photons** ki **urja** kaise **photosynthesis** mein upyog ki jati hai?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-456": {
+    "session_id": "test-456",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein **paudhe** surya ke **prakash** aur **carbon dioxide** ko **oxygen** aur **glucose** mein badalte hain. Iske main points yeh hain:\n* **Paudhe** apne **patton** mein **chlorophyll** naamak **varnak** ko **prakash** urja mein badalte hain.\n* **Prakash** urja **carbon dioxide** aur **paani** ko **oxygen** aur **glucose** mein badalti hai.\n* **Glucose** paudhe ke liye **urja** ka srot hota hai, jabki **oxygen** hawa mein chhodi jaati hai.\n* **Photosynthesis** ke liye **prakash**, **paani**, **carbon dioxide** aur **chlorophyll** ki aavashyakta hoti hai.\n* **Photosynthesis** ki dar **prakash** ki matra, **taapmaan** aur **paani** ki uplabdhata par nirbhar karti hai.\n* **Photosynthesis** ke bina **jivan** nahin ho sakta, kyunki yeh **oxygen** ka mukhya srot hai.\nUdaharan ke liye, **paudhe** apne **patton** mein **chlorophyll** ka upyog karke **prakash** urja ko **glucose** mein badalte hain. Recap: **Photosynthesis** ek **prakriya** hai jismein **paudhe** **prakash** urja ko **oxygen** aur **glucose** mein badalte hain. Ab, aap bataiye ki **photosynthesis** ke liye **prakash** ki kya mahatva hai?"
       }
     ],
     "assistant_state": "idle",

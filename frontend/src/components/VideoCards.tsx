@@ -8,16 +8,26 @@ interface VideoRef {
     url?: string;
 }
 
+interface VideoPayload {
+    best_video?: VideoRef;
+    candidate_videos: VideoRef[];
+    language?: string;
+    reason?: string;
+    source_provider?: string;
+}
+
 interface VideoCardsProps {
-    videos: VideoRef[];
+    videos?: VideoPayload;
     reason?: string;
 }
 
 export const VideoCards: React.FC<VideoCardsProps> = ({ videos, reason }) => {
-    if (!videos || videos.length === 0) return null;
+    if (!videos || (!videos.best_video && videos.candidate_videos.length === 0)) return null;
 
-    const primaryVideo = videos[0];
-    const alternativeVideos = videos.slice(1);
+    const primaryVideo = videos.best_video || videos.candidate_videos[0];
+    const alternativeVideos = videos.best_video 
+        ? videos.candidate_videos 
+        : videos.candidate_videos.slice(1);
 
     return (
         <div className="mt-4 space-y-4">

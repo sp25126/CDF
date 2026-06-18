@@ -20,7 +20,7 @@ from app.services.memory_writer import memory_writer
 from app.services.session_memory import session_memory_service
 from app.services.prompt_assembler import prompt_assembler
 
-from app.services.question_decomposer import decompose_query
+from app.services.topic_splitter import split_into_topics
 
 logger = logging.getLogger(__name__)
 
@@ -139,8 +139,8 @@ async def build_assistant_response(
             avatar_state = "speaking"
             
             # Decompose the query into sub-questions
-            sub_queries = decompose_query(normalized)
-            logger.info(f"Decomposer split query '{normalized}' into: {sub_queries}")
+            sub_queries = split_into_topics(normalized)
+            logger.info(f"TopicSplitter split query '{normalized}' into: {sub_queries}")
             
             sub_results = []
             
@@ -180,18 +180,22 @@ async def build_assistant_response(
                 sub_visual_reason = None
                 visual_info = await detect_visual_need(sub_q, sub_res.get("answer_text", ""))
                 if visual_info.get("needs_visual"):
-                    sub_visuals = await retrieve_visuals(sub_q)
+                    candidates = await retrieve_visuals(sub_q)
+                    from app.services.image_selector import select_best_image
+                    best_img = select_best_image(candidates)
+                    if best_img:
+                        sub_visuals = [best_img]
                     sub_visual_reason = visual_info.get("visual_reason")
 
-                sub_videos = []
+                sub_videos = {"best_video": None, "candidate_videos": []}
                 sub_video_reason = None
-                video_info = await search_videos(sub_q, sub_res.get("answer_text", ""))
+                video_info = await search_videos(sub_q, sub_res.get("answer_text", ""), language_mode)
                 if video_info:
                     # Include primary video first, then alternatives
-                    sub_videos.append(video_info["primary"]["video"])
+                    sub_videos["best_video"] = video_info["primary"]["video"]
                     sub_video_reason = video_info["primary"]["reason"]
                     for alt in video_info.get("alternatives", []):
-                        sub_videos.append(alt["video"])
+                        sub_videos["candidate_videos"].append(alt["video"])
                     
                 # Quiz questions compatibility
                 sub_questions = []
@@ -259,14 +263,29 @@ async def build_assistant_response(
                         visual_reasons.append(sr["visual_reason"])
                 visual_reason = "; ".join(visual_reasons) if visual_reasons else None
                 
-                videos = []
+                videos = {"best_video": None, "candidate_videos": []}
                 video_reasons = []
+                seen_video_ids = set()
+                
                 for sr in sub_results:
-                    for v in sr["videos"]:
-                        if v.youtube_id not in [vid.youtube_id for vid in videos]:
-                            videos.append(v)
+                    sub_vid = sr["videos"]
+                    if sub_vid.get("best_video"):
+                        vid = sub_vid["best_video"]
+                        if not videos["best_video"]:
+                            videos["best_video"] = vid
+                            seen_video_ids.add(vid.youtube_id)
+                        elif vid.youtube_id not in seen_video_ids:
+                            videos["candidate_videos"].append(vid)
+                            seen_video_ids.add(vid.youtube_id)
+                            
+                    for alt in sub_vid.get("candidate_videos", []):
+                        if alt.youtube_id not in seen_video_ids:
+                            videos["candidate_videos"].append(alt)
+                            seen_video_ids.add(alt.youtube_id)
+                            
                     if sr["video_reason"]:
                         video_reasons.append(sr["video_reason"])
+                        
                 video_reason = "; ".join(video_reasons) if video_reasons else None
                 
                 # Merge quiz questions

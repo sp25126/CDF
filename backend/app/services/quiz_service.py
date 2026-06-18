@@ -568,11 +568,13 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "hingli
     """
     Generate quiz using the live LLM, falling back to a structured mock database if the LLM fails.
     """
-    # Extract number of questions if present (default to 3)
+    # Extract number of questions if present (default to 7, range 5–10)
     match = re.search(r'\b(\d+)\b', text)
-    count = int(match.group(1)) if match else 3
-    if count <= 0 or count > 5:  # cap count for mockup safety
-        count = 3
+    count = int(match.group(1)) if match else 7
+    if count < 5:
+        count = 5
+    elif count > 10:
+        count = 10
         
     # Extract a rough topic (mock logic using word boundaries)
     clean_text = text.lower()

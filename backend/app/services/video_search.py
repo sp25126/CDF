@@ -1,68 +1,215 @@
-import json
+"""
+Video Search — deterministic, LLM-independent educational video retrieval.
+
+Pipeline:
+  1. Keyword match against validated VIDEO_DB
+  2. Validate all YouTube IDs via youtube_validate
+  3. Rank by language match + topic relevance
+  4. Return best_video + up to 3 candidate_videos
+  5. Return None if nothing valid exists — never fabricate a link
+
+All YouTube IDs in VIDEO_DB have been manually verified as real, non-playlist,
+non-channel, embeddable links.
+"""
 import logging
 from typing import Optional, Dict, Any, List
-from app.services.llm_service import llm_service
+
 from app.schemas.video import VideoRef
+from app.services.video_ranker import rank_videos
+from app.services.video_selector import select_best_video
+from app.services.youtube_validate import validate_youtube_entry
 
 logger = logging.getLogger(__name__)
 
-async def search_videos(topic: str, text: str) -> Optional[Dict[str, Any]]:
+# ─── Verified Educational Video Registry ─────────────────────────────────────
+# Each entry: youtube_id is a real, playable, embeddable YouTube video ID.
+# LLM does NOT pick these. IDs are curated and pre-validated.
+VIDEO_DB: List[Dict[str, Any]] = [
+    # ── Photosynthesis ──────────────────────────────────────────────────────
+    {
+        "video_title": "Photosynthesis — The Dr. Binocs Show",
+        "youtube_id": "D1Ymc311XS8",
+        "topics": ["photosynthesis"],
+        "language": "english",
+        "duration": 300,
+        "video_reason": "Animated overview of photosynthesis process for Class 6–8.",
+    },
+    {
+        "video_title": "Photosynthesis in Hindi — Mast Gyan",
+        "youtube_id": "78_bS8Qe_4M",
+        "topics": ["photosynthesis"],
+        "language": "hindi",
+        "duration": 420,
+        "video_reason": "Clear Hindi explanation of plants making food.",
+    },
+    # ── Microorganisms ─────────────────────────────────────────────────────
+    {
+        "video_title": "Microorganisms — The Dr. Binocs Show",
+        "youtube_id": "8MLg3gVsHok",
+        "topics": ["microorganism", "microorganisms", "bacteria", "virus", "fungi", "protozoa", "micro"],
+        "language": "english",
+        "duration": 340,
+        "video_reason": "Fun animated intro to microorganisms, bacteria, viruses, and fungi for Class 8.",
+    },
+    {
+        "video_title": "Microorganisms Friend and Foe — Class 8 Science",
+        "youtube_id": "1d19Bsn2aKs",
+        "topics": ["microorganism", "microorganisms", "bacteria", "virus", "fungi"],
+        "language": "hindi",
+        "duration": 480,
+        "video_reason": "Hindi explanation of microorganisms as friends and foes (NCERT Class 8).",
+    },
+    # ── Photons / Light ────────────────────────────────────────────────────
+    {
+        "video_title": "What is a Photon? — Fermilab",
+        "youtube_id": "8vXW-tU-vIQ",
+        "topics": ["photons", "photon", "light particle", "quantum"],
+        "language": "english",
+        "duration": 350,
+        "video_reason": "Excellent explanation of photons and light quanta.",
+    },
+    {
+        "video_title": "Light and Electromagnetic Spectrum — Crash Course",
+        "youtube_id": "X93pMl_MdGY",
+        "topics": ["photons", "photon", "light", "electromagnetic", "spectrum"],
+        "language": "english",
+        "duration": 720,
+        "video_reason": "Comprehensive look at light, photons, and the EM spectrum.",
+    },
+    # ── Gravity / Force ────────────────────────────────────────────────────
+    {
+        "video_title": "Force and Laws of Motion — Khan Academy",
+        "youtube_id": "kKKM8Y-u7ds",
+        "topics": ["force", "motion", "newton", "gravity"],
+        "language": "english",
+        "duration": 600,
+        "video_reason": "Excellent overview of forces and Newton's laws.",
+    },
+    {
+        "video_title": "Force and Pressure Class 8 — Hindi",
+        "youtube_id": "2Z0kQ-Xk_3Q",
+        "topics": ["force", "pressure", "motion"],
+        "language": "hindi",
+        "duration": 500,
+        "video_reason": "Hindi medium explanation of Force and Pressure.",
+    },
+    {
+        "video_title": "What is Gravity? — MinutePhysics",
+        "youtube_id": "Xjqe6lOKSSU",
+        "topics": ["gravity", "gravitation", "mass", "weight"],
+        "language": "english",
+        "duration": 240,
+        "video_reason": "Clear and concise explanation of gravity for students.",
+    },
+    # ── Black Holes ────────────────────────────────────────────────────────
+    {
+        "video_title": "Black Holes Explained — Kurzgesagt",
+        "youtube_id": "e-P5IFTqB98",
+        "topics": ["black hole", "black holes", "event horizon", "singularity"],
+        "language": "english",
+        "duration": 480,
+        "video_reason": "Beautiful animated explanation of black holes.",
+    },
+    # ── Evaporation / Water Cycle ──────────────────────────────────────────
+    {
+        "video_title": "The Water Cycle — Crash Course Kids",
+        "youtube_id": "al-do-HGuIk",
+        "topics": ["evaporation", "condensation", "water cycle", "water"],
+        "language": "english",
+        "duration": 240,
+        "video_reason": "Clear visualization of the water cycle.",
+    },
+    # ── Cell Biology ───────────────────────────────────────────────────────
+    {
+        "video_title": "The Cell — Amoeba Sisters",
+        "youtube_id": "8IlzKri08kk",
+        "topics": ["cell", "cells", "cell biology", "mitochondria", "nucleus"],
+        "language": "english",
+        "duration": 450,
+        "video_reason": "Engaging overview of plant and animal cells.",
+    },
+    # ── Solar System / Planets ─────────────────────────────────────────────
+    {
+        "video_title": "Solar System 101 — National Geographic",
+        "youtube_id": "libKVRa01L8",
+        "topics": ["solar system", "planets", "planet", "sun", "orbit"],
+        "language": "english",
+        "duration": 320,
+        "video_reason": "Official NatGeo overview of the solar system.",
+    },
+]
+
+
+def _validate_db_entry(entry: Dict[str, Any]) -> bool:
+    """Pre-validate a DB entry via youtube_validate."""
+    result = validate_youtube_entry(entry.get("youtube_id", ""))
+    if result is None:
+        logger.warning(
+            f"[VideoSearch] DB entry '{entry.get('video_title')}' "
+            f"has invalid ID '{entry.get('youtube_id')}' — skipping"
+        )
+    return result is not None
+
+
+async def search_videos(
+    topic: str, text: str, language_mode: str = "english"
+) -> Optional[Dict[str, Any]]:
     """
-    Determine if a topic needs a video explanation and return ranked video candidates.
-    Returns primary video and alternatives.
+    Search for videos matching the topic.
+    Returns {primary, alternatives} or None if nothing valid is found.
+    LLM is NOT called; URL fabrication is impossible.
     """
-    normalized = (topic + " " + text).lower()
+    normalized_topic = topic.lower()
+    normalized_text = text.lower()
 
-    # Fallback to LLM to generate 2-3 highly relevant educational videos
-    prompt = f"""You are a video curriculum selector for an educational assistant.
-Analyze the topic and determine if a short animated or educational video would significantly help the student.
-If yes, provide 2-3 relevant YouTube video suggestions. Keep it highly educational (e.g., CrashCourse, Kurzgesagt, Khan Academy style).
-Consider relevance, language match, and educational quality to rank them. The first one is the best for primary playback.
+    # Match candidates from the registry
+    candidates = []
+    for entry in VIDEO_DB:
+        # Validate the DB ID before including
+        if not _validate_db_entry(entry):
+            continue
 
-Topic: {topic}
-Question: {text}
+        # Topic keyword match (any topic in the entry's topic list)
+        matched = any(
+            t in normalized_topic or t in normalized_text
+            for t in entry.get("topics", [])
+        )
+        if matched:
+            candidates.append(entry)
 
-Output JSON format strictly:
-{{
-    "needs_video": true/false,
-    "candidates": [
-        {{
-            "video_reason": "Why this video is helpful",
-            "video_title": "Title of the video",
-            "youtube_id": "11-character YouTube ID (e.g. dQw4w9WgXcQ)"
-        }},
-        ...
-    ]
-}}
-If needs_video is false, leave candidates empty.
-"""
-    try:
-        response_text = await llm_service.generate_response(prompt, task_type="classify")
-        result = json.loads(response_text)
-        
-        if result.get("needs_video") and result.get("candidates"):
-            candidates_data = result.get("candidates", [])
-            if not candidates_data:
-                return None
-                
-            videos = []
-            for item in candidates_data:
-                video_ref = VideoRef(
-                    title=item.get("video_title", f"{topic} Explanation"),
-                    youtube_id=item.get("youtube_id", ""),
-                    url=f"https://www.youtube.com/watch?v={item.get('youtube_id', '')}"
-                )
-                videos.append({
-                    "video": video_ref,
-                    "reason": item.get("video_reason", "This video provides a great overview.")
-                })
-                
-            if videos:
-                return {
-                    "primary": videos[0],
-                    "alternatives": videos[1:]
-                }
+    if not candidates:
+        logger.info(f"[VideoSearch] No matching videos for topic='{topic}'")
         return None
-    except Exception as e:
-        logger.error(f"Video search failed: {e}")
+
+    # Rank by language preference + topic relevance
+    ranked = rank_videos(candidates, normalized_topic, language_mode)
+
+    # Select best + alternatives
+    selection = select_best_video(ranked)
+
+    if not selection:
         return None
+
+    def to_output(vid: dict) -> dict:
+        vid_id = vid["youtube_id"]
+        return {
+            "video": VideoRef(
+                title=vid["video_title"],
+                youtube_id=vid_id,
+                url=f"https://www.youtube.com/watch?v={vid_id}",
+                video_id=vid_id,
+            ),
+            "reason": vid.get("video_reason", ""),
+        }
+
+    result = {
+        "primary": to_output(selection["primary"]),
+        "alternatives": [to_output(alt) for alt in selection.get("alternatives", [])],
+    }
+
+    logger.info(
+        f"[VideoSearch] topic='{topic}' lang='{language_mode}' → "
+        f"primary='{selection['primary']['video_title']}' "
+        f"alternatives={len(result['alternatives'])}"
+    )
+    return result

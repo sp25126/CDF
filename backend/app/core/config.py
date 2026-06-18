@@ -10,9 +10,17 @@ class Settings(BaseSettings):
     # CORS
     CORS_ORIGINS: List[str] = ["*"]
 
-    # LLM Provider
-    LLM_API_KEY: str = "sk-placeholder"
-    LLM_MODEL: str = "gpt-4-turbo-preview"
+    # OpenRouter (fallback provider)
+    LLM_API_KEY: str = ""
+    LLM_MODEL: str = "google/gemma-4-31b-it:free"
+
+    # Groq (primary provider)
+    GROQ_API_KEY: str = ""
+    GROQ_MODEL_STRONG: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL_FAST: str = "llama-3.1-8b-instant"
+
+    # Ollama (local fallback)
+    OLLAMA_BASE_URL: str = "http://localhost:11434"
 
     class Config:
         env_file = ".env"

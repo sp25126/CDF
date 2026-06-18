@@ -353,22 +353,49 @@ export default function Home() {
   const handleRepeat = () => {
     if (!response) return;
 
+    // Stop any currently playing audio
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
 
     const textToSpeak = response.answer_text || response.response_text;
+
+    // Trigger speaking animation
+    setAvatarState("speaking");
 
     if (response.audio_base64) {
       const audio = new Audio(response.audio_base64);
       audioRef.current = audio;
+
+      audio.onended = () => {
+        setAvatarState("idle");
+      };
+
+      audio.onerror = () => {
+        setAvatarState("idle");
+      };
+
       audio.play();
     } else if (textToSpeak && typeof window !== "undefined" && window.speechSynthesis) {
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.lang = "hi-IN";
-      window.speechSynthesis.cancel();
+
+      utterance.onend = () => {
+        setAvatarState("idle");
+      };
+
+      utterance.onerror = () => {
+        setAvatarState("idle");
+      };
+
       window.speechSynthesis.speak(utterance);
+    } else {
+      // Nothing to play — snap back to idle immediately
+      setAvatarState("idle");
     }
   };
 

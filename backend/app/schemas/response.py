@@ -21,6 +21,13 @@ class SourceRef(BaseModel):
 from app.schemas.visual import VisualRef
 from app.schemas.video import VideoRef
 
+class VideoPayload(BaseModel):
+    best_video: Optional[VideoRef] = None
+    candidate_videos: List[VideoRef] = Field(default_factory=list)
+    language: Optional[str] = None
+    reason: Optional[str] = None
+    source_provider: str = "internal"
+
 class QuizQuestion(BaseModel):
     """A single quiz question."""
     question: str
@@ -116,9 +123,9 @@ class AssistantResponse(BaseModel):
         default_factory=list,
         description="References to visual assets (future layer)"
     )
-    videos: List[VideoRef] = Field(
-        default_factory=list,
-        description="References to videos (future layer)"
+    videos: VideoPayload = Field(
+        default_factory=lambda: VideoPayload(best_video=None, candidate_videos=[]),
+        description="References to videos (best and candidates)"
     )
     visual_reason: Optional[str] = Field(
         default=None,

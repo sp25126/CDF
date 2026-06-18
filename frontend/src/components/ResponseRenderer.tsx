@@ -108,7 +108,7 @@ export function ResponseRenderer({
       )}
 
       {/* YouTube Learning Card Layer */}
-      {response.videos && response.videos.length > 0 && (
+      {response.videos && (response.videos.best_video || (response.videos.candidate_videos && response.videos.candidate_videos.length > 0)) && (
         <VideoCards videos={response.videos} reason={response.video_reason} />
       )}
 

@@ -46,6 +46,14 @@ export interface QuizPayload {
   total_questions: number;
 }
 
+export interface VideoPayload {
+  best_video?: VideoRef;
+  candidate_videos: VideoRef[];
+  language?: string;
+  reason?: string;
+  source_provider?: string;
+}
+
 export interface AssistantResponse {
   session_id: string;
   mode: Mode;
@@ -59,7 +67,7 @@ export interface AssistantResponse {
   avatar_state: AvatarState;
   source_refs: SourceRef[];
   visuals: VisualRef[];
-  videos: VideoRef[];
+  videos: VideoPayload;
 
   // Backwards compatibility
   title?: string;

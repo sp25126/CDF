@@ -1,9 +1,33 @@
 from typing import Dict, Any
 
+# ─── Language instructions ────────────────────────────────────────────────────
+# Key rule: response_text (the spoken bubble) is ALWAYS Hinglish.
+# Structural content (title, bullets, example, recap, questions) can be English.
 LANGUAGE_INSTRUCTIONS: Dict[str, str] = {
-    "hinglish": "For response_text, mix Hindi and English naturally (Hinglish) speaking conversationally like a desi teacher. For title, bullets, example, and recap, respond in plain English or Hinglish.",
-    "english": "Respond entirely in plain English. No Hindi words at all. Title, bullets, example, recap, and response_text must all be entirely in English.",
-    "hindi": "Respond entirely in Hindi. No English words except technical terms. Title, bullets, example, recap, and response_text must all be entirely in Hindi."
+    "hinglish": (
+        "CRITICAL LANGUAGE RULES — follow exactly:\n"
+        "1. response_text (the spoken bubble text) MUST be in natural Hinglish "
+        "(mix Hindi and English like a desi teacher talking to village children). "
+        "Do NOT use markdown (*bold*, **text**, bullets with *) in response_text. "
+        "Write it as plain spoken sentences only.\n"
+        "2. title: plain English, no markdown.\n"
+        "3. bullets: plain English points, no asterisks, no markdown symbols.\n"
+        "4. example: plain English with a local Haryana analogy.\n"
+        "5. recap: one plain English sentence.\n"
+        "6. questions (for quiz): question text in Hinglish, options in English."
+    ),
+    "english": (
+        "CRITICAL LANGUAGE RULES — follow exactly:\n"
+        "1. response_text MUST be in plain English. No Hindi words. No markdown. Plain sentences only.\n"
+        "2. title, bullets, example, recap: plain English. No markdown symbols.\n"
+        "3. questions (for quiz): question and options in plain English."
+    ),
+    "hindi": (
+        "CRITICAL LANGUAGE RULES — follow exactly:\n"
+        "1. response_text MUST be in pure Hindi. No markdown. No asterisks. Plain Hindi sentences.\n"
+        "2. title, bullets, example, recap: plain Hindi. No markdown symbols.\n"
+        "3. questions (for quiz): question and options in plain Hindi."
+    ),
 }
 
 
@@ -13,7 +37,9 @@ Language Preference: {LANGUAGE_MODE}
 Guidelines:
 - Simplicity: No academic jargon. Explain like you are talking to a 10-year-old in a village.
 - Local Context: Use rural Haryana analogies (Tractors, Farming, Sports/Wrestling, Local food, Buffaloes, Chulha).
-- Format: Output ONLY raw JSON conforming to the requested schema. No markdown, no '```json', no conversational filler.
+- STRICT FORMAT: Output ONLY raw JSON conforming to the requested schema.
+  * No markdown anywhere in the JSON values — no *, **, #, -, bullet symbols.
+  * response_text must be plain spoken Hinglish sentences. No asterisks. No bullet markers.
 - Safety: Reject any non-educational or unsafe queries with a polite Hinglish message."""
 
 EXPLAIN_PROMPT_TEMPLATE = """Mode: EXPLAIN
@@ -22,16 +48,23 @@ Grade: {grade}
 Language Instructions: {language_instruction}
 
 Task: Provide a simple explanation with a local Haryana analogy.
-Constraint: The response_text field (spoken aloud) and all contents must strictly follow the Language Instructions.
+
+IMPORTANT FORMAT RULES:
+- response_text: 3-5 plain Hinglish sentences (no *, no **, no bullet points, no markdown). This is spoken aloud.
+- bullets: 4-6 plain English key points. NO asterisks, NO markdown symbols.
+- title: plain English topic name only.
+- example: one plain English sentence with a Haryana village analogy.
+- recap: one plain English summary sentence.
+
 Return JSON only conforming to this schema:
 {{
   "mode": "explain",
-  "title": "string (In the requested language)",
+  "title": "string — plain English topic name",
   "grade_level": {grade},
-  "bullets": ["string (In the requested language)", "string", "string"],
-  "example": "string (A local Haryana analogy in the requested language)",
-  "recap": "string (One line summary in the requested language)",
-  "response_text": "string (Spoken explanation, max 150 words. Must strictly follow the requested language mode)"
+  "bullets": ["plain English point 1", "plain English point 2", "plain English point 3", "plain English point 4"],
+  "example": "string — plain English Haryana analogy, no markdown",
+  "recap": "string — one plain English sentence",
+  "response_text": "string — 3-5 natural Hinglish sentences. NO asterisks. NO bullet symbols. Plain speech only."
 }}"""
 
 QUIZ_PROMPT_TEMPLATE = """Mode: QUIZ
@@ -39,19 +72,28 @@ Context: {topic}
 Count: {count}
 Language Instructions: {language_instruction}
 
-Task: Generate {count} oral MCQs to check understanding.
-Constraint: All questions, options, and response_text must strictly follow the Language Instructions.
+Task: Generate exactly {count} oral MCQ questions to check student understanding.
+
+IMPORTANT FORMAT RULES:
+- response_text: 1-2 plain Hinglish sentences to introduce the quiz. No markdown.
+- questions: exactly {count} questions.
+  * question: plain Hinglish sentence (no markdown)
+  * options: exactly 3 plain English options (no markdown, no *, no bullets)
+  * correct_index: 0-based index of the correct option
+  * explanation: one plain English sentence explaining the answer
+- Generate diverse questions covering different aspects of the topic.
+
 Return JSON only conforming to this schema:
 {{
-  "title": "string (In the requested language)",
+  "title": "string — plain English quiz title",
   "topic": "{topic}",
-  "response_text": "string (Intro for the quiz, max 100 words. Must strictly follow the requested language mode)",
+  "response_text": "string — 1-2 plain Hinglish intro sentences, no markdown",
   "questions": [
     {{
-      "question": "string (In the requested language)",
-      "options": ["string (In the requested language)", "string", "string"],
-      "correct_index": number (0-based index of the correct option in options),
-      "explanation": "string (Short explanation of correct answer in the requested language)"
+      "question": "string — plain Hinglish question sentence",
+      "options": ["plain English option A", "plain English option B", "plain English option C"],
+      "correct_index": number,
+      "explanation": "string — plain English explanation"
     }}
   ]
 }}"""
@@ -87,9 +129,9 @@ SOURCE_SYSTEM_PROMPT = """You are 'Shiksha Sahayak', a source-grounded teaching 
 
 Language Preference: {LANGUAGE_MODE}
 Guidelines:
-- Strict Grounding: You must ONLY answer using information from the provided source snippets. If the snippets do not contain enough facts to answer the question or generate the quiz, respond exactly with the refusal message: "I cannot find the answer to this question in the provided source material."
-- No General Knowledge: Do not make assumptions or use external/prior knowledge.
-- Format: Output ONLY raw JSON conforming to the requested schema. No markdown, no conversational filler."""
+- Strict Grounding: ONLY answer using information from the provided source snippets. If snippets don't contain enough facts, respond with the refusal message.
+- No General Knowledge: Do not use external/prior knowledge.
+- STRICT FORMAT: Output ONLY raw JSON. No markdown anywhere in values. No *, **, #, bullet markers in any field."""
 
 SOURCE_EXPLAIN_PROMPT_TEMPLATE = """Mode: SOURCE_EXPLAIN
 Topic: {topic}
@@ -101,17 +143,18 @@ Retrieved Snippets:
 ===
 
 Task: Provide a simple explanation based strictly on the retrieved snippets.
-Constraint: All content, including response_text, title, bullets, example, and recap, must come ONLY from the snippets and follow the Language Instructions.
-If the snippets do not contain the explanation of the topic, return a JSON conforming to the schema but with "title": "Not Found", and "response_text": "I cannot find the answer to this question in the provided source material."
+All content must come ONLY from the snippets. No markdown in any field.
+response_text must be plain Hinglish spoken sentences only.
+
 Return JSON only conforming to this schema:
 {{
   "mode": "explain",
-  "title": "string (In the requested language)",
+  "title": "string — plain English topic name",
   "grade_level": {grade},
-  "bullets": ["string (In the requested language)", "string", "string"],
-  "example": "string (Analogy in the requested language)",
-  "recap": "string (One line summary in the requested language)",
-  "response_text": "string (Spoken explanation, max 150 words. Must strictly follow the requested language mode. If answer not in source, must be: 'I cannot find the answer to this question in the provided source material.')"
+  "bullets": ["plain English point", "plain English point", "plain English point"],
+  "example": "string — plain English analogy from the source",
+  "recap": "string — one plain English sentence",
+  "response_text": "string — 3-5 plain Hinglish spoken sentences, no markdown, no asterisks"
 }}"""
 
 SOURCE_QUIZ_PROMPT_TEMPLATE = """Mode: SOURCE_QUIZ
@@ -123,21 +166,20 @@ Retrieved Snippets:
 {snippets}
 ===
 
-Task: Generate {count} oral MCQs based strictly on the facts present in the retrieved snippets.
-Constraint: All questions, options, correct answers, and response_text must be derived ONLY from the snippets.
-If the snippets do not contain enough facts to generate {count} quiz questions, return a JSON conforming to the schema but with "title": "Not Found", and "response_text": "I cannot find the answer to this question in the provided source material."
+Task: Generate {count} oral MCQs based strictly on facts in the retrieved snippets.
+No markdown in any field. response_text must be plain Hinglish.
+
 Return JSON only conforming to this schema:
 {{
-  "title": "string (In the requested language)",
+  "title": "string — plain English quiz title",
   "topic": "{topic}",
-  "response_text": "string (Intro for the quiz, max 100 words. Must strictly follow the requested language mode. If enough facts not in source, must be: 'I cannot find the answer to this question in the provided source material.')",
+  "response_text": "string — 1-2 plain Hinglish intro sentences, no markdown",
   "questions": [
     {{
-      "question": "string (In the requested language)",
-      "options": ["string (In the requested language)", "string", "string"],
-      "correct_index": number (0-based index of the correct option in options),
-      "explanation": "string (Short explanation of correct answer in the requested language)"
+      "question": "string — plain Hinglish question",
+      "options": ["plain English option A", "plain English option B", "plain English option C"],
+      "correct_index": number,
+      "explanation": "string — plain English explanation"
     }}
   ]
 }}"""
-
