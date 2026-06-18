@@ -91,12 +91,15 @@ export default function Home() {
 
           audio.onended = () => {
             notifyAnswerEnded();
-            // voiceRouter transitions speaking → wake_listening automatically
+            if (!handsFreeMode) setAvatarState("idle");
           };
         } else {
           // Text-only response — immediately mark answer as done
           notifyAnswerStarted();
-          setTimeout(() => notifyAnswerEnded(), 100);
+          setTimeout(() => {
+            notifyAnswerEnded();
+            if (!handsFreeMode) setAvatarState("idle");
+          }, 100);
         }
       }
     } catch (error) {
@@ -548,11 +551,9 @@ export default function Home() {
         <div className="w-full md:w-2/3 flex flex-col bg-white rounded-xl shadow-lg border border-slate-200 p-6 relative">
           
           {/* Avatar Sync Overlay */}
-          {handsFreeMode && (
-            <div className="absolute top-4 right-4 z-10">
-              <AvatarSync state={avatarState} voiceState={voiceState} />
-            </div>
-          )}
+          <div className="absolute top-4 right-4 z-10">
+            <AvatarSync state={avatarState} voiceState={handsFreeMode ? voiceState : undefined} />
+          </div>
 
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-blue-800">AI Response</h2>
           <div className="flex-1 overflow-y-auto">
