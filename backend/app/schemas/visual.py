@@ -7,3 +7,7 @@ class VisualRef(BaseModel):
     url: str
     description: Optional[str] = None
     visual_id: Optional[str] = None
+    title: Optional[str] = None
+    alt_text: Optional[str] = None
+    source: Optional[str] = None
+    reason: Optional[str] = None

@@ -12,8 +12,8 @@ from app.services.response_builder import build_final_response
 
 from app.services.retrieval import retrieve_relevant_chunks
 from app.services.visual_classifier import detect_visual_need
-from app.services.visual_retrieval import retrieve_visuals
-from app.services.video_suggester import suggest_video
+from app.services.image_retrieval import retrieve_visuals
+from app.services.video_search import search_videos
 
 from app.services.memory_retriever import memory_retriever
 from app.services.memory_writer import memory_writer
@@ -185,10 +185,13 @@ async def build_assistant_response(
 
                 sub_videos = []
                 sub_video_reason = None
-                video_info = await suggest_video(sub_q, sub_res.get("answer_text", ""))
+                video_info = await search_videos(sub_q, sub_res.get("answer_text", ""))
                 if video_info:
-                    sub_videos = [video_info["video"]]
-                    sub_video_reason = video_info["video_reason"]
+                    # Include primary video first, then alternatives
+                    sub_videos.append(video_info["primary"]["video"])
+                    sub_video_reason = video_info["primary"]["reason"]
+                    for alt in video_info.get("alternatives", []):
+                        sub_videos.append(alt["video"])
                     
                 # Quiz questions compatibility
                 sub_questions = []
