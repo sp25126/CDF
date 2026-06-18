@@ -112,7 +112,7 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
                     response_json = await llm_service.get_chat_completion([
                         {"role": "system", "content": sys_prompt},
                         {"role": "user", "content": user_prompt}
-                    ], response_format={"type": "json_object"})
+                    ], response_format={"type": "json_object"}, task_type="explain")
                     
                     ans_text = response_json.get("response_text") or response_json.get("answer_text")
                     if "provided source material" in str(ans_text).lower() or response_json.get("title") == "Not Found":
@@ -153,7 +153,7 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
             response_json = await llm_service.get_chat_completion([
                 {"role": "system", "content": sys_prompt},
                 {"role": "user", "content": user_prompt}
-            ], response_format={"type": "json_object"})
+            ], response_format={"type": "json_object"}, task_type="explain")
             
             result = {
                 "title": response_json.get("title", f"Simplifying {topic}"),

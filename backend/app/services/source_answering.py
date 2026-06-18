@@ -49,7 +49,7 @@ Output JSON format strictly:
 """
     
     try:
-        response_text = await llm_service.generate_response(prompt)
+        response_text = await llm_service.generate_response(prompt, task_type="explain")
         if "NOT_FOUND" in response_text or not response_text.strip():
             refusal = REFUSAL_MESSAGES.get(language_mode, REFUSAL_MESSAGES["hinglish"])
             return {

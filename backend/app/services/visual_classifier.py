@@ -35,7 +35,7 @@ Output JSON format strictly:
 }}
 """
     try:
-        response_text = await llm_service.generate_response(prompt)
+        response_text = await llm_service.generate_response(prompt, task_type="classify")
         result = json.loads(response_text)
         return {
             "needs_visual": bool(result.get("needs_visual", False)),

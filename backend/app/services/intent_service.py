@@ -74,7 +74,7 @@ async def detect_intent(text: str) -> IntentType:
             },
             {"role": "user", "content": text}
         ]
-        result = await llm_service.get_chat_completion(messages, response_format={"type": "json_object"})
+        result = await llm_service.get_chat_completion(messages, response_format={"type": "json_object"}, task_type="intent")
         intent = result.get("intent", "clarify")
         logger.info(f"LLM detected intent '{intent}' for text: '{text}'")
         if intent in ["explain", "quiz", "clarify"]:

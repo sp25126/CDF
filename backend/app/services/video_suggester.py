@@ -50,7 +50,7 @@ Output JSON format strictly:
 If needs_video is false, leave other fields empty.
 """
     try:
-        response_text = await llm_service.generate_response(prompt)
+        response_text = await llm_service.generate_response(prompt, task_type="classify")
         result = json.loads(response_text)
         
         if result.get("needs_video") and result.get("youtube_id"):

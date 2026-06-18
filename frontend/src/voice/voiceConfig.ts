@@ -6,8 +6,8 @@
  */
 
 export const VOICE_CONFIG = {
-  /** SpeechRecognition language tag */
-  lang: "hi-IN" as string,
+  /** SpeechRecognition language tag — en-IN handles English wake words with Indian accents */
+  lang: "en-IN" as string,
 
   /**
    * Milliseconds of silence that constitute end-of-utterance.

@@ -287,7 +287,7 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
         ]
 
         try:
-            response_json = await llm_service.get_chat_completion(messages, response_format={"type": "json_object"})
+            response_json = await llm_service.get_chat_completion(messages, response_format={"type": "json_object"}, task_type="explain")
             response_json["mode"] = "explain"
             response_json["language_mode"] = language_mode
             response_json["source_mode"] = True
@@ -328,7 +328,7 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
     ]
 
     try:
-        response_json = await llm_service.get_chat_completion(messages, response_format={"type": "json_object"})
+        response_json = await llm_service.get_chat_completion(messages, response_format={"type": "json_object"}, task_type="explain")
         response_json["mode"] = "explain"
         response_json["language_mode"] = language_mode
         response_json["source_mode"] = False

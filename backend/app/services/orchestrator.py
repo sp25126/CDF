@@ -20,6 +20,8 @@ from app.services.memory_writer import memory_writer
 from app.services.session_memory import session_memory_service
 from app.services.prompt_assembler import prompt_assembler
 
+from app.services.question_decomposer import decompose_query
+
 logger = logging.getLogger(__name__)
 
 from app.services.explain_interactive import generate_interactive_explanation
@@ -136,27 +138,155 @@ async def build_assistant_response(
         if intent in ["explain", "example", "simpler", "quiz", "ask_question"]:
             avatar_state = "speaking"
             
-            # 2. Retrieve Source Chunks if needed
-            chunks = []
-            if source_mode:
-                chunks = retrieve_relevant_chunks(normalized, limit=3)
+            # Decompose the query into sub-questions
+            sub_queries = decompose_query(normalized)
+            logger.info(f"Decomposer split query '{normalized}' into: {sub_queries}")
             
-            # 3. Assemble Memory-Aware Prompt
-            final_prompt = prompt_assembler.assemble_prompt(
-                query=normalized,
-                memory_context=memory_context,
-                source_chunks=chunks,
-                source_mode=source_mode
-            )
+            sub_results = []
             
-            # 4. Call LLM
-            try:
-                raw_response = await llm_service.generate_response(final_prompt)
-                res = json.loads(raw_response)
-            except Exception as e:
-                logger.error(f"LLM failure in orchestrator: {e}")
-                res = {"title": "Error", "answer_text": "I'm having trouble thinking right now.", "next_actions": ["Try again"]}
+            for sub_q in sub_queries:
+                # 2. Retrieve Source Chunks if needed
+                chunks = []
+                if source_mode:
+                    chunks = retrieve_relevant_chunks(sub_q, limit=3)
+                
+                # 3. Assemble Memory-Aware Prompt
+                final_prompt = prompt_assembler.assemble_prompt(
+                    query=sub_q,
+                    memory_context=memory_context,
+                    source_chunks=chunks,
+                    source_mode=source_mode
+                )
+                
+                # 4. Call LLM
+                try:
+                    task_type = "quiz" if intent in ["quiz", "ask_question"] else "explain"
+                    raw_response = await llm_service.generate_response(final_prompt, task_type=task_type)
+                    
+                    if raw_response.strip().startswith("{") or raw_response.strip().startswith("["):
+                        sub_res = json.loads(raw_response)
+                    else:
+                        sub_res = {
+                            "title": sub_q.title(),
+                            "answer_text": raw_response.strip(),
+                            "next_actions": ["Explain more", "Give an example"]
+                        }
+                except Exception as e:
+                    logger.error(f"LLM failure in orchestrator for sub-query '{sub_q}': {e}")
+                    sub_res = {"title": "Error", "answer_text": "I'm having trouble thinking right now.", "next_actions": ["Try again"]}
+                
+                # Visuals/Videos for this sub-question
+                sub_visuals = []
+                sub_visual_reason = None
+                visual_info = await detect_visual_need(sub_q, sub_res.get("answer_text", ""))
+                if visual_info.get("needs_visual"):
+                    sub_visuals = await retrieve_visuals(sub_q)
+                    sub_visual_reason = visual_info.get("visual_reason")
 
+                sub_videos = []
+                sub_video_reason = None
+                video_info = await suggest_video(sub_q, sub_res.get("answer_text", ""))
+                if video_info:
+                    sub_videos = [video_info["video"]]
+                    sub_video_reason = video_info["video_reason"]
+                    
+                # Quiz questions compatibility
+                sub_questions = []
+                if intent in ["quiz", "ask_question"] and "questions" in sub_res:
+                    sub_questions = sub_res["questions"]
+
+                sub_results.append({
+                    "res": sub_res,
+                    "chunks": chunks,
+                    "visuals": sub_visuals,
+                    "visual_reason": sub_visual_reason,
+                    "videos": sub_videos,
+                    "video_reason": sub_video_reason,
+                    "questions": sub_questions
+                })
+
+            # Merge the sub-results
+            if len(sub_results) == 1:
+                # Simple single query case
+                single = sub_results[0]
+                res = single["res"]
+                chunks = single["chunks"]
+                visuals = single["visuals"]
+                visual_reason = single["visual_reason"]
+                videos = single["videos"]
+                video_reason = single["video_reason"]
+                questions_compat = single["questions"]
+            else:
+                # Merge multiple sub-queries
+                titles = [sr["res"].get("title") for sr in sub_results if sr["res"].get("title")]
+                title = " & ".join(titles) if titles else "Compound Answer"
+                
+                # Merge answer texts with clean transitional flow
+                answers = [sr["res"].get("answer_text") for sr in sub_results if sr["res"].get("answer_text")]
+                if language_mode == "hindi":
+                    transition = "\n\nइसके अलावा, आइए दूसरे भाग को देखें:\n\n"
+                elif language_mode == "hinglish":
+                    transition = "\n\nAlso, let's look at the second part:\n\n"
+                else:
+                    transition = "\n\nAlso, let's examine the second part:\n\n"
+                answer_text = transition.join(answers) if answers else "Unable to combine answers."
+                
+                # Merge bullets, examples, and recaps
+                bullets = []
+                examples = []
+                recaps = []
+                for sr in sub_results:
+                    bullets.extend(sr["res"].get("bullets", []))
+                    if sr["res"].get("example"):
+                        examples.append(sr["res"].get("example"))
+                    if sr["res"].get("recap"):
+                        recaps.append(sr["res"].get("recap"))
+                        
+                example = "\n\n".join(examples) if examples else None
+                recap = " / ".join(recaps) if recaps else None
+                
+                # Merge visuals & videos (prevent duplicates)
+                visuals = []
+                visual_reasons = []
+                for sr in sub_results:
+                    for v in sr["visuals"]:
+                        if v.url not in [vis.url for vis in visuals]:
+                            visuals.append(v)
+                    if sr["visual_reason"]:
+                        visual_reasons.append(sr["visual_reason"])
+                visual_reason = "; ".join(visual_reasons) if visual_reasons else None
+                
+                videos = []
+                video_reasons = []
+                for sr in sub_results:
+                    for v in sr["videos"]:
+                        if v.youtube_id not in [vid.youtube_id for vid in videos]:
+                            videos.append(v)
+                    if sr["video_reason"]:
+                        video_reasons.append(sr["video_reason"])
+                video_reason = "; ".join(video_reasons) if video_reasons else None
+                
+                # Merge quiz questions
+                questions_compat = []
+                for sr in sub_results:
+                    questions_compat.extend(sr["questions"])
+                    
+                # Merge chunks
+                chunks = []
+                for sr in sub_results:
+                    chunks.extend(sr["chunks"])
+                
+                # Create merged dict
+                res = {
+                    "title": title,
+                    "answer_text": answer_text,
+                    "bullets": bullets,
+                    "example": example,
+                    "recap": recap,
+                    "next_actions": ["Explain more", "Start a quiz"]
+                }
+
+            # Finalize fields
             title = res.get("title")
             answer_text = res.get("answer_text")
             next_actions = res.get("next_actions", ["Explain more", "Start a quiz"])
@@ -165,20 +295,8 @@ async def build_assistant_response(
             if source_mode and chunks:
                 source_refs = [SourceRef(title=c.source_title, snippet=c.text[:100], page_number=c.page_number) for c in chunks]
             
-            # Visuals/Videos
-            visual_info = await detect_visual_need(normalized, answer_text)
-            if visual_info.get("needs_visual"):
-                visuals = retrieve_visuals(normalized)
-                visual_reason = visual_info.get("visual_reason")
-
-            video_info = await suggest_video(normalized, answer_text)
-            if video_info:
-                videos = [video_info["video"]]
-                video_reason = video_info["video_reason"]
-            
             # Quiz specific payload extraction
-            if intent in ["quiz", "ask_question"] and "questions" in res:
-                questions_compat = res["questions"]
+            if intent in ["quiz", "ask_question"] and questions_compat:
                 quiz_payload = QuizPayload(title=title, topic=normalized, questions=questions_compat, total_questions=len(questions_compat))
             
             state_manager.set_state(session_id, "idle")

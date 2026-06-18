@@ -641,7 +641,7 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "hingli
             response_json = await llm_service.get_chat_completion([
                 {"role": "system", "content": sys_prompt},
                 {"role": "user", "content": user_prompt}
-            ], response_format={"type": "json_object"})
+            ], response_format={"type": "json_object"}, task_type="quiz")
             
             raw_questions = response_json.get("questions", [])
             normalized_questions = [normalize_quiz_question(q) for q in raw_questions]
@@ -688,7 +688,7 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "hingli
         response_json = await llm_service.get_chat_completion([
             {"role": "system", "content": sys_prompt},
             {"role": "user", "content": user_prompt}
-        ], response_format={"type": "json_object"})
+        ], response_format={"type": "json_object"}, task_type="quiz")
         
         raw_questions = response_json.get("questions", [])
         normalized_questions = [normalize_quiz_question(q) for q in raw_questions]

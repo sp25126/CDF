@@ -206,9 +206,6 @@ export function AvatarCanvas({ state }: { state: string }) {
   );
 }
 
-// Preload all assets so Suspense resolves immediately on first render
-useFBX.preload("/juli.fbx");
-useFBX.preload("/Idle.fbx");
-useFBX.preload("/Talking.fbx");
-useFBX.preload("/Thinking.fbx");
-useFBX.preload("/Waving.fbx");
+// NOTE: preload calls intentionally removed — they use browser-only APIs
+// that crash during Next.js SSR module evaluation even in "use client" files.
+// The <React.Suspense> fallback handles the loading state gracefully.
