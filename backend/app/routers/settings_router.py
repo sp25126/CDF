@@ -56,90 +56,66 @@ def _safe_error(msg: str) -> str:
     return "Something went wrong. Please check the key and try again."
 
 
-async def _ping_groq(api_key: str, model: str) -> tuple[bool, Optional[str]]:
-    """Minimal Groq ping. Returns (success, error_message)."""
+async def _validate_via_models_groq(api_key: str) -> tuple[bool, Optional[str]]:
+    """
+    Validate a Groq key by calling GET /models.
+    A 200 means the key is accepted. A 401/403 means it is invalid.
+    This avoids any chat completion call (no tokens spent, no model-version 400s).
+    """
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
-            resp = await client.post(
-                PROVIDER_CHAT_URLS["groq"],
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json={
-                    "model": model,
-                    "messages": [{"role": "user", "content": "hi"}],
-                    "max_tokens": 5,
-                },
+            resp = await client.get(
+                "https://api.groq.com/openai/v1/models",
+                headers={"Authorization": f"Bearer {api_key}"},
             )
             if resp.status_code == 200:
                 return True, None
-            # 400 = model issue or bad request — but the KEY is valid (Groq would return 401 for bad keys)
-            if resp.status_code == 400:
-                # Try once more with a different model to confirm the key works
-                resp2 = await client.post(
-                    PROVIDER_CHAT_URLS["groq"],
-                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                    json={
-                        "model": "llama-3.3-70b-versatile",
-                        "messages": [{"role": "user", "content": "hi"}],
-                        "max_tokens": 5,
-                    },
-                )
-                if resp2.status_code == 200:
-                    return True, None
-                if resp2.status_code in (401, 403):
-                    return False, _safe_error(f"{resp2.status_code}")
-                # Any 2xx or model-related 4xx still means the key is accepted
-                if resp2.status_code != 401 and resp2.status_code != 403:
-                    return True, None
             if resp.status_code in (401, 403):
-                return False, _safe_error(f"{resp.status_code} {resp.text[:100]}")
+                return False, _safe_error(str(resp.status_code))
             if resp.status_code == 429:
-                # Rate limited but key IS valid
-                return True, None
-            return False, _safe_error(f"{resp.status_code} {resp.text[:100]}")
+                return True, None   # rate-limited but key is valid
+            return False, _safe_error(f"{resp.status_code}")
     except Exception as e:
         return False, _safe_error(str(e))
 
 
-async def _ping_openai(api_key: str, model: str) -> tuple[bool, Optional[str]]:
-    """Minimal OpenAI ping."""
+async def _validate_via_models_openai(api_key: str) -> tuple[bool, Optional[str]]:
+    """Validate an OpenAI key by calling GET /models."""
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
-            resp = await client.post(
-                PROVIDER_CHAT_URLS["openai"],
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json={
-                    "model": model,
-                    "messages": [{"role": "user", "content": "ping"}],
-                    "max_tokens": 1,
-                },
+            resp = await client.get(
+                "https://api.openai.com/v1/models",
+                headers={"Authorization": f"Bearer {api_key}"},
             )
             if resp.status_code == 200:
                 return True, None
-            return False, _safe_error(f"{resp.status_code} {resp.text}")
+            if resp.status_code in (401, 403):
+                return False, _safe_error(str(resp.status_code))
+            if resp.status_code == 429:
+                return True, None
+            return False, _safe_error(f"{resp.status_code}")
     except Exception as e:
         return False, _safe_error(str(e))
 
 
-async def _ping_anthropic(api_key: str, model: str) -> tuple[bool, Optional[str]]:
-    """Minimal Anthropic ping."""
+async def _validate_via_models_anthropic(api_key: str) -> tuple[bool, Optional[str]]:
+    """Validate an Anthropic key by calling GET /models."""
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
-            resp = await client.post(
-                PROVIDER_CHAT_URLS["anthropic"],
+            resp = await client.get(
+                "https://api.anthropic.com/v1/models",
                 headers={
                     "x-api-key": api_key,
                     "anthropic-version": "2023-06-01",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": model,
-                    "max_tokens": 1,
-                    "messages": [{"role": "user", "content": "ping"}],
                 },
             )
             if resp.status_code == 200:
                 return True, None
-            return False, _safe_error(f"{resp.status_code} {resp.text}")
+            if resp.status_code in (401, 403):
+                return False, _safe_error(str(resp.status_code))
+            if resp.status_code == 429:
+                return True, None
+            return False, _safe_error(f"{resp.status_code}")
     except Exception as e:
         return False, _safe_error(str(e))
 
@@ -149,13 +125,14 @@ async def _ping_anthropic(api_key: str, model: str) -> tuple[bool, Optional[str]
 @router.post("/validate", response_model=ValidateKeyResponse)
 async def validate_key(req: ValidateKeyRequest):
     """
-    Test whether a user-supplied API key is accepted by the provider.
-    Uses a minimal 1-token ping. Never logs the key.
+    Validate a user-supplied API key.
+    Uses the provider's /models listing endpoint — zero tokens consumed,
+    no model-version 400 errors, instant result.
+    Never logs the key.
     """
     provider = req.provider.lower()
-    model = req.model or PROVIDER_PING_MODELS.get(provider, "")
 
-    if provider not in PROVIDER_PING_MODELS:
+    if provider not in ("groq", "openai", "anthropic"):
         return ValidateKeyResponse(
             valid=False,
             provider=provider,
@@ -165,15 +142,13 @@ async def validate_key(req: ValidateKeyRequest):
     logger.info(f"[Settings] Validating key for provider={provider} (key redacted)")
 
     if provider == "groq":
-        ok, err = await _ping_groq(req.api_key, model)
+        ok, err = await _validate_via_models_groq(req.api_key)
     elif provider == "openai":
-        ok, err = await _ping_openai(req.api_key, model)
-    elif provider == "anthropic":
-        ok, err = await _ping_anthropic(req.api_key, model)
-    else:
-        ok, err = False, "Unknown provider."
+        ok, err = await _validate_via_models_openai(req.api_key)
+    else:  # anthropic
+        ok, err = await _validate_via_models_anthropic(req.api_key)
 
-    return ValidateKeyResponse(valid=ok, provider=provider, model_used=model if ok else None, error=err)
+    return ValidateKeyResponse(valid=ok, provider=provider, model_used=None, error=err)
 
 
 @router.post("/usage", response_model=UsageResponse)
