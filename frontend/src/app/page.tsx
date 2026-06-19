@@ -17,6 +17,8 @@ import MainContent from "../components/layout/MainContent";
 import TopContextBar from "../components/TopContextBar";
 import TeacherConsole from "../components/TeacherConsole";
 import ResponseRenderer from "../components/ResponseRenderer";
+import dynamic from 'next/dynamic';
+const SmartWhiteboard = dynamic(() => import("../components/SmartWhiteboard"), { ssr: false });
 import JuliEPanel from "../components/JuliEPanel";
 import MediaRail from "../components/MediaRail";
 
@@ -55,6 +57,13 @@ export default function Home() {
     dispatch({ type: 'SOURCE_MODE_ACTIVATED' });
   }
 
+  const handleWhiteboardToggle = () => {
+    const isEnabling = !state.topBar.isWhiteboardActive;
+    transitionTo(state.name, {
+        topBar: { ...state.topBar, isWhiteboardActive: isEnabling }
+    });
+  };
+
   // No duplicate RESPONSE_RECEIVED dispatch needed here —
   // useCommandSubmit dispatches it immediately after the API returns.
 
@@ -73,14 +82,19 @@ export default function Home() {
         }
       mainContent={
         <MainContent
+          isFullWidth={state.topBar.isWhiteboardActive}
           canvas={
-            <ResponseRenderer
-              state={canvasState}
-              payload={state.payload}
-              error={state.error}
-              onActionClick={(action) => handleCommandSubmit(action)}
-              onRetry={() => handleCommandSubmit(history[0]?.command || "")}
-            />
+            state.topBar.isWhiteboardActive ? (
+              <SmartWhiteboard initialTitle={state.payload?.title} payload={state.payload} onClose={handleWhiteboardToggle} />
+            ) : (
+              <ResponseRenderer
+                state={canvasState}
+                payload={state.payload}
+                error={state.error}
+                onActionClick={(action) => handleCommandSubmit(action)}
+                onRetry={() => handleCommandSubmit(history[0]?.command || "")}
+              />
+            )
           }
           sidebar={
             <MediaRail payload={state.payload} />
@@ -88,8 +102,10 @@ export default function Home() {
         />
       }
       teacherConsole={
+        state.topBar.isWhiteboardActive ? null : (
         <TeacherConsole
           isLoading={isLoading}
+          isWhiteboardActive={state.topBar.isWhiteboardActive}
           isListening={state.name === 'listening'}
           isHandsFree={state.topBar.handsFree}
           isSourceMode={state.topBar.sourceMode}
@@ -103,6 +119,7 @@ export default function Home() {
           }}
           onHandsFreeToggle={handleHandsFreeToggle}
           onSourceModeToggle={handleSourceModeToggle}
+          onWhiteboardToggle={handleWhiteboardToggle}
           onRepeatClick={() => { 
             dispatch({ type: 'TTS_START' });
             if (state.payload?.audio_base64) {
@@ -126,6 +143,7 @@ export default function Home() {
           }}
           onMacroPillClick={(pill) => handleCommandSubmit(`${pill} ${state.payload?.title || ''}`)}
         />
+        )
       }
     />
   );

@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { ReactSketchCanvas, ReactSketchCanvasRef } from 'react-sketch-canvas';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { Upload, Eraser, PenTool, Trash2, Undo, Redo, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { Upload, Eraser, PenTool, Trash2, Undo, Redo, ChevronLeft, ChevronRight, Image as ImageIcon, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { theme } from '../design/theme';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -15,9 +15,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 interface SmartWhiteboardProps {
   initialTitle?: string;
   payload?: AssistantPayload | null;
+  onClose?: () => void;
 }
 
-export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, payload }) => {
+export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, payload, onClose }) => {
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
   
   // Tools state
@@ -33,6 +34,7 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
   // PDF state
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pdfScale, setPdfScale] = useState<number>(1.2);
 
   const visuals = payload?.visuals || [];
 
@@ -97,6 +99,11 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
       {/* Toolbar */}
       <div className="min-h-[64px] border-b flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 md:py-0 gap-3 md:gap-0 bg-slate-50 shrink-0" style={{ borderColor: theme.colors.canvas.border }}>
         <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center">
+            {onClose && (
+              <button onClick={onClose} className="p-2 rounded-lg hover:bg-slate-200 text-slate-500 hover:text-red-500 transition-colors" title="Close Whiteboard">
+                  <X size={24} />
+              </button>
+            )}
             <h2 className="text-lg font-semibold" style={{ color: theme.colors.canvas.ink }}>
               Whiteboard {initialTitle ? `- ${initialTitle}` : ''}
             </h2>
@@ -142,13 +149,23 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
         <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center">
             {bgType === 'pdf' && numPages && (
                 <div className="flex items-center gap-2 mr-4 bg-white px-3 py-1 rounded-full border">
+                    <button onClick={() => setPdfScale(s => Math.max(0.5, s - 0.2))} className="p-1 hover:bg-slate-100 rounded" title="Zoom Out">
+                        <ZoomOut size={16} />
+                    </button>
+                    <span className="text-sm font-medium w-12 text-center">{Math.round(pdfScale * 100)}%</span>
+                    <button onClick={() => setPdfScale(s => Math.min(3, s + 0.2))} className="p-1 hover:bg-slate-100 rounded" title="Zoom In">
+                        <ZoomIn size={16} />
+                    </button>
+                    
+                    <div className="w-px h-4 bg-slate-300 mx-1" />
+                    
                     <button 
                         disabled={pageNumber <= 1} 
                         onClick={() => {
                             setPageNumber(prev => Math.max(prev - 1, 1));
                             canvasRef.current?.clearCanvas();
                         }}
-                        className="p-1 disabled:opacity-50"
+                        className="p-1 disabled:opacity-50 hover:bg-slate-100 rounded"
                     >
                         <ChevronLeft size={16} />
                     </button>
@@ -159,7 +176,7 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
                             setPageNumber(prev => Math.min(prev + 1, numPages));
                             canvasRef.current?.clearCanvas();
                         }}
-                        className="p-1 disabled:opacity-50"
+                        className="p-1 disabled:opacity-50 hover:bg-slate-100 rounded"
                     >
                         <ChevronRight size={16} />
                     </button>
@@ -198,8 +215,8 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
         )}
 
         {/* Canvas Area */}
-        <div className="flex-1 relative bg-slate-100 overflow-auto flex items-center justify-center p-2 md:p-4 min-w-0 min-h-0">
-          <div className="relative shadow-xl bg-white w-full min-h-[400px] md:min-h-[600px]">
+        <div className="flex-1 relative bg-slate-200 overflow-auto flex p-2 md:p-6 min-w-0 min-h-0">
+          <div className="relative shadow-xl bg-white w-full h-full min-h-[600px] flex-1 mx-auto" style={{ maxWidth: bgType === 'pdf' ? 'none' : '100%' }}>
               {/* Background Layer */}
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
                   {!bgUrl && (
@@ -212,13 +229,15 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
                       <img src={bgUrl} alt="Whiteboard Background" className="w-full h-full object-contain" />
                   )}
                   {bgType === 'pdf' && bgUrl && (
-                      <Document 
-                          file={bgUrl} 
-                          onLoadSuccess={onDocumentLoadSuccess}
-                          className="flex justify-center h-full items-center"
-                      >
-                          <Page pageNumber={pageNumber} height={600} renderTextLayer={false} renderAnnotationLayer={false} />
-                      </Document>
+                      <div className="w-full h-full overflow-auto flex justify-center items-start pt-4">
+                        <Document 
+                            file={bgUrl} 
+                            onLoadSuccess={onDocumentLoadSuccess}
+                            className="flex flex-col items-center"
+                        >
+                            <Page pageNumber={pageNumber} scale={pdfScale} renderTextLayer={false} renderAnnotationLayer={false} className="shadow-sm" />
+                        </Document>
+                      </div>
                   )}
               </div>
 
