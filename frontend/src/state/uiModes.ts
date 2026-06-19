@@ -9,6 +9,7 @@ const baseState: Omit<AppState, 'name' | 'canvasMode' | 'juliState'> = {
     language: 'Hinglish',
     handsFree: false,
     sourceMode: false,
+    isWhiteboardActive: false,
   },
 };
 

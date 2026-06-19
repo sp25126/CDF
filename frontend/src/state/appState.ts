@@ -24,6 +24,7 @@ export interface AppState {
     language: string;
     handsFree: boolean;
     sourceMode: boolean;
+    isWhiteboardActive: boolean;
   };
   // New fields for real data
   payload?: any; // This will hold the response data

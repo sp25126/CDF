@@ -15,7 +15,7 @@ export const MicButton: React.FC<MicButtonProps> = ({ isListening, onClick }) =>
   return (
     <button onClick={onClick} className="relative">
       <motion.div
-        className="w-24 h-24 rounded-full flex items-center justify-center text-white shadow-lg"
+        className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg"
         style={{
           backgroundColor: isListening ? theme.colors.error : theme.colors.primary,
         }}
@@ -23,7 +23,7 @@ export const MicButton: React.FC<MicButtonProps> = ({ isListening, onClick }) =>
         whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.1 }}
       >
-        <Mic size={48} />
+        <Mic size={24} />
       </motion.div>
       {isListening && (
         <motion.div
