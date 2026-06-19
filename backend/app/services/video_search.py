@@ -63,7 +63,7 @@ VIDEO_DB: List[Dict[str, Any]] = [
     {
         "video_title": "What is a Photon? — Fermilab",
         "youtube_id": "8vXW-tU-vIQ",
-        "topics": ["photons", "photon", "light particle", "quantum"],
+        "topics": ["photons", "photon", "light particle", "light quantum"],
         "language": "english",
         "duration": 350,
         "video_reason": "Excellent explanation of photons and light quanta.",
@@ -159,7 +159,9 @@ async def search_videos(
     Returns {primary, alternatives} or None if nothing valid is found.
     LLM is NOT called; URL fabrication is impossible.
     """
-    normalized_topic = topic.lower()
+    from app.services.image_retrieval import clean_search_topic
+    cleaned_topic = clean_search_topic(topic) or topic
+    normalized_topic = cleaned_topic.lower()
     normalized_text = text.lower()
 
     # Match candidates from the registry

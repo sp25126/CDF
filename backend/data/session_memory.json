@@ -4,11 +4,35 @@
     "recent_turns": [
       {
         "role": "user",
-        "content": "Hello assistant"
+        "content": "Create a 3 question quiz on fractions in Hindi"
       },
       {
         "role": "assistant",
-        "content": "Hello student"
+        "content": "Arre, **fractions** ke baare mein kuch sawal karte hain. Yeh kuch is prakaar samjha ja sakta hai:\n* **Fraction** ek aisi **maths** ki **concept** hai jo **part** aur **whole** ke baare mein batati hai.\n* **Fraction** ko **numerator** aur **denominator** se banaya jata hai.\n* **Numerator** ka matlab hota hai **part** jo **whole** mein se liya gaya hai.\n* **Denominator** ka matlab hota hai **whole** ka **total** hissa.\n* **Fraction** ka ek udaharan hai 1/2, jisme **numerator** 1 hai aur **denominator** 2 hai.\n* Is **fraction** ka matlab hota hai ki humne **whole** ka 1 hissa liya hai jo ki 2 hisson mein se bana hai.\nEk samjhne wala example hai: agar aapke paas 1 cake hai jo 8 hisson mein kata gaya hai, aur aap usme se 2 hisse khaate hain, to aapne cake ka 2/8 **fraction** khaaya hai.\nRecap: **Fractions** hamein **part** aur **whole** ke baare mein batati hai.\nAb aapko ek sawal poochna hai: Agar aapke paas 12 biscuits hain aur aap unme se 1/4 **fraction** khaate hain, to aapne kitne biscuits khaaye hain?"
+      },
+      {
+        "role": "user",
+        "content": "Create a 3 question quiz on fractions in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **fractions** ke baare mein kuch sawal karte hain, lekin aapne English mein maanga hai. Toh, yeh kuch is prakaar samjha ja sakta hai:\n* **Fractions** represent a **part** of a **whole**.\n* **Numerators** tell us how many **equal parts** we have.\n* **Denominators** tell us how many **parts** the **whole** is divided into.\n* **Equivalent fractions** have the same **value**, but different **numerators** and **denominators**.\n* **Adding fractions** requires the same **denominator**.\n* **Simplifying fractions** means finding the **simplest form** of a **fraction**.\n* For example, 1/2 is a **simplified fraction**.\nRecap: **Fractions** help us show **part** of a **whole**. \nAb aapko yeh sawal karna hai: What is the **simplified form** of the **fraction** 2/4?"
+      },
+      {
+        "role": "user",
+        "content": "asdfgh"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
       },
       {
         "role": "user",
@@ -16,15 +40,7 @@
       },
       {
         "role": "assistant",
-        "content": "Your detailed explanation or feedback."
-      },
-      {
-        "role": "user",
-        "content": "explain photon"
-      },
-      {
-        "role": "assistant",
-        "content": "*Photon*: A particle of light or other form of electromagnetic radiation. It has both wave-like and particle-like properties. In a classroom setting, you can think of photons as tiny packets of energy that make up visible light and invisible forms like X-rays and gamma rays.\n**Example**: If you shine a flashlight in a dark room, the light is made up of thousands upon thousands of individual photons streaming towards your eyes."
+        "content": "The AI service is currently unavailable. Please try again in a moment."
       }
     ],
     "assistant_state": "idle",
@@ -32,43 +48,12 @@
     "language_mode": "hinglish",
     "source_id": null,
     "quiz_index": 0,
-    "hands_free": false
+    "hands_free": false,
+    "source_mode": false
   },
   "demo-session-123": {
     "session_id": "demo-session-123",
     "recent_turns": [
-      {
-        "role": "user",
-        "content": "explain photons"
-      },
-      {
-        "role": "assistant",
-        "content": "The AI service is currently busy (Rate Limit Exceeded). Error detail: OpenRouter 429 Too Many Requests. Please try again in a moment."
-      },
-      {
-        "role": "user",
-        "content": "explain photons"
-      },
-      {
-        "role": "assistant",
-        "content": "Bachon, jaise hamare ghar mein rasoi mein khana banta hai, waise hi patton mein dhoop se khana banta hai. Plants use sunlight, water, and carbon dioxide to create oxygen and energy in the form of sugar."
-      },
-      {
-        "role": "user",
-        "content": "explain photons"
-      },
-      {
-        "role": "assistant",
-        "content": "The AI service is currently busy (Rate Limit or Quota Reached). Error detail: OpenRouter 429 Too Many Requests. Please try again later."
-      },
-      {
-        "role": "user",
-        "content": "explain photons"
-      },
-      {
-        "role": "assistant",
-        "content": "The AI service is currently busy (Rate Limit or Quota Reached). Error detail: OpenRouter 429 Too Many Requests. Please try again later."
-      },
       {
         "role": "user",
         "content": "explain microorganisms"
@@ -76,6 +61,38 @@
       {
         "role": "assistant",
         "content": "Bachon, **microorganisms** chhote jeev hote hain jo humse alag hote hain. Inke baare mein jaanne ke liye, yeh points dhyaan mein rakhna zaroori hai:\n* **Microorganisms** ki size bohot chhoti hoti hai, jisse hum unhein nakad nahi dekh sakte.\n* Ye **bacteria**, **virus**, **fungi**, aur **protozoa** jaise alag-alag prakaar ke hote hain.\n* Inka mahatvapoorn kaam hai **parivesh** ko saaf rakhna aur **padarth** ko tootna.\n* **Microorganisms** humare **shareer** mein bhi rehte hain, jahaan ve **rogon** se ladte hain aur **prateeksha** banate hain.\n* Ye **udhyog** mein bhi upyog kiye jate hain, jaise ki **dhoodh** aur **panir** banane mein.\n* Ek **udaharan** ke roop mein, **Lactobacillus** bacteria **dahi** banane mein madad karta hai.\nRecap: **Microorganisms** chhote jeev hote hain jo humse alag hote hain aur parivesh ko saaf rakhne mein mahatvapoorn bhoomika nibhate hain. Ab, bachon, aap bataiye: **Microorganisms** ka sabse mahatvapoorn kaam kya hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, **photosynthesis** ek aisa prakriya hai jismein paudhe, **chlorophyll** ka use karke, **sunlight**, **carbon dioxide**, aur **water** se **glucose** aur **oxygen** banate hain. Iske baare mein jaanne ke liye, yeh points dhyaan mein rakhna zaroori hai:\n* **Photosynthesis** ke liye **chlorophyll** zaroori hai, jo paudhon ke **leaves** mein paya jata hai.\n* **Sunlight** ki zaroorat hoti hai, jo **energy** provide karti hai.\n* **Carbon dioxide** aur **water** ki zaroorat hoti hai, jo **glucose** aur **oxygen** banane ke liye use hote hain.\n* **Glucose** paudhon ke liye **food** hoti hai, aur **oxygen** humare liye zaroori hai.\n* **Photosynthesis** ke bina, humare paas **oxygen** nahi hoti, aur paudhe **food** nahi banate.\n* Is prakriya ka ek example hai ki kaise paudhe **sunlight** ko use karke **food** banate hain, jaise ki **trees** aur **plants**.\nRecap: **Photosynthesis** ek prakriya hai jismein paudhe **sunlight**, **carbon dioxide**, aur **water** se **glucose** aur **oxygen** banate hain. Ab, tumhe yeh sawal ka jawab dena hai: **Photosynthesis** ke liye **chlorophyll** ki kya zaroorat hai?"
+      },
+      {
+        "role": "user",
+        "content": "Quiz "
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, ab **quiz** time hai! Aaiye shuru karte hain. Pehla sawal hai: **Gravity** kya hai? Yeh ek **natural force** hai jo hamein zameen par rakhti hai. Iske baare mein jaanne ke liye, yeh points dhyaan mein rakhna zaroori hai:\n* **Gravity** ek **universal force** hai\n* Yeh hamein zameen par rakhti hai\n* **Gravity** ki wajah se hi hamein upar ki aur nahi ud sakte\n* **Gravity** ki taakat alag-alag jagah par alag-alag hoti hai\n* **Gravity** ki wajah se hi paani zameen par bahta hai\nEk example ke liye, jab aap ek **ball** upar ki aur fekte hain, to woh **gravity** ki wajah se neeche aa jata hai. Recap: **Gravity** hamein zameen par rakhti hai. Ab sawal hai: **Gravity** ki taakat kis cheez par nirbhar karti hai? \n    "
+      },
+      {
+        "role": "user",
+        "content": "Explain "
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, **photosynthesis** ek aisa prakriya hai jismein paudhe, **chlorophyll** ka use karke, **sunlight**, **carbon dioxide**, aur **water** se **glucose** aur **oxygen** banate hain. Iske baare mein jaanne ke liye, yeh points dhyaan mein rakhna zaroori hai:\n* Paudhe **chlorophyll** ka use karke **sunlight** ko absorb karte hain.\n* **Carbon dioxide** aur **water** ko **roots** aur **stomata** se lete hain.\n* **Sunlight** ki energy ka use karke, **glucose** aur **oxygen** banate hain.\n* **Glucose** ka use paudhe apne liye karte hain, aur **oxygen** ko hawaa mein chhod dete hain.\n* Yeh prakriya **daylight** mein hoti hai, jab **sunlight** uplabdh hoti hai.\n* **Photosynthesis** ke bina, zindagi nahin ho sakti, kyunki yeh **oxygen** ka sabse bada srot hai.\nEk udaharan ke liye, **plants** jaise **trees** aur **grass** **photosynthesis** karte hain, aur humein **oxygen** dete hain. Recap: **Photosynthesis** ek prakriya hai jismein paudhe **sunlight** se **glucose** aur **oxygen** banate hain. Ab, aapko yeh sawal ka jawab dena hai: **Photosynthesis** ke liye **sunlight** ka kitna mahatva hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis"
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, **photosynthesis** ek aisa prakriya hai jismein paudhe, **chlorophyll** ka use karke, **sunlight**, **carbon dioxide**, aur **water** se **glucose** aur **oxygen** banate hain. Iske baare mein jaanne ke liye, yeh points dekhein: \n* Paudhe **chlorophyll** ka use karke **sunlight** ko absorb karte hain.\n* **Carbon dioxide** aur **water** ko **roots** aur **stomata** se lete hain.\n* **Sunlight** ki energy ka use karke, paudhe **glucose** aur **oxygen** banate hain.\n* **Glucose** paudhe ke liye **food** hoti hai, aur **oxygen** hamein milati hai.\n* Is prakriya mein, paudhe **sunlight** ki energy ko **chemical energy** mein badalte hain.\n* Yeh prakriya **day** mein hoti hai, jab **sunlight** uplabdh hoti hai.\nUdaharan ke liye, ek **plant** jo **sunlight** mein rakhi hai, woh **photosynthesis** karke **oxygen** release karti hai. Recap: **Photosynthesis** ek prakriya hai jismein paudhe **sunlight** se **glucose** aur **oxygen** banate hain. Ab, aap bataiye: **Chlorophyll** ka kya role hai **photosynthesis** mein?"
       }
     ],
     "assistant_state": "idle",
@@ -332,5 +349,2456 @@
     "source_id": null,
     "quiz_index": 0,
     "hands_free": false
+  },
+  "test-debug": {
+    "session_id": "test-debug",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh kuch is prakaar samjha ja sakta hai:\n* **Gravity** sabhi objects ko attract karti hai, chahe wo kitna bhi bada ya chota ho.\n* Yeh **force** hamein zameen par rakhti hai aur hamein girne se rokhti hai.\n* **Gravity** ki wajah se hi hum zameen par khade reh sakte hain.\n* **Earth** ki **gravity** humein zameen par rakhti hai, lekin **moon** ki **gravity** bhi hai, jo uske paani ko attract karti hai.\n* Ek **example** ke roop mein, jab aap ek **ball** ko upar fekhte hain, to woh **gravity** ki wajah se neeche aa jata hai.\nRecap: **Gravity** ek **natural force** hai jo humein zameen par rakhti hai. \nAb, aap bataiye, **gravity** ka asar **space** mein kaisa hota hai?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false
+  },
+  "test-session-default": {
+    "session_id": "test-session-default",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh kuch is prakaar samjha ja sakta hai:\n* **Gravity** sabhi objects ko attract karti hai, chahe wo kitna bhi bada ya chota ho.\n* Yeh **force** hamein zameen par rakhti hai aur humein upar ki aur nhin jaane deti.\n* **Gravity** ki wajah se hi hum zameen par khade rahte hain aur girte nhin hain.\n* Ek **example** ke roop mein, jab aap ek ball ko upar fekhte hain, to woh neeche aa jaata hai kyunki **gravity** usse attract karti hai.\n* **Gravity** ki wajah se hi humara **planet** apne **axis** par rotate karta hai.\n* **Gravity** ki wajah se hi hum **space** mein float nhin ho paate hain.\nRecap: **Gravity** ek **natural force** hai jo hamein zameen par rakhti hai. \nAb aap bataiye, **gravity** ka asar hamein kis tarah mehsoos hota hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh kuch is prakaar samjha ja sakta hai:\n* **Gravity** sabhi objects ko attract karti hai, chahe wo kitna bhi bada ya chota ho.\n* Yeh **force** hamein zameen par rakhti hai aur hamein upar ki taraf nahin jaane deti.\n* **Gravity** ki wajah se hi hamein apne pairon par khade rehne mein madad milti hai.\n* Yeh **force** hamein zameen par girti cheezon ko bhi samajhne mein madad karti hai, jaise ki ek **ball** ko upar fekne par woh neeche aa jaati hai.\n* **Gravity** ki wajah se hi hamein apne aas-paas ki duniya ko samajhne mein madad milti hai.\nEk udaharan ke liye, jab aap ek **pencil** ko hawa mein fekte hain, to woh neeche ki taraf girti hai, kyunki **gravity** usse zameen ki taraf kheenchti hai. Recap: **Gravity** hamein zameen par rakhti hai aur sabhi objects ko attract karti hai. Ab, aap bataiye, **gravity** ki wajah se hamein kya-kya cheezein samajhne mein madad milti hai?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "test-session-quiz": {
+    "session_id": "test-session-quiz",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on fractions"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ke baare mein jaanne ke liye, yeh 5 sawal hain: \n* **Fraction** ka matlab hota hai kisi bhi object ke hisse ko represent karna.\n* Fractions ko **numerator** aur **denominator** se banaya jaata hai, jahaan numerator hissa ko darshata hai aur denominator total hisson ko darshata hai.\n* Fractions ko **simplify** kiya ja sakta hai, jaise ki 2/4 ko 1/2 mein badla ja sakta hai.\n* Fractions ko **add** aur **subtract** kiya ja sakta hai, lekin unhein **common denominator** ke saath hi kiya ja sakta hai.\n* Fractions ko **real-life** mein bhi use kiya jaata hai, jaise ki recipe mein ingredients ko measure karna.\nUdaharan ke liye, agar aapke paas 1/2 cup flour hai, toh aap usse 1/4 cup aur 1/4 cup mein divide kar sakte hain.\nRecap: Fractions hamaare objects ke hisse ko represent karne ka ek tareeka hai.\nAapko yeh sawal karna hai: Ek fraction 3/4 ko simplify karne ka sahi tareeka kya hai?"
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on fractions"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ke baare mein jaanne ke liye, yeh 5 sawal hain: \n* **Fraction** ka matlab hota hai kisi bhi object ke hisse ko represent karna.\n* Fractions ko **numerator** aur **denominator** se banaya jata hai, jahaan numerator hissa ko darshata hai aur denominator total hisson ki sankhya ko darshata hai.\n* Udaaharan ke liye, 1/2 ek **fraction** hai jisme **numerator** 1 hai aur **denominator** 2 hai.\n* Fractions ko **add** aur **subtract** kiya ja sakta hai, lekin unhe **compare** karna bhi mahatvapoorn hai.\n* Fractions ke saath **equivalent ratios** banane ke liye, hum **numerator** aur **denominator** dono ko same **integer** se guna karte hain.\nEk udaharan hai: 1/2 ka **equivalent ratio** 2/4 hai. Recap: Fractions hamein object ke hisse ko represent karne mein madad karti hai. Aapko kya lagta hai, 3/4 aur 2/3 mein se kaun sa **fraction** bada hai?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "e2e-session": {
+    "session_id": "e2e-session",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "What is the pride of Haryana?"
+      },
+      {
+        "role": "assistant",
+        "content": "Haryana ki shaan **Murrah buffaloes** hai, jo 'black gold' ke naam se bhi jaani jaati hai. Yeh buffaloes Haryana mein paai jaati hai aur yeh rajya ki shaan maani jaati hai. Kuch mahatvapoorn baatein yeh hai:\n* Haryana **milk production** mein bahut aage hai.\n* **Murrah buffaloes** ki wajah se Haryana ko 'black gold' kaha jaata hai.\n* Haryana ke kisan **wheat**, **paddy**, aur **mustard** ki kheti karte hain.\n* Yeh buffaloes Haryana ki arthvyavastha mein bhi mahatvapoorn bhoomika nibhaati hai.\n* Haryana ke log **Murrah buffaloes** ko apna garv maante hain.\n* Inki dekhbhal aur paalan-poshan ke liye khas vyavastha ki jaati hai.\nEk udaharan ke liye, Haryana ke kisan **Murrah buffaloes** ko paalne ke liye vishesh dhyan dete hain, jisse unki milk production badh sake. Recap: Haryana ki shaan **Murrah buffaloes** hai. Aapko kya lagta hai, **Murrah buffaloes** ki kya visheshta hai jo unhein 'black gold' banati hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in detail"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein paudhe, **chlorophyll** ki madad se, **surya ki roshni**, **carbon dioxide**, aur **paani** ko **glucose** aur **oxygen** mein badalte hain. Yeh prakriya paudhon ke **patton** mein hoti hai. Kuch mahatvapoorn baatein is prakaar hain:\n* Paudhe **surya ki roshni** ko absorb karte hain aur use **energy** mein badalte hain.\n* **Carbon dioxide** aur **paani** ko **roots** aur **stomata** se uthaya jaata hai.\n* **Chlorophyll** surya ki roshni ko absorb karne mein madad karta hai.\n* **Glucose** paudhon ke liye **energy** ka srot hota hai, jabki **oxygen** hawa mein chhoda jaata hai.\n* Yeh prakriya **temperature**, **humidity**, aur **light** par nirbhar karti hai.\nEk udaharan ke liye, ek **ped** apne **patton** mein **chlorophyll** ki madad se **surya ki roshni** ko absorb karta hai aur **glucose** aur **oxygen** banata hai. Recap: Photosynthesis ek prakriya hai jismein paudhe surya ki roshni, carbon dioxide, aur paani ko glucose aur oxygen mein badalte hain. Ab, aap bataiye ki **chlorophyll** ki kya bhoomika hai photosynthesis mein?"
+      },
+      {
+        "role": "user",
+        "content": "What is the pride of Haryana?"
+      },
+      {
+        "role": "assistant",
+        "content": "Haryana ki shaan **Murrah buffaloes** hai, jo 'black gold' ke naam se bhi jaani jaati hai. Yeh buffaloes Haryana mein paai jaati hai aur yeh rajya ki shaan maani jaati hai. Kuch mahatvapoorn baatein:\n* Haryana mein **Murrah buffaloes** ki sankhya bahut adhik hai.\n* In buffaloes ki **doodh utpaadan** kshamta bahut adhik hai.\n* Haryana ke kisan **wheat**, **paddy**, aur **mustard** ki kheti karte hain.\n* **Murrah buffaloes** ki dekhbhal ke liye Haryana sarkar kai yojnayein chala rahi hai.\n* Haryana ki **krishi** aur **doodh utpaadan** mein **Murrah buffaloes** ka mahatvapoorn yogdan hai.\nEk udaharan ke roop mein, Haryana ke kisan **Murrah buffaloes** ki dekhbhal ke liye vishesh dhyan dete hain, jisse unki **doodh utpaadan** kshamta badh sake. Recap: Haryana ki shaan **Murrah buffaloes** hai. Aapko kya lagta hai, **Murrah buffaloes** ki dekhbhal ke liye kya kadam uthane chahiye?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in detail"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein paudhe, **chlorophyll** ki madad se, **surya ki roshni**, **carbon dioxide**, aur **paani** ko **glucose** aur **oxygen** mein badalte hain. Yeh prakriya ke kuch mahatvapoorn bindu is prakaar hain:\n* Paudhe **surya ki roshni** ko absorb karte hain aur use **urja** mein badalte hain.\n* **Carbon dioxide** aur **paani** ko paudhe ki **patiyon** mein se liya jata hai.\n* **Chlorophyll** ki madad se, paudhe **glucose** aur **oxygen** banaate hain.\n* **Glucose** paudhe ke liye **urja** ka srot hota hai, jabki **oxygen** hawa mein chhoda jata hai.\n* Yeh prakriya **paudhon** ke liye bahut mahatvapoorn hai, kyunki isse ve **bade** ho paate hain aur **phal** aur **phool** produce karte hain.\n* Ek udaharan ke roop mein, **ped** **surya ki roshni** ko absorb karte hain aur **oxygen** chhodate hain, jo **jivan** ke liye avashyak hai.\nPhotosynthesis ki ek **sankshipt** vyakhya yeh hai: Paudhe **surya ki roshni** ko **urja** mein badalte hain. Ab, aap bataiye, **photosynthesis** ki **prakriya** mein **chlorophyll** ka kya mahatv hai?"
+      },
+      {
+        "role": "user",
+        "content": "Create a 2 question quiz on Haryana buffaloes and farming"
+      },
+      {
+        "role": "assistant",
+        "content": "Haryana buffaloes aur farming ke baare mein humne kuch mahatvapoorn baatein seekhi hain. Yeh rahi kuch points: \n* Haryana **Murrah buffaloes** ki shaan hai, jo 'black gold' ke naam se bhi jaani jaati hai.\n* Yeh buffaloes Haryana mein paai jaati hai aur yeh rajya ki shaan maani jaati hai.\n* Haryana ke kisan **wheat**, **paddy**, aur **mustard** ki kheti karte hain.\n* Haryana ki **dudh utpaadan** bahut adhik hai.\n* **Murrah buffaloes** ki dudh utpaadan kshamta bahut adhik hai.\n* Haryana ki kheti mein **sarkar** ki bhi bahut madad milti hai.\nEk udaharan ke liye, Haryana mein **Murrah buffaloes** ki sankhya bahut adhik hai, jisse yeh rajya ki arthvyavastha mein bahut mahatvapoorn yogdan deti hai. Recap: Haryana buffaloes aur farming ki mahatvapoorn baatein seekhni chahiye. Ab, aapko yeh sawal poochna hai: Kyon Haryana **Murrah buffaloes** ki shaan maana jaata hai?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067": {
+    "session_id": "integration-test-1781847067",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Okay, chalo, **gravity** ke baare mein baat karte hain. Here are some key points about gravity: \n* **Gravity** is a fundamental force of nature that attracts two objects with mass towards each other.\n* The more massive the objects, the stronger the gravitational pull between them.\n* **Gravity** is responsible for keeping us on the ground and what makes things fall.\n* The Earth's **gravity** is what keeps the Moon in orbit around our planet.\n* **Gravity** is also what holds the atmosphere in place, so we can breathe.\n* For example, imagine throwing a ball up in the air - **gravity** pulls it back down to the ground.\n* Another example is the Earth's orbit around the Sun, which is also due to **gravity**.\nRecap: **Gravity** is a force that attracts objects with mass towards each other. \nNow, can you tell me, what would happen if there was no **gravity** on Earth?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's talk about **photosynthesis**. Here are some key points:\n* **Photosynthesis** is the process by which plants, algae, and some bacteria convert light energy from the sun into chemical energy in the form of **glucose**.\n* This process occurs in specialized organelles called **chloroplasts**, which contain the pigment **chlorophyll**.\n* **Chlorophyll** absorbs light energy from the sun, which is then used to convert **carbon dioxide** and **water** into **glucose** and **oxygen**.\n* The overall equation for **photosynthesis** is: 6 CO2 + 6 H2O + light energy → C6H12O6 (glucose) + 6 O2.\n* For example, imagine a plant growing in a garden, using **photosynthesis** to convert sunlight into energy to grow its leaves and roots.\n* **Photosynthesis** is essential for life on Earth, as it provides the energy and organic compounds needed to support the food chain.\nIn short, **photosynthesis** is the process by which plants use sunlight to produce energy. \nWhat do you think would happen to plants if they didn't have **chlorophyll** to absorb light energy?"
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's talk about **osmosis**. Here are some key points about osmosis:\n* **Osmosis** is the movement of water molecules from a region of high concentration to a region of low concentration through a partially permeable membrane.\n* This process helps to equalize the concentration of solutes on both sides of the membrane.\n* **Osmosis** is essential for various biological processes, such as the transport of nutrients and waste products in cells.\n* For example, when you put a raisin in a glass of water, the water molecules enter the raisin through **osmosis**, causing it to swell up.\n* **Osmosis** can occur in both plants and animals, and it plays a crucial role in maintaining the balance of fluids within cells.\n* The rate of **osmosis** depends on factors such as the concentration gradient and the surface area of the membrane.\nIn summary, **osmosis** is the movement of water molecules through a membrane to equalize solute concentrations. \nWhat do you think would happen if a cell were placed in a hypertonic solution, where the concentration of solutes is higher outside the cell than inside?"
+      },
+      {
+        "role": "user",
+        "content": "Explain the food chain in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's talk about **food chains**. Here are some key points:\n* A **food chain** is a series of events where one organism is eaten by another, with each level representing a different **trophic level**.\n* **Producers**, such as plants, form the base of the food chain, while **consumers**, like animals, feed on them.\n* **Decomposers**, like bacteria and fungi, break down dead organisms to release nutrients back into the ecosystem.\n* **Food chains** can be classified into different types, such as **grazing food chains** and **detritus food chains**.\n* For example, a simple food chain could be: **plants** (producers) → **insects** (primary consumers) → **frogs** (secondary consumers) → **snakes** (tertiary consumers).\n* **Food chains** help maintain the balance of an ecosystem by regulating the population sizes of different species.\nRecap: A food chain is a series of events where one organism is eaten by another, with each level representing a different trophic level. \nWhat would happen to a food chain if all the **producers** were to disappear?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's talk about **gravity**. Here are some key points:\n* **Gravity** is a fundamental force of nature that attracts two objects with mass towards each other.\n* The more massive the objects, the stronger the gravitational pull between them.\n* **Gravity** is responsible for keeping us on the ground and what makes things fall.\n* The Earth's **gravity** is what keeps the Moon in orbit around our planet.\n* **Gravity** is also what holds the atmosphere in place, keeping air from escaping into space.\n* For example, imagine throwing a ball upwards - **gravity** pulls it back down to the ground.\nRecap: **Gravity** is a force that attracts objects with mass towards each other. \nWhat do you think would happen if you were to throw a ball upwards on the Moon, where **gravity** is weaker than on Earth?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-hi": {
+    "session_id": "integration-test-1781847067-hi",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Gravity explain karo simple mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh humein aur sabhi objects ko ek dusre ki aur kheenchti hai. Yeh concept samajhne ke liye, yeh points dekhein:\n* Gravity **mass** par nirbhar karti hai, jiske kaaran bade objects chhote objects ko apni aur kheenchte hain.\n* **Earth** ki gravity humein zameen par rakhti hai, jiske kaaran hum udte nahi hain.\n* Gravity **distance** par bhi nirbhar karti hai, jiske kaaran do objects ke beech ki duri badhne par gravity kam ho jati hai.\n* **Gravitational force** ko sirf objects ke beech mehsoos kiya ja sakta hai, hum isey dekhn ya sunn nahi sakte.\n* Ek **example** ke roop mein, jab aap kisi cheez ko upar fekhte hain, toh woh neeche aa jaati hai kyunki earth ki gravity ussey apni aur kheenchti hai.\nRecap: Gravity ek natural force hai jo humein aur sabhi objects ko ek dusre ki aur kheenchti hai. \nAb, aap bataiye, agar aap **moon** par hote, toh aapko gravity ka anubhav kaisa hoga?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-quiz": {
+    "session_id": "integration-test-1781847067-quiz",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Here are 5 questions to test your understanding of **photosynthesis**:\n* What is the main function of **chlorophyll** in plants?\n* Which part of the plant cell is responsible for **photosynthesis**?\n* What are the by-products of **photosynthesis**?\n* What is the role of **light energy** in **photosynthesis**?\n* How do plants release **oxygen** during **photosynthesis**?\nExample: Plants use **carbon dioxide** and **water** to produce **glucose** and **oxygen** through **photosynthesis**.\nRecap: **Photosynthesis** is the process by which plants convert **light energy** into chemical energy.\nWhat is the importance of **water** in the process of **photosynthesis**?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-src": {
+    "session_id": "integration-test-1781847067-src",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh cheezen ko ek dusre ki aur kheenchti hai. Iske bare mein kuch points yeh hain:\n* Gravity **mass** par nirbhar karti hai, jiske kaaran bade pind jaise ki **Earth** choti cheezon ko apni aur kheenchte hain.\n* Yeh **force** hamein zameen par rakhti hai aur humein udne nahin deti.\n* Gravity ki **intensity** alag-alag jagah par alag hoti hai, jaise ki **Moon** par gravity kaamzor hoti hai.\n* Iska **example** hai ki jab aap koi cheez upar fekte hain, toh woh neeche aa jaati hai.\n* Gravity ki wajah se hi **planets** apne **orbits** mein rehte hain.\n* Yeh **universal force** hai, jo har jagah par kaam karti hai.\nEk **example** ke liye, agar aap ek **ball** ko upar fekte hain, toh woh neeche aa jaayegi kyunki gravity usse zameen ki aur kheench rahi hoti hai. Recap: Gravity ek **natural force** hai jo cheezen ko ek dusre ki aur kheenchti hai. Aapko yeh samajh aaya ki gravity kya hoti hai? Ab ek sawal: Agar aap **Moon** par hote, toh aapki **weight** kaise badlegi?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "sess-cmd-1781847207": {
+    "session_id": "sess-cmd-1781847207",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, gravity ko samajhne ke liye, yeh points dekho: \n* **Gravity** is a fundamental force of nature that attracts two objects with mass towards each other.\n* Is force ki wajah se, hum zameen par khade reh paate hain, aur planets apne orbits mein rehte hain.\n* For example, Earth's gravity pulls us towards its center, that's why we don't float off into space.\n* **Mass** and **distance** are key factors in determining the strength of gravity between two objects.\n* Gravity is also responsible for holding galaxies together and governing the motion of celestial bodies.\n* Sir Isaac Newton first described gravity with his **law of universal gravitation**.\n* Toh, gravity ek aisi shakti hai jo humein apni jagah par rakhti hai, aur humein apne aas-paas ki duniya ko samajhne mein madad karti hai.\nRecap: Gravity is a force that attracts objects with mass towards each other. \nAb, tumhe yeh sawal ka jawab dena hai: What would happen if the Earth's gravity suddenly stopped working?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-cell": {
+    "session_id": "integration-test-1781847067-cell",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain cell division in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Cell division ek bahut hi mahatvapoorn prakriya hai jismein ek cell do naye cells mein vibhajit hoti hai. Iske kuch mahatvapoorn bindu is prakaar hain:\n* **Interphase**: Ismein cell apne aap ko taiyaar karta hai aur DNA ko duplicate karta hai.\n* **Prophase**: Ismein chromatin **condense** ho jaata hai aur **centrioles** alag ho jaate hain.\n* **Metaphase**: Ismein **chromosomes** ek **metaphase plate** par sankhya hoti hain.\n* **Anaphase**: Ismein **sister chromatids** alag ho jaati hain aur opposite poles par jaati hain.\n* **Telophase**: Ismein nuclear envelope phir se ban jaata hai aur **cytokinesis** shuru ho jaata hai.\n* **Cytokinesis**: Ismein cell do naye cells mein vibhajit hoti hai.\nUdaharan ke liye, jab humare sharir mein naye cells ki aavashyakta hoti hai, toh cell division hoti hai. Recap: Cell division ek prakriya hai jismein ek cell do naye cells mein vibhajit hoti hai. Ab, aap bataiye ki cell division ke kitne **phases** hote hain?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-evap": {
+    "session_id": "integration-test-1781847067-evap",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain evaporation in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Evaporation is a **key process** that occurs when a liquid transforms into a gas or vapor. Here are some key points about evaporation:\n* Evaporation happens when the temperature and humidity levels are **just right**.\n* It occurs on the surface of the liquid, where the molecules have enough **energy** to escape into the air.\n* The rate of evaporation depends on factors like **temperature**, **humidity**, and **wind speed**.\n* For example, when you leave a cup of water outside on a **hot day**, you'll notice that the water level decreases over time due to evaporation.\n* Evaporation is an important part of the **water cycle**, as it helps to distribute water around the planet.\n* It's also a key process in many industrial applications, such as **desalination** and **distillation**.\nTo summarize, evaporation is the process by which a liquid transforms into a gas or vapor. \nWhat do you think would happen to the rate of evaporation if the **temperature** were to increase?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-grav": {
+    "session_id": "integration-test-1781847067-grav",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Quiz on gravity 5 questions English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's start your gravity quiz with 5 questions in English. Here's how it will work:\n* I'll ask you a question, and you try to answer it.\n* If you need help or want to ask for a hint, just let me know.\n* We'll go through all 5 questions one by one.\n* At the end, we'll review your answers and discuss any topics you need more practice on.\n* For example, **gravity** is a force that pulls objects towards each other, like the Earth and a ball.\nHere's a quick recap: Gravity is a **universal force** that affects everything with mass or weight. \nWhat is the first thing that comes to mind when you hear the word **gravity**?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-ph": {
+    "session_id": "integration-test-1781847067-ph",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Photosynthesis kya hoti hai?"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-av": {
+    "session_id": "integration-test-1781847067-av",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain water cycle in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Water cycle, yaani **hydrologic cycle**, ek prakriya hai jismein paani dharti par, vaayumandal mein, aur jal strot mein sanchar karta hai. Ismein nimnalikhit charan hote hain:\n* **Evaporation**: Surya ki garmi se paani vaashp mein badal jaata hai.\n* **Condensation**: Vaashp thanda hokar **clouds** mein badal jaata hai.\n* **Precipitation**: Clouds se paani **rain** ya **snow** ke roop mein girta hai.\n* **Runoff**: Paani dharti par girkar nadiyon, jheelon mein chala jaata hai.\n* **Infiltration**: Paani dharti mein simak jaata hai aur **groundwater** ban jaata hai.\n* **Transpiration**: Paudhe paani ko vaashp mein badal dete hain.\nUdaharan ke liye, jab surya ki garmi se samudra ka paani vaashp mein badal jaata hai, to yeh vaashp cloud ban jaata hai aur phir **rain** ke roop mein girta hai. Water cycle ka ek saral saar hai: paani ka sanchar dharti par, vaayumandal mein, aur jal strot mein. Kya aap bata sakte hain ki **evaporation** ka kya mahatva hai water cycle mein?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-ns": {
+    "session_id": "integration-test-1781847067-ns",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "xkzqmwbvqp"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-flow": {
+    "session_id": "integration-test-1781847067-flow",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Quiz on gravity 3 questions English"
+      },
+      {
+        "role": "assistant",
+        "content": "Abhi hum **Gravity** ke baare mein 3 questions puchenge. Yeh questions aapko **Gravity** ke concepts ko samajhne mein madad karenge. \n    * **Gravity** ka matlab hota hai Prithvi ki jalawaatmak shakti jo hamein zameen par rakhti hai.\n    * **Gravity** ki wajah se hi hum zameen par khade rahte hain aur cheezein upar nahin uthti.\n    * **Gravity** ki taakat alag-alag jagah par alag-alag hoti hai, jaise ki **Moon** par **Gravity** ka prabhav kam hota hai.\n    * **Gravity** ke kaaran hi paani neeche ki aur beheta hai, jaise ki nadiyon mein.\n    * **Gravity** ki taakat ko **Sir Isaac Newton** ne pehli baar samjha tha.\n    * **Gravity** ke baare mein humein yeh yaad rakhna chahiye ki yeh hamesha neeche ki aur karta hai.\n    Ek example ke liye, yadi aap ek **ball** ko upar fekhte hain, to woh **Gravity** ke kaaran neeche aati hai. Recap: **Gravity** hai Prithvi ki shakti jo humein zameen par rakhti hai. Ab aapko yeh sawal puchhta hoon: Agar aap **Moon** par hote, to kya aapko **Gravity** ka prabhav utna hi mehsoos hoga jaise ki Prithvi par?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity is a fundamental force of nature that attracts two objects with mass towards each other. Here are some key points about gravity:\n* Gravity is a universal force that affects everything with mass or energy.\n* The strength of gravity depends on the mass of the objects and the distance between them.\n* Gravity is what keeps us and objects on the ground, and what makes things fall.\n* The Earth's gravity is what keeps the atmosphere and oceans in place.\n* Gravity is also responsible for the formation of galaxies and the motion of planets.\n* For example, when you drop a ball, gravity pulls it towards the ground, and when you throw a ball upwards, gravity pulls it back down.\nRecap: Gravity is a force that attracts objects with mass towards each other. \nWhat would happen if there was no gravity on Earth?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-empty": {
+    "session_id": "integration-test-1781847067-empty",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Tell me about quantum string theory"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-c2": {
+    "session_id": "integration-test-1781847067-c2",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Quiz on photosynthesis English"
+      },
+      {
+        "role": "assistant",
+        "content": "Chalo, photosynthesis ke baare mein thodi quiz karte hain. Yeh kuch important points hain: \n* **Photosynthesis** ka matlab hai plants ke andar **light energy** ko **chemical energy** mein badalna.\n* Ismein **chlorophyll** ka bahut bada role hota hai, jo ki plants ke **leaves** mein paya jata hai.\n* **Carbon dioxide** aur **water** ko **glucose** aur **oxygen** mein badalne ke liye **sunlight** ki zarurat hoti hai.\n* Yeh process **plant cells** ke **chloroplasts** mein hota hai.\n* **Oxygen** jo is process mein release hoti hai, woh humare liye bahut zaruri hai.\n* **Glucose** jo banati hai, woh plant ke growth ke liye zaruri hai.\nExample ke liye, ek **tree** apne **leaves** se **carbon dioxide** absorb karta hai aur **oxygen** release karta hai. Recap: Photosynthesis mein plants **light energy** ko **chemical energy** mein badal deti hain. Ab, ek question: Plants ke **leaves** mein **chlorophyll** kya kaam karta hai?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781847067-c1": {
+    "session_id": "integration-test-1781847067-c1",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh cheezen ko ek dusre ki aur kheenchti hai. Yeh kuch points hain jo gravity ko samajhne mein madad karte hain:\n* Gravity **mass** par nirbhar karti hai, jiske kaaran badi cheezen zyada gravity produce karti hain.\n* Gravity **distance** par bhi nirbhar karti hai, jiske kaaran do cheezen jo zyada dur hoti hain, unke beech gravity kam hoti hai.\n* **Earth** ki gravity humein zameen par rakhti hai.\n* Gravity **everything** ko affect karti hai, chahe wo koi bhi cheez ho.\n* Gravity ki wajah se **objects** neeche ki aur girti hain.\n* Gravity **planets** ko apne **orbits** mein rakhti hai.\nExample: Jab aap koi ball upar fekte hain, to wo neeche ki aur girta hai kyunki earth ki gravity usse neeche ki aur kheenchti hai. Recap: Gravity ek natural force hai jo cheezen ko ek dusre ki aur kheenchti hai. Follow-up question: Agar aap moon par hote, to kya aapko wahan gravity ka anubhav hoga, aur kyun?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-en": {
+    "session_id": "pipe-en",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **gravitation** kehte hain, jo hamein zameen par rakhti hai. Yeh ek **natural force** hai jo hamein aur sabhi cheezon ko apni ore kheenchti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain:\n* **Gravity** sabhi **objects** par kaam karti hai, chahe wo kitna bhi bada ya chhota ho.\n* Yeh **force** hamein zameen par rakhti hai aur humein upar ki ore jaane se rokhti hai.\n* **Gravity** ki wajah se hi hum zameen par khade reh sakte hain aur cheezein zameen par girti hain.\n* **Gravity** ki taakat alag-alag **objects** ke liye alag hoti hai, jaise ki zameen ki **gravity** chaand ki **gravity** se zyada hai.\n* Ek **example** ke roop mein, agar aap kisi cheez ko upar ki ore fekhte hain, to woh **gravity** ki wajah se neeche aa jaati hai.\nRecap: **Gravity** ek **natural force** hai jo hamein aur sabhi cheezon ko apni ore kheenchti hai. \nAb aap bataiye, **gravity** ki wajah se hum zameen par kyun reh sakte hain?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **gravitation** kehte hain, jo hamein zameen par rakhti hai. Yeh ek **natural force** hai jo hamein aur sabhi cheezon ko apni ore kheenchti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain:\n* Gravity **mass** par nirbhar karta hai, jiske kaaran bade pind jaise ki zameen humein apni ore kheenchte hain.\n* Gravity **distance** par bhi nirbhar karta hai, jiske kaaran do pind jo ek doosre ke paas hote hain, unke beech gravity ka bal zyada hota hai.\n* Gravity **universal** hai, jiske kaaran yeh sabhi pindon par kaam karti hai, chahe wo koi bhi ho.\n* Gravity **invisible** hai, jiske kaaran hum ise dekh nahi sakte, lekin hum iske prabhav ko mehsoos kar sakte hain.\n* Ek **example** ke roop mein, jab hum koi cheez zameen par giraate hain, to woh zameen par girti hai, kyunki zameen ki gravity us cheez ko apni ore kheenchti hai.\nRecap: Gravity ek **natural force** hai jo hamein zameen par rakhti hai. \nAapko kya lagta hai, agar hum zameen se bahut upar chale jaayein, to kya gravity ka prabhav kam ho jayega?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **gravitation** kehte hain, jo hamein zameen par rakhti hai. Yeh ek **natural force** hai jo hamein aur sabhi cheezon ko apni ore kheenchti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain ki yeh **mass** aur **distance** par nirbhar karti hai, aur yeh hamein zameen par rakhti hai."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **invisible force** hai jo do objects ko ek dusre ki taraf kheenchti hai. Simple words mein, yeh woh **attraction** hai jiski wajah se har cheez zameen ki taraf girti hai. Jitna zyada kisi object ka **mass** (vajan) hoga, utni hi strong uski gravity hogi."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-hing": {
+    "session_id": "pipe-hing",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Gravity explain karo simple mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **gravitation** ka ek bahut hi mahatvapoorna concept hai. Yeh humein neeche ki taraf kheenchta hai, jisse hum zameen par khade reh sakte hain. Yeh kuch is prakaar hai:\n* **Gravity** hamein zameen par rakhti hai\n* Yeh **mass** ke beech ki **akarshan** ki shakti hai\n* **Prithvi** ki **gravity** humein neeche ki taraf kheenchti hai\n* **Chandrama** ki **gravity** bhi hai, lekin woh **prithvi** ki **gravity** se kamzor hai\n* **Gravity** ke kaaran hi **pani** neeche ki taraf bahta hai\nUdaaharan ke liye, jab aap ek **ball** ko upar fekhte hain, to woh neeche ki taraf aati hai kyunki **prithvi** ki **gravity** use kheenchti hai. Ek line mein, **gravity** hamein **zameen** par rakhti hai aur **mass** ke beech ki **akarshan** ki shakti hai. Aapko kya lagta hai, **gravity** ka asar **antariksh** mein bhi hota hai ya nahi?"
+      },
+      {
+        "role": "user",
+        "content": "Gravity explain karo simple mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **gravitation** ka ek bahut hi mahatvapoorna concept hai. Yeh humein neeche ki taraf kheenchta hai, jisse hum zameen par khade reh sakte hain. Yeh kuch is prakaar hai:\n* **Gravity** hamein zameen par rakhti hai, jisse hum udte nahi hain.\n* **Gravitational force** hamein do objects ke beech mein hoti hai, jo unhein ek doosre ki taraf kheenchti hai.\n* **Earth** ki **gravity** humein zameen par rakhti hai, jisse hum safe reh sakte hain.\n* **Gravity** ka **mass** aur **distance** par bhi asar padta hai, jisse yeh alag-alag objects par alag-alag hoti hai.\n* **Gravity** ki wajah se hi hum **water** ko upar ki taraf nahi dekh paate, woh neeche ki taraf hi rehta hai.\nEk example ke liye, jab aap koi **ball** upar ki taraf fekte hain, to woh neeche ki taraf aati hai, kyunki **gravity** ushe zameen ki taraf kheenchti hai. Recap: **Gravity** humein neeche ki taraf kheenchti hai. Ab, aap bataiye, **gravity** ka asar **space** mein kaisa hota hai?"
+      },
+      {
+        "role": "user",
+        "content": "Gravity explain karo simple mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **gravity** ya **gravitation** ka concept bahut hi simple hai. Yeh humein neeche ki taraf kheenchta hai, jisse hum zameen par khade reh sakte hain. **Gravity** ek prakaar ki **force** hai jo hamein aur sabhi cheezon ko apni aur kheenchti hai."
+      },
+      {
+        "role": "user",
+        "content": "Gravity explain karo simple mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **invisible force** hai jo do objects ko ek doosre ki taraf kheenchti hai. Simple words mein, yeh ek **attraction force** hai. Sabse bada example hamari **Earth** hai, jo humein aur hamare aas-paas ki har cheez ko apne center ki taraf kheenchti hai, isliye hum hawa mein nahi udte!"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-hindi": {
+    "session_id": "pipe-hindi",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in Hindi"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **गुरुत्वाकर्षण** ek **bal** hai jo hamein zameen par rakhti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain:\n* Gravity **prithvi** ke **dharshan** ke karan hoti hai.\n* Yeh **bal** hamein aur sabhi **padarthon** ko prithvi ki ore kheenchti hai.\n* Gravity **sabhi jagah** par kaam karti hai, chahe hum **zameen** par hon ya **hawa** mein.\n* Iski **taakat** **duri** ke saath kam hoti hai.\n* Ek **udaaharan** ke roop mein, jab aap ek **ball** ko upar fekhte hain, to woh **neechey** aa jaati hai kyunki gravity usse zameen ki ore kheenchti hai.\n* Gravity **humein surakshit** rakhti hai aur hamein **zameen** par rakhti hai.\nRecap: Gravity **humein zameen** par rakhti hai. \nAapko yeh pata hai ki gravity **kitni** mahatvapoorn hai?,"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in Hindi"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **गुरुत्वाकर्षण** ek **bal** hai jo hamein zameen par rakhti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain:\n* Gravity **prithvi** ke **dharshan** ke karan hoti hai.\n* Yeh **bal** humein aur sabhi **objects** ko zameen par giraati hai.\n* **Prithvi** ki **gravity** humein apni **orbit** mein rakhti hai.\n* **Gravity** ki **taakat** **mass** aur **distance** par nirbhar karti hai.\n* Ek **example** ke roop mein, jab aap ek **ball** ko upar fekhte hain, to woh **gravity** ke karan neeche aa jaati hai.\n* **Gravity** ki **mahatva** hamein hamaare **daily life** mein bhi dikhai deti hai, jaise ki hamein apne **pair** zameen par rakhte hain.\nRecap: Gravity **गुरुत्वाकर्षण** ek **bal** hai jo hamein zameen par rakhti hai. \nAapko kya lagta hai, **gravity** kis tarah se **space** mein kaam karti hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in Hindi"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity **गुरुत्वाकर्षण** ek **bal** hai jo hamein zameen par rakhti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain: Gravity **prithvi** ke **dharshan** ke karan hoti hai, aur yeh **bal** humein aur sabhi cheezon ko apni or kheenchti hai. **गुरुत्वाकर्षण** ke karan hi hum zameen par khade rahte hain aur cheezein zameen par girti hain."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in Hindi"
+      },
+      {
+        "role": "assistant",
+        "content": "नमस्ते! **गुरुत्वाकर्षण (Gravity)** वह अदृश्य बल है जो दो वस्तुओं को एक-दूसरे की ओर खींचता है। सरल शब्दों में, यह वह **आकर्षण बल** है जिसकी वजह से पृथ्वी हर चीज़ को अपने केंद्र की ओर खींचती है, जिससे हम हवा में नहीं उड़ते बल्कि ज़मीन पर टिके रहते हैं।"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hindi",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "c38ac0a5-35bc-4a21-b215-6c69365bdcde": {
+    "session_id": "c38ac0a5-35bc-4a21-b215-6c69365bdcde",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "explain light"
+      },
+      {
+        "role": "assistant",
+        "content": "Prakash ek **urja** hai jo humein dekhne mein madad karti hai. Yeh kai tarah se utpann hoti hai, jaise ki **surya** se, **bulb** se, ya **agni** se. Prakash ki **gati** hawa mein lagbhag 300,000 kilometer per second hoti hai. Prakash ke **rang** alag-alag hote hain, jaise ki **lal**, **neela**, aur **haraa**. Prakash ki **tarangdairdhya** alag-alag hoti hai, jisse hum alag-alag rang dekhte hain. Udaharan ke liye, jab **surya** ki **kiranein** **paani** par padti hain, to hum **indradhanush** dekhte hain. Prakash ki samajh karne ka **sankshipt** recap hai: Prakash ek urja hai jo humein dekhne mein madad karti hai. Ab, aap bataiye, **prakash** ki **gati** kya hoti hai hawa mein?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-quiz": {
+    "session_id": "pipe-quiz",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Fractions ka quiz banao 5 questions mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ka quiz banaane ke liye, main aapko 5 sawal puchunga. Yeh sawal aapko **fractions** ke concept ko samajhne mein madad karenge. Yeh rahi 5 sawalon ki list:\n* **Fraction** kya hoti hai? Udaharan: 1/2\n* **Equivalent fractions** kya hote hain? Udaharan: 1/2 = 2/4\n* **Fraction** ko **decimal** mein kaise badalte hain? Udaharan: 1/2 = 0.5\n* **Fraction** ko **percentage** mein kaise badalte hain? Udaharan: 1/2 = 50%\n* **Fraction** ka **simplification** kya hota hai? Udaharan: 2/4 = 1/2\nEk example ke saath samjhate hain: agar aapke paas 1/4 cake hai, toh aap usse 2/8 mein kaise badlenge? Recap: Fractions hamein **part-to-whole** ki comparison karne mein madad karti hai. Aapko yeh sawal kaise lagte hain? Kya aap **fractions** ko **add** karna seekhna chahte hain?"
+      },
+      {
+        "role": "user",
+        "content": "Fractions ka quiz banao 5 questions mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ka quiz banaane ke liye, main aapko 5 sawal puchunga. Yeh sawal aapko **fractions** ke concept ko samajhne mein madad karenge. Yeh rahi 5 sawalon ki list:\n* **Fraction** kya hoti hai? \n* **Numerator** aur **denominator** kya hote hain?\n* **Equivalent fractions** kaise banaye jate hain?\n* **Fractions** ko **decimal** mein kaise badalte hain?\n* **Fractions** ko **percentage** mein kaise badalte hain?\nUdaharan ke liye, **1/2** ek **fraction** hai jisme **1** **numerator** hai aur **2** **denominator** hai. Recap: **Fractions** ko samajhne ke liye **numerator** aur **denominator** ko samajhna zaroori hai. Ab aapko ek sawal: **1/4** aur **1/6** ke beech ka **fraction** kya hoga?"
+      },
+      {
+        "role": "user",
+        "content": "Fractions ka quiz banao 5 questions mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **fractions** ke bare mein jaanne ke liye, humein pehle yeh samajhna hoga ki **fraction** kya hoti hai. **Fraction** ek **numerator** aur ek **denominator** se bani hoti hai, jismein **numerator** neeche aur **denominator** upar hota hai. Ab, main aapko 5 sawal puchunga jo aapko **fractions** ke concept ko samajhne mein madad karenge."
+      },
+      {
+        "role": "user",
+        "content": "Fractions ka quiz banao 5 questions mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Zaroor! Chalo dekhte hain ki aapko **Fractions** kitne ache se samajh aaye hain. Main aapse **5 questions** puchunga. Aap ek-ek karke answer dena, aur main aapko bataunga ki woh sahi hai ya nahi. All the best! 😊"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-switch": {
+    "session_id": "pipe-switch",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Bachon ko photosynthesis explain karo, focus on chlorophyll"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein paudhe, **chlorophyll** ka use karke, **sooraj ki roshni**, **carbon dioxide**, aur **paani** se **glucose** aur **oxygen** banate hain. Iske main points yeh hain:\n* Paudhe **chlorophyll** ko use karte hain sooraj ki roshni ko absorb karne ke liye.\n* **Carbon dioxide** aur **paani** ki madad se paudhe **glucose** banate hain.\n* Is prakriya mein **oxygen** bhi release hoti hai.\n* **Chlorophyll** paudhon ke **patton** mein payi jati hai.\n* **Photosynthesis** ke bina zindagi nahin ho sakti, kyunki yeh **oxygen** ka sabse bada source hai.\n* **Glucose** paudhon ke liye **urja** ka source hai.\nEk example ke roop mein, **paudhe** apne **patton** mein **chlorophyll** ka use karke **sooraj ki roshni** ko absorb karte hain aur **photosynthesis** ki prakriya ko poora karte hain. Recap: **Photosynthesis** ek prakriya hai jismein paudhe **chlorophyll** ka use karke **sooraj ki roshni**, **carbon dioxide**, aur **paani** se **glucose** aur **oxygen** banate hain. Ab, aap bataiye ki **chlorophyll** ka kya role hai **photosynthesis** mein?"
+      },
+      {
+        "role": "user",
+        "content": "Bachon ko photosynthesis explain karo, focus on chlorophyll"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein paudhe, **chlorophyll** ka use karke, **sooraj ki roshni**, **carbon dioxide**, aur **paani** se **glucose** aur **oxygen** banate hain. Iske main points yeh hain:\n* Paudhe **chlorophyll** ko **sooraj ki roshni** mein absorb karne ke liye use karte hain.\n* **Carbon dioxide** aur **paani** ko **roots** aur **stomata** se lete hain.\n* **Chlorophyll** ki madad se, paudhe **glucose** aur **oxygen** banate hain.\n* **Glucose** paudhe ke liye **urja** ka srot hota hai, jabki **oxygen** hamein milta hai.\n* **Chlorophyll** ki wajah se paudhe **haray** rang ke dikhayi dete hain.\n* Is prakriya mein **sooraj ki roshni** ki avashyakta hoti hai, isliye yeh din ke samay jyada hoti hai.\nEk example ke roop mein, **paudhe** apne **patton** mein **chlorophyll** ko use karke **sooraj ki roshni** se **urja** prapt karte hain. Recap: Photosynthesis ek prakriya hai jismein paudhe **chlorophyll** ka use karke **glucose** aur **oxygen** banate hain. Ab, tumhein yeh batao: **Chlorophyll** ka kaam kya hai?"
+      },
+      {
+        "role": "user",
+        "content": "Bachon ko photosynthesis explain karo, focus on chlorophyll"
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, **photosynthesis** ek bahut hi mahatvapoorn **prakriya** hai jismein paudhe, **chlorophyll** ka use karke, **sooraj ki roshni**, **carbon dioxide**, aur **paani** se **glucose** aur **oxygen** banate hain. **Chlorophyll** ek **harit varnak** hai jo paudhon ke **patton** mein paya jata hai aur yeh **sooraj ki roshni** ko avshoshit karne mein madad karta hai."
+      },
+      {
+        "role": "user",
+        "content": "Bachon ko photosynthesis explain karo, focus on chlorophyll"
+      },
+      {
+        "role": "assistant",
+        "content": "Bachon, **photosynthesis** woh magic process hai jiske zariye plants apna khana banate hain. Is poore process ka sabse important part hai **chlorophyll**, jo ek green pigment hota hai. Chlorophyll ka kaam hai **sunlight** ko capture karna, taaki plant energy produce kar sake. Bina chlorophyll ke, paudhe sooraj ki roshni ko use nahi kar paayenge aur khana nahi bana paayenge."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-slang": {
+    "session_id": "pipe-slang",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Yaar gravity kya hoti hai thoda easy mein bata"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Yaar gravity kya hoti hai thoda easy mein bata"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Yaar gravity kya hoti hai thoda easy mein bata"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Yaar gravity kya hoti hai thoda easy mein bata"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-rt": {
+    "session_id": "pipe-rt",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Tell me about the water cycle"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Tell me about the water cycle"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Tell me about the water cycle"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Tell me about the water cycle"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "pipe-lm": {
+    "session_id": "pipe-lm",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain mitosis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Mitosis ek **cell division** ka process hai jisme ek cell do identical cells mein divide hoti hai. Isme kai steps hote hain:\n* **Interphase**: Cell growth aur DNA replication hoti hai\n* **Prophase**: Chromatin **chromosomes** mein badal jaati hai\n* **Metaphase**: Chromosomes **metaphase plate** par align hote hain\n* **Anaphase**: Sister chromosomes alag hote hain\n* **Telophase**: Nuclear envelope reform hota hai\n* **Cytokinesis**: Cytoplasm divide hota hai, jisse do new cells banti hain\nExample: Human body mein mitosis skin cells, blood cells, aur hair follicles mein hoti hai. Recap: Mitosis ek process hai jisme ek cell do identical cells mein divide hoti hai. Kya aap bata sakte hain ki mitosis ka **chromosomes** ke replication se kya sambandh hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain mitosis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Mitosis is a **cell division** process where one cell divides into two identical cells. The key steps are:\n* **Interphase**: Cell growth and **DNA replication** occur\n* **Prophase**: Chromatin condenses into **chromosomes**\n* **Metaphase**: Chromosomes align at the cell's center\n* **Anaphase**: Sister chromatids separate\n* **Telophase**: Nuclear envelope reforms\n* **Cytokinesis**: Cytoplasm divides, and cells split. For example, when a skin cell is damaged, it can undergo mitosis to replace itself. In short, mitosis is a process of cell division that results in two genetically identical daughter cells. What is the main purpose of **prophase** in the mitosis process?"
+      },
+      {
+        "role": "user",
+        "content": "Explain mitosis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Mitosis is a **cell division** process where one cell divides into two identical cells. This process is essential for growth, repair, and asexual reproduction in eukaryotic cells. During mitosis, the **DNA** is replicated, and the **chromosomes** are divided equally between the two daughter cells. The process involves several stages, including **interphase**, **prophase**, **metaphase**, **anaphase**, and **telophase**. Understanding mitosis is crucial in biology, as it helps us understand how living organisms grow and develop."
+      },
+      {
+        "role": "user",
+        "content": "Explain mitosis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Mitosis is a type of **cell division** where a single parent cell divides to produce two **genetically identical** daughter cells. This process is crucial for the **growth** of your body and the **repair** of damaged tissues. It ensures that every new cell has the exact same number of chromosomes as the original cell."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-simp": {
+    "session_id": "qual-simp",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Photosynthesis explain karo Hinglish mein class 8 ke liye"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein **paudhe** suraj ki **roshni**, **carbon dioxide**, aur **paani** ka upyog karke **glucose** aur **oxygen** banate hain. Iske main points yeh hain:\n* Paudhe suraj ki roshni ko absorb karte hain.\n* Carbon dioxide aur paani ko **mool** se absorb karte hain.\n* **Chlorophyll** ki madad se glucose aur oxygen banate hain.\n* Glucose ka upyog paudhe apne **vikaas** ke liye karte hain.\n* Oxygen **vaayumandal** mein chhodi jati hai.\n* Is prakriya mein **urja** ka **roopantaran** hota hai. \nUdaharan ke liye, ek **ped** jo suraj ki roshni mein khada hai, woh photosynthesis ke dwara apna **bhojan** bana sakta hai. Recap: Photosynthesis ek prakriya hai jismein paudhe suraj ki roshni, carbon dioxide, aur paani se glucose aur oxygen banate hain. Ab, aap bataiye ki **chlorophyll** ka kya **mahatva** hai photosynthesis mein?"
+      },
+      {
+        "role": "user",
+        "content": "Photosynthesis explain karo Hinglish mein class 8 ke liye"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein **paudhe** suraj ki **roshni**, **carbon dioxide**, aur **paani** ka upyog karke **glucose** aur **oxygen** banate hain. Iske main points yeh hain:\n* Paudhe suraj ki roshni ko absorb karte hain.\n* Carbon dioxide aur paani ko **mool** se absorb karte hain.\n* **Chlorophyll** ki madad se glucose aur oxygen banate hain.\n* Glucose ka upyog paudhe apne **vikaas** ke liye karte hain.\n* Oxygen **vaayumandal** mein chhodi jaati hai, jo humein saans lene ke liye milati hai.\n* Udaharan ke liye, **neem** ka paudha suraj ki roshni mein khada ho kar photosynthesis karta hai.\nRecap: Photosynthesis ek prakriya hai jismein paudhe suraj ki roshni, carbon dioxide, aur paani se glucose aur oxygen banate hain.\nAapko kya lagta hai, **chlorophyll** ki kya **bhumika** hai photosynthesis mein?"
+      },
+      {
+        "role": "user",
+        "content": "Photosynthesis explain karo Hinglish mein class 8 ke liye"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **prakriya** hai jismein **paudhe** suraj ki **roshni**, **carbon dioxide**, aur **paani** ka upyog karke **glucose** aur **oxygen** banate hain. Ismein **chlorophyll** ka bhi bahut mahatv hai, jo **paudhon** ke **patton** mein paya jata hai. Yeh **prakriya** humare **jivan** ke liye bahut zaruri hai, kyunki isse humein **oxygen** milti hai, jo hum **sans** lene ke liye use karte hain."
+      },
+      {
+        "role": "user",
+        "content": "Photosynthesis explain karo Hinglish mein class 8 ke liye"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek aisi **biological process** hai jiske zariye **green plants** apna khana khud banate hain. Is process mein plants **sunlight**, **water**, aur **carbon dioxide** ka use karke **glucose** (energy) aur **oxygen** produce karte hain. Yeh process plants ke leaves mein hota hai kyunki wahan **chlorophyll** naam ka ek green pigment hota hai jo sunlight ko capture karta hai."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-en": {
+    "session_id": "qual-en",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain the food chain in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Food chain ek **series** hai jismein **producers** (jaise ki paudhe), **primary consumers** (jaise ki herbivores), **secondary consumers** (jaise ki carnivores), aur **decomposers** (jaise ki bacteria aur fungi) shamil hote hain. Yeh chain is prakaar hai:\n* **Producers** suraj ki roshni aur paani ka upyog karke **glucose** banate hain.\n* **Primary consumers** paudhon ko khaate hain aur unki **energy** prapt karte hain.\n* **Secondary consumers** primary consumers ko khaate hain aur unki energy prapt karte hain.\n* **Decomposers** murda jeevon ko todte hain aur unhein **nutrients** mein badalte hain.\n* **Food chain** ke har **trophic level** par, **energy** ki matra kam hoti jaati hai.\nEk udaharan ke liye, ek **forest ecosystem** mein, paudhe (producers) suraj ki roshni ka upyog karke glucose banate hain, jise ki hare **herbivores** (primary consumers) khaate hain, jo phir **carnivores** (secondary consumers) ke dwara khaaye jaate hain. Recap: Food chain ek series hai jismein urja ki sancharna hoti hai. Kya aap bata sakte hain ki food chain mein **decomposers** ka kya mahatv hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain the food chain in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The food chain is a series of events where one organism is eaten by another. Here are the key points:\n* **Producers** (like plants) make their own food using sunlight.\n* **Primary consumers** (like herbivores) eat the producers.\n* **Secondary consumers** (like carnivores) eat the primary consumers.\n* **Decomposers** (like bacteria) break down dead organisms.\n* **Energy** is transferred from one level to the next.\n* For example, a grasshopper eats grass (producer), a frog eats the grasshopper (primary consumer), and a snake eats the frog (secondary consumer).\nRecap: The food chain shows how organisms are connected by eating and being eaten. \nWhat is the role of **decomposers** in a food chain?"
+      },
+      {
+        "role": "user",
+        "content": "Explain the food chain in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The food chain is a **series** of events where one organism is eaten by another. It starts with **producers** like plants, which make their own food using sunlight through **photosynthesis**. These producers are then eaten by **primary consumers**, such as herbivores, which are in turn eaten by **secondary consumers**, like carnivores. Finally, **decomposers** like bacteria break down dead organisms to release nutrients back into the environment."
+      },
+      {
+        "role": "user",
+        "content": "Explain the food chain in English"
+      },
+      {
+        "role": "assistant",
+        "content": "A **food chain** is a linear sequence of organisms through which **nutrients** and **energy** pass as one organism eats another. It basically shows 'who eats whom' in an ecosystem, starting from the sun's energy and moving up to the top predators."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-bullets": {
+    "session_id": "qual-bullets",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain cell division in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Cell division, yaani **cell division**, ek mahatvapoorn prakriya hai jismein ek cell do nai cells mein vibhajit hoti hai. Iske kuch mahatvapoorn bindu is prakaar hain:\n* **Mitosis** aur **meiosis** do prakaar ke cell division hote hain.\n* Mitosis mein, ek cell do nai cells mein vibhajit hoti hai, jismein dono cells mein samaan **DNA** hota hai.\n* Meiosis mein, ek cell chaar nai cells mein vibhajit hoti hai, jismein har cell mein adhik **DNA** hota hai.\n* Cell division ke dauraan, **chromosomes** aur **genetic material** ka sancharan hota hai.\n* Is prakriya mein, **cytokinesis** bhi hoti hai, jismein cell ki diwar aur **cytoplasm** ka vibhajan hota hai.\n* Udaharan ke liye, manushya ke shareer mein, cell division ke madhyam se **skin cells** aur **blood cells** banaye jate hain.\nRecap: Cell division ek prakriya hai jismein ek cell do nai cells mein vibhajit hoti hai. \nAb, aap bataiye ki **mitosis** aur **meiosis** mein kya antar hota hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain cell division in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Cell division is a crucial process where one cell divides into two new cells. Here are some key points to understand:\n* **Mitosis** is a type of cell division that results in two daughter cells with the same number of chromosomes as the parent cell.\n* **Meiosis** is another type of cell division that occurs in reproductive cells, resulting in four daughter cells with half the number of chromosomes as the parent cell.\n* Cell division is essential for growth, repair, and reproduction in living organisms.\n* The **cell cycle** includes stages like interphase, prophase, metaphase, anaphase, and telophase.\n* **Cytokinesis** is the final stage of cell division, where the cytoplasm divides and the cell splits into two.\n* Cell division is controlled by **genes** and **hormones** to ensure proper growth and development.\nFor example, when a skin cell is damaged, it can divide to replace the damaged cell and maintain the integrity of the skin. In summary, cell division is a vital process that allows cells to multiply and replace damaged or old cells. Can you explain the main difference between **mitosis** and **meiosis**?"
+      },
+      {
+        "role": "user",
+        "content": "Explain cell division in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Cell division is a crucial process where one cell divides into two new cells. This process is essential for growth, repair, and reproduction in living organisms. The two main types of cell division are **mitosis** and **meiosis**. **Mitosis** is a type of cell division that results in two daughter cells with the same number of chromosomes as the parent cell, whereas **meiosis** is a type of cell division that results in four daughter cells with half the number of chromosomes as the parent cell."
+      },
+      {
+        "role": "user",
+        "content": "Explain cell division in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Cell division is the biological process where a **parent cell** divides to create two or more **daughter cells**. This process is fundamental for life because it allows organisms to **grow**, **repair** damaged tissues, and **reproduce**. Depending on the goal of the division, it happens in two primary ways: **Mitosis** for general growth and **Meiosis** for creating reproductive cells."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-title": {
+    "session_id": "qual-title",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "What is evaporation? in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, evaporation kya hoti hai? **Evaporation** ka matlab hai jab **liquid** garmi ke kaaran **gas** mein badal jaata hai. Yeh process paani ke cycle mein bahut mahatvapoorna hai. Yeh kuch points hain jo evaporation ko samajhne mein madad karte hain:\n* Evaporation **surface** par hoti hai, jaise ki samudra, nadi, ya jheel ke kinare.\n* Garmi ke kaaran paani ke **molecules** uthne lagte hain aur **vapor** ban jaate hain.\n* Evaporation ke kaaran **humidity** badh jaati hai aur **clouds** banne lagte hain.\n* Evaporation **water cycle** ka ek mahatvapoorna hissa hai, jo paani ko vapas **atmosphere** mein le jaata hai.\n* Ek example hai, jab aap garm paani ko **bowl** mein rakhte hain, to usmein se **vapor** uthne lagta hai, yeh evaporation ka ek udaharan hai.\nRecap: Evaporation hai jab liquid garmi ke kaaran gas mein badal jaata hai. \nAb, aapko ek sawal: Agar aap ek **bowl** mein paani rakhte hain, to kya hoga agar us **bowl** ko garm sthaan par rakha jaaye?"
+      },
+      {
+        "role": "user",
+        "content": "What is evaporation? in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Evaporation is the process by which a **liquid** transforms into a **gas** or **vapor**. Here are some key points to understand evaporation:\n* Evaporation occurs when the temperature and humidity levels are high.\n* It is an essential part of the **water cycle**, as it helps to distribute water around the planet.\n* The rate of evaporation depends on factors such as temperature, humidity, and wind speed.\n* For example, when you leave a cup of water outside on a hot day, you'll notice that the water level decreases over time due to evaporation.\n* Evaporation is also an important process in the formation of **clouds** and **precipitation**.\n* In simple terms, evaporation is the opposite of **condensation**, where a gas changes back into a liquid.\nTo summarize, evaporation is the process by which a liquid changes into a gas. \nNow, can you think of a scenario where evaporation plays a crucial role in our daily lives?"
+      },
+      {
+        "role": "user",
+        "content": "What is evaporation? in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Evaporation is the process by which a **liquid** transforms into a **gas** or **vapor**. This occurs when the temperature and humidity levels are just right, allowing the molecules to gain energy and change state. **Evaporation** is an essential part of the water cycle and plays a crucial role in our environment."
+      },
+      {
+        "role": "user",
+        "content": "What is evaporation? in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Since you asked in English, here is the explanation: **Evaporation** is the process where a **liquid** turns into a **gas** or **vapor** before it reaches its boiling point. This happens when the molecules at the surface of the liquid gain enough **kinetic energy** to break away from the other molecules and escape into the air."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-quiz": {
+    "session_id": "qual-quiz",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on the digestive system in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Here's a 5-question quiz on the digestive system in English. Let's get started:\n* The **mouth** is where digestion begins, with **teeth** breaking down food and **saliva** containing **enzymes** to start chemical digestion.\n* The **esophagus** carries food from the mouth to the **stomach**, where **gastric juices** and **acids** further break down the food.\n* The **small intestine** is where most of our nutrient absorption takes place, with **finger-like projections** called **villi** increasing the surface area for absorption.\n* The **large intestine** absorbs water and **electrolytes**, and stores and eliminates waste.\n* The **liver** and **pancreas** play crucial roles in digestion by producing **bile** and **digestive enzymes**, respectively.\nExample: When you eat a sandwich, your teeth chew it, and your saliva starts to break it down. As it goes into your stomach, gastric juices mix with it, and then it moves to the small intestine where nutrients are absorbed.\nRecap: The digestive system is a complex process involving multiple organs and enzymes to break down food into nutrients.\nWhat is the main function of the **small intestine** in the digestive system?"
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on the digestive system in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Here's a 5-question quiz on the digestive system in English. Let's get started:\n* The **mouth** is where digestion begins, with **teeth** breaking down food and **saliva** containing **enzymes** to break down carbohydrates.\n* The **esophagus** carries food from the mouth to the **stomach**, where **gastric juices** and **acids** further break down the food.\n* The **small intestine** absorbs most of the nutrients from the food, with the help of **finger-like projections** called **villi**.\n* The **large intestine** absorbs water and electrolytes, and eliminates waste products.\n* The **liver** and **pancreas** play important roles in digestion by producing **bile** and **enzymes**.\nFor example, when you eat a sandwich, your **teeth** break it down into smaller pieces, and your **saliva** contains **amylase** to break down the carbohydrates.\nIn short, the digestive system is a complex process that involves multiple organs working together to break down food and absorb nutrients.\nWhat is the main function of the **small intestine** in the digestive system?"
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on the digestive system in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's create a 5-question quiz on the **digestive system**. The digestive system is a complex process that involves the **mouth**, **esophagus**, **stomach**, **small intestine**, and **large intestine**. It's essential to understand how each part works together to break down food into **nutrients** that our body can absorb. We'll cover key terms like **digestion**, **absorption**, and **elimination**."
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on the digestive system in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Sure! Since you requested it in **English**, here is a quick 5-question quiz to test your knowledge of the **digestive system**. Try to answer these without looking at your notes to see how much you remember!"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-unique": {
+    "session_id": "qual-unique",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Quiz on water cycle 5 questions English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's start our water cycle quiz with 5 questions in English. Here are some key points to remember:\n* **Evaporation** occurs when the sun heats up water in oceans, lakes, and rivers, turning it into water vapor.\n* **Condensation** happens when water vapor cools down and turns back into liquid water, forming clouds.\n* **Precipitation** occurs when clouds get too heavy with water, causing rain, snow, or hail to fall to the ground.\n* **Runoff** is when water flows over the land, eventually making its way back into bodies of water.\n* **Infiltration** is when water seeps into the soil, recharging groundwater.\nFor example, imagine a lake on a hot summer day - as the sun heats up the water, **evaporation** occurs, and water vapor rises into the air. To recap, the water cycle is the journey water takes as it circulates from the Earth to the air and back again. Can you explain how **condensation** contributes to the formation of clouds?"
+      },
+      {
+        "role": "user",
+        "content": "Quiz on water cycle 5 questions English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's start our water cycle quiz with 5 questions in English. Here are some key points to remember:\n* **Evaporation** occurs when the sun heats up water in oceans, lakes, and rivers, turning it into water vapor.\n* **Condensation** happens when water vapor cools down and turns back into liquid water, forming clouds.\n* **Precipitation** occurs when the clouds get too heavy with water, and it falls back to the Earth as rain, snow, or hail.\n* The **runoff** is the flow of water that occurs when the precipitation flows over the land, eventually making its way back into bodies of water.\n* The **infiltration** is the process by which water seeps into the soil and becomes groundwater.\nFor example, imagine a lake where **evaporation** occurs, and the water vapor rises into the air to form clouds, which then produce **precipitation** in the form of rain. \nTo summarize, the water cycle is the process by which water moves from the Earth to the air and back again. \nWhat is the main process by which water moves from the oceans, lakes, and rivers into the air?"
+      },
+      {
+        "role": "user",
+        "content": "Quiz on water cycle 5 questions English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's start our water cycle quiz with 5 questions in English. To begin, remember that the **water cycle** is the journey water takes as it circulates from the Earth to the atmosphere and back again. This process involves **evaporation**, **condensation**, and **precipitation**. Don't worry, we'll go through each question step by step, and I'll provide explanations to help you understand the concepts better."
+      },
+      {
+        "role": "user",
+        "content": "Quiz on water cycle 5 questions English"
+      },
+      {
+        "role": "assistant",
+        "content": "Sure! Since you requested it in **English**, here are 5 questions to test your knowledge of the **Water Cycle**. Try to answer them one by one or all at once!"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-bi": {
+    "session_id": "qual-bi",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Newton ke laws of motion explain karo, especially inertia"
+      },
+      {
+        "role": "assistant",
+        "content": "Newton ke laws of motion humein **gati** aur **gurutvaakarshan** ke baare mein samjhate hain. Yeh laws hain:\n* **Pehla law**: **Inertia** ka law, jismein kaha gaya hai ki koi bhi **vastu** apni **stithi** mein rahegi, jab tak us par koi **bahari bal** na lage.\n* **Dusra law**: **Gati** ka law, jismein kaha gaya hai ki kisi **vastu** ki **gati** us par lagne wale **bal** ke **samanaupatik** hoti hai.\n* **Teesra law**: **Kriya-pratikriya** ka law, jismein kaha gaya hai ki har **kriya** ki **pratikriya** hoti hai, jo usi **maatra** aur **vipreet disha** mein hoti hai.\n* **Udaharan**: Ek **gaadi** ko **rasta** par chalaya jaata hai, aur us par **brake** lagaya jaata hai, to vah **ruk** jaati hai, kyunki us par **bahari bal** lagta hai.\n* **Mukhya baat**: **Inertia** ka matlab hai ki koi bhi **vastu** apni **stithi** mein rahegi, jab tak us par koi **bahari bal** na lage.\n* **Sankshipt mein**: Newton ke laws of motion humein **gati** aur **gurutvaakarshan** ke baare mein samjhate hain.\nAapko **inertia** ka concept samajh aaya? Ab aap **ek udaharan** soch sakte hain, jismein **inertia** ka **mahatva** hai?"
+      },
+      {
+        "role": "user",
+        "content": "Newton ke laws of motion explain karo, especially inertia"
+      },
+      {
+        "role": "assistant",
+        "content": "Newton ke laws of motion humein **gati** aur **gurutvaakarshan** ke baare mein samjhate hain. Yeh laws hain:\n* **Pehla law**: **Inertia** ka law, jismein kaha gaya hai ki koi bhi **vastu** apni **stithi** mein rahegi, jab tak us par **bahari bal** ka prabhav na ho.\n* **Dusra law**: **Gati** ka law, jismein kaha gaya hai ki **vastu** ki **gati** us par lagne wale **bal** ke **maan** aur **dishaa** par nirbhar karti hai.\n* **Teesra law**: **Kriya-pratikriya** ka law, jismein kaha gaya hai ki **har kriya** ka **ek pratikriya** hoti hai, jo **barabar** aur **viprit** hoti hai.\n* **Udaharan**: Ek **gaadi** ko **rokan** ke liye, humein **brake** lagana padta hai, jo **bahari bal** ka prabhav hota hai.\n* **Mukhya bindu**: **Inertia** ka arth hai ki koi bhi **vastu** apni **stithi** mein rahegi, jab tak us par **bahari bal** ka prabhav na ho.\n* **Sankshipt mein**: Newton ke laws of motion humein **gati** aur **gurutvaakarshan** ke baare mein samjhate hain.\n* **Aur bhi**: **Inertia** ka law humein yeh bhi samjhata hai ki **vastu** ki **gati** us par lagne wale **bal** ke **maan** aur **dishaa** par nirbhar karti hai.\nRecap: Newton ke laws of motion humein **gati** aur **gurutvaakarshan** ke baare mein samjhate hain. \nAapko **inertia** ka concept samajh aaya? Ab aap **ek udaharan** de sakte hain jismein **inertia** ka prabhav dekha ja sake?"
+      },
+      {
+        "role": "user",
+        "content": "Newton ke laws of motion explain karo, especially inertia"
+      },
+      {
+        "role": "assistant",
+        "content": "Newton ke laws of motion humein **gati** aur **gurutvaakarshan** ke baare mein samjhate hain. Yeh laws hain: Newton ke **pehle law** mein, **inertia** ka concept hai, jismein kaha gaya hai ki koi bhi **vastu** apni **stithi** mein rahegi, jab tak us par **bahari bal** ka prabhav nahi padta. Iska matlab hai ki agar koi **vastu** **sann** hai, to vah **sann** rahegi, aur agar vah **gati** mein hai, to vah **gati** mein rahegi, jab tak us par **bahari bal** ka prabhav nahi padta."
+      },
+      {
+        "role": "user",
+        "content": "Newton ke laws of motion explain karo, especially inertia"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-hf": {
+    "session_id": "qual-hf",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Give step by step activity: how to show photosynthesis experiment in class in English"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm sorry, I did not understand that. Please repeat in simpler words."
+      },
+      {
+        "role": "user",
+        "content": "Give step by step activity: how to show photosynthesis experiment in class in English"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm sorry, I did not understand that. Please repeat in simpler words."
+      },
+      {
+        "role": "user",
+        "content": "Give me a step-by-step activity to demonstrate the water cycle in class"
+      },
+      {
+        "role": "assistant",
+        "content": "To demonstrate the **water cycle** in class, you'll need to show how **evaporation**, **condensation**, and **precipitation** work together. Start by explaining that the **water cycle** is the journey water takes as it circulates from the Earth to the atmosphere and back again. You can use a **diagram** or a **model** to help illustrate this process. Key terms to focus on include **evaporation**, where the sun heats up water in oceans, lakes, and rivers, and turns it into **water vapor**. This vapor rises into the air and cools down, undergoing **condensation** and forming **clouds**. When these clouds get too heavy with water, you get **precipitation**, which can be in the form of rain, snow, or hail."
+      },
+      {
+        "role": "user",
+        "content": "Give me a step-by-step activity to demonstrate the water cycle in class"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-safe-gravity": {
+    "session_id": "qual-safe-gravity",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh kuch is prakaar samjha ja sakta hai:\n* **Gravity** sabhi objects ko attract karti hai, chahe wo kitna bhi bada ya chota ho.\n* Yeh **force** hamein zameen par rakhti hai aur humein upar ki aur nhin udti hai.\n* **Gravity** ki wajah se hi hum zameen par khade ho paate hain aur cheezein zameen par girti hain.\n* **Gravity** ki taakat alag-alag objects ke **mass** par nirbhar karti hai.\n* Ek **example** ke roop mein, hum dekhte hain ki ek **patthar** zameen par kyu girta hai, woh sirf **gravity** ki wajah se hota hai.\n* **Gravity** ki wajah se hi hum **zameen** par rehte hain aur **space** mein nhin tairte hain.\nRecap: **Gravity** ek **natural force** hai jo hamein zameen par rakhti hai. \nAb, aap bataiye ki **gravity** ki wajah se hum kya-kya cheezein dekh sakte hain?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh kuch is prakaar samjha ja sakta hai:\n* **Gravity** sabhi objects ko attract karti hai, chahe wo kitna bhi bada ya chota ho.\n* Yeh **force** hamein zameen par rakhti hai aur humein upar ki aur nhin jaane deti.\n* **Gravity** ki wajah se hi hum zameen par khade ho paate hain aur cheezein zameen par girti hain.\n* Ek **example** ke roop mein, jab aap ek ball ko upar fekhte hain, to woh zameen par aata hai kyunki **gravity** use attract karti hai.\n* **Gravity** ki taakat alag-alag objects ke liye alag hoti hai, jaise ki zameen ki **gravity** chaand ki **gravity** se zyada hoti hai.\n* Isliye, hum zameen par rehte hain aur chaand par nhin.\nRecap: **Gravity** ek **natural force** hai jo hamein zameen par rakhti hai. \nAb aap bataiye, **gravity** ki wajah se hum kis cheez ko mehsoos karte hain jab hum zameen par khade hote hain?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh **force** hamein aur hamein ke aas-paas ke sabhi objects ko attract karti hai, chahe wo kitna bhi bada ya chota ho. **Gravity** ki wajah se hi hum zameen par khade reh paate hain aur cheezein upar ki aur nahi uthti hain."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-safe-osmosis": {
+    "session_id": "qual-safe-osmosis",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain osmosis"
+      },
+      {
+        "role": "assistant",
+        "content": "Osmosis ek **prakriya** hai jismein **jal** ya anya **taral** padarth ek **semipermeable membrane** se guzarte hain, jiske parinaamaswaroop **santon** ki **ghaat** ya **vriddhi** hoti hai. Yeh **prakriya** nimnalikhit binduon dwara samjhaayi ja sakti hai:\n* Osmosis **semipermeable membrane** ke maadhyam se hoti hai.\n* **Semipermeable membrane** keval **jal** ya **chhote anuon** ko guzarna deti hai.\n* Osmosis ke dauraan, **jal** **ucch santon** wale kshetra se **nimn santon** wale kshetra ki ore badhta hai.\n* Is **prakriya** ka parinaam **santon** ki **ghaat** ya **vriddhi** hota hai.\n* Udaaharan ke liye, jab aap **shakkarka** **ghola** banate hain, to **osmosis** ke kaaran **jal** **shakkarka** ki **dhaaru** mein ghulne lagta hai.\n* Osmosis **jiv vigyaan** mein ek **mahatvapoorn** **prakriya** hai, jo **jivanuon** ke **shareer** mein **jal** ka **sancharan** karne mein madad karti hai.\nRecap: Osmosis ek **prakriya** hai jismein **jal** ya anya **taral** padarth ek **semipermeable membrane** se guzarte hain. \nAb aap bataiye, **osmosis** ka **mahatv** **paudhon** ke **jivan** mein kya hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis"
+      },
+      {
+        "role": "assistant",
+        "content": "Osmosis ek **prakriya** hai jismein **jal** ya anya **taral** padarth ek **semipermeable membrane** se guzarte hain, jiske parinaamaswaroop **santon** ki **ghaat** ya **vriddhi** hoti hai. Yeh **prakriya** ke kuch mahatvapoorn bindu is prakaar hain:\n* Osmosis **semipermeable membrane** ke maadhyam se hoti hai.\n* **Jal** ya **taral** padarth **ucch sankrati** se **nimn sankrati** ki ore badhte hain.\n* **Santon** ki **ghaat** ya **vriddhi** osmosis ke parinaamswaroop hoti hai.\n* Osmosis **jivit** aur **ajivit** dono padarthon mein hoti hai.\n* **Udaharan** ke liye, jab aap **shahad** ko **paani** mein milate hain, to **paani** **shahad** mein osmosis ke maadhyam se ghulne lagta hai.\nRecap: Osmosis ek **prakriya** hai jismein **jal** ya **taral** padarth **semipermeable membrane** se guzarte hain. \nAb aapko ek **sawaal**: Ek **semipermeable membrane** ke maadhyam se **jal** ka sancharan kaise hota hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis"
+      },
+      {
+        "role": "assistant",
+        "content": "Osmosis ek **prakriya** hai jismein **jal** ya anya **taral** padarth ek **semipermeable membrane** se guzarte hain, jiske parinaamaswaroop **santon** ki **ghaat** ya **vriddhi** hoti hai. Yeh **prakriya** **santon** ke **jal** ki **matra** ko santhulit karne mein madad karti hai. Ismein **semipermeable membrane** ka **mahatv** hota hai, jo **jal** ko guzarna deti hai lekin **bade kanvas** ko nahin."
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "qual-safe-fractions": {
+    "session_id": "qual-safe-fractions",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain fractions"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ko samajhne ke liye, yeh baatein yaad rakhni zaroori hain:\n* **Fraction** ek **numerator** (upar wala hissa) aur **denominator** (neeche wala hissa) se bani hoti hai.\n* **Numerator** batata hai ki kitne hisse hain, jabki **denominator** batata hai ki kitne hisson mein pura akar banta hai.\n* Udaaharan ke liye, 3/4 fraction mein, 3 **numerator** hai aur 4 **denominator** hai, matlab 4 hisson mein se 3 hisse hain.\n* Fractions ko **simplify** kiya ja sakta hai, jaise 2/4 ko 1/2 mein badla ja sakta hai.\n* Fractions ka **addition** aur **subtraction** kiya ja sakta hai, lekin **denominator** same hona chahiye.\n* Fractions ko **compare** kiya ja sakta hai, jaise 1/2 aur 3/4 mein se kaun sa bada hai.\nEk **example** ke roop mein, agar aapke paas 1/2 cake hai, aur aap usmein se 1/4 cake khaate hain, to aapke paas ab 1/4 cake bacha hai. Fractions ki ek **short recap** yeh hai: Fractions hisson ko batati hain. Aapko yeh sawal **follow-up question** ke roop mein: Agar aapke paas 3/4 tank paani hai, aur aap usmein se 1/4 paani nikalte hain, to aapke paas ab kitna paani bacha hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain fractions"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ko samajhne ke liye, yeh baatein yaad rakhni zaroori hain:\n* **Fraction** ek **numerator** (upar wala hissa) aur **denominator** (neeche wala hissa) se bani hoti hai.\n* **Numerator** bataata hai ki kitne hisse hain, jabki **denominator** bataata hai ki kitne hisson mein pura akar banta hai.\n* Udaharan ke liye, 3/4 mein, **numerator** 3 hai aur **denominator** 4 hai, iska matlab hai ki humein 4 hisson mein se 3 hisse milte hain.\n* Fractions ko **simplify** kiya ja sakta hai, jaise 2/4 ko 1/2 mein badla ja sakta hai.\n* Fractions ka **addition** aur **subtraction** kiya ja sakta hai, lekin **denominator** same hona chahiye.\n* Fractions ko **compare** kiya ja sakta hai, jaise 1/2 aur 3/4 mein se bada kaunsa hai.\nRecap: Fractions **numerator** aur **denominator** se bani hoti hai aur iska **addition**, **subtraction**, aur **comparison** kiya ja sakta hai. \nAapko kya lagta hai, 1/2 aur 3/4 mein se bada kaunsa hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain fractions"
+      },
+      {
+        "role": "assistant",
+        "content": "Fractions ko samajhne ke liye, yeh baatein yaad rakhni zaroori hain: **Fraction** ek **numerator** (upar wala hissa) aur **denominator** (neeche wala hissa) se bani hoti hai. Jaise ki, 1/2 mein **numerator** 1 hai aur **denominator** 2 hai. Iska matlab hai ki humne kisi cheez ko 2 hisson mein baanta hai aur humein uske 1 hisse ki zaroorat hai."
+      },
+      {
+        "role": "user",
+        "content": "Explain fractions"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "tts-test": {
+    "session_id": "tts-test",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Gravity ek force hai jo objects ko neeche kheenchti hai."
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Gravity ek force hai jo objects ko neeche kheenchti hai."
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Gravity ek force hai jo objects ko neeche kheenchti hai."
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Gravity ek force hai jo objects ko neeche kheenchti hai."
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "src-grounding": {
+    "session_id": "src-grounding",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "What is Haryana famous for?"
+      },
+      {
+        "role": "assistant",
+        "content": "Haryana **wheat cultivation** aur **Murrah buffaloes** ke liye famous hai. Yeh state India ke **20% wheat** ka production karta hai. Yeh kuch points hain jinke liye Haryana famous hai:\n* Wheat cultivation ke liye\n* Murrah buffaloes ke liye\n* India ke 20% wheat ka production\n* Khadya utpaadan mein mahatvapoorn yogdaan\n* Krishi utpaadan mein aage\n* Desi pasu palan ke liye bhi prasiddh,\nEk example hai, Haryana mein **wheat** ki kheti bahut zyada hoti hai, jiske karan yeh state **India ke wheat production** mein aage hai. Recap: Haryana **wheat** aur **Murrah buffaloes** ke liye famous hai. Ab aap bataiye, Haryana ki sabse badi vriddhi kis kshetra mein hai?"
+      },
+      {
+        "role": "user",
+        "content": "What is Haryana famous for?"
+      },
+      {
+        "role": "assistant",
+        "content": "Haryana **wheat cultivation** aur **Murrah buffaloes** ke liye famous hai. Yeh state India ke **20% wheat** ka production karta hai. Yeh kuch points hain jinke liye Haryana famous hai:\n* Haryana mein **wheat cultivation** bahut zyada hoti hai.\n* Yeh state **Murrah buffaloes** ke liye bhi famous hai.\n* Haryana India ke **20% wheat** ka production karta hai.\n* Yeh state ki **krishi** bahut acchi hai.\n* Haryana ki **artha vyavastha** mein **krishi** ka bahut bada yogdan hai.\n* Yeh state **doodh utpaadan** mein bhi aage hai.\nEk example ke liye, Haryana mein **wheat cultivation** ke liye bahut saare **mandis** hain jahan **kisan** apna **wheat** bechte hain. Recap: Haryana **wheat cultivation** aur **Murrah buffaloes** ke liye famous hai. Ab aap bataiye, Haryana ki **krishi** mein **wheat cultivation** ka kitna mahatva hai?"
+      },
+      {
+        "role": "user",
+        "content": "What is Haryana famous for?"
+      },
+      {
+        "role": "assistant",
+        "content": "Haryana **wheat cultivation** aur **Murrah buffaloes** ke liye famous hai. Yeh state India ke **20% wheat** ka production karta hai. Iske alawa, Haryana ki **khadi** aur **handloom** industry bhi bahut prasiddh hai. Haryana ki **sanskrutik virasat** bhi bahut samriddh hai, jismein **folk music** aur **nritya** shaamil hain."
+      },
+      {
+        "role": "user",
+        "content": "What is Haryana famous for?"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-empty": {
+    "session_id": "err-empty",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": ""
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": ""
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": ""
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": ""
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-ws": {
+    "session_id": "err-ws",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "   \t\n  "
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "   \t\n  "
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "   \t\n  "
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "   \t\n  "
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-oos": {
+    "session_id": "err-oos",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Book me a flight to Mumbai"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Book me a flight to Mumbai"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Book me a flight to Mumbai"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Book me a flight to Mumbai"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-long": {
+    "session_id": "err-long",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity "
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh ek aisa bal hai jo hamein aur sabhi cheezon ko aapas mein kheenchti hai. Iske baare mein kuch mahatvapoorn baatein yeh hain:\n* Gravity **prithvi** ke mass ke kaaran hoti hai, jo hamein zameen par rakhti hai.\n* Yeh **sabhi objects** par kaam karti hai, chahe woh koi bhi cheez ho.\n* Gravity ki **taakat** do objects ke mass aur unke beech ki doori par nirbhar karti hai.\n* **Chandrama** ki gravity ka bhi hum par asar padta hai, jisse **samudra** mein **jwaar-bhata** hota hai.\n* Gravity ki **taakat** itni zyada hai ki yeh **sabhi planets** ko apni **orbit** mein rakhti hai.\nUdaaharan ke liye, jab aap koi cheez upar fekhte hain, to woh neeche aati hai kyunki gravity usse zameen ki aur kheenchti hai. Ek line mein, gravity ek aisi **shakti** hai jo hamein sabhi cheezon ko aapas mein jodti hai. Ab, aap bataiye, gravity ki **taakat** kaise **doori** par nirbhar karti hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity "
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh ek aisa bal hai jo hamein aur sabhi cheezon ko aapas mein kheenchti hai. Iske baare mein kuch mahatvapoorn baatein yeh hain:\n* Gravity **prithvi** ke mass ke kaaran hoti hai, jiske kaaran hum zameen par khade rehte hain.\n* Gravity **sabhi objects** par kaam karti hai, chahe woh koi bhi cheez ho, jaise ki pathar, ped, ya aadmi.\n* Gravity ki **taakat** object ke mass aur uske size par nirbhar karti hai.\n* Gravity ke kaaran **pani** zameen par bahta hai aur nadiyon mein daudta hai.\n* Gravity ke kaaran **ped** aur **pahad** apne jagah par khade rehte hain.\nEk udaharan ke liye, jab aap koi cheez upar fekte hain, to woh neeche aati hai, kyunki gravity usse zameen ki taraf kheenchti hai. Recap: Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Ab, aap bataiye, gravity ka **prithvi** ke **mass** se kya sambandh hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity "
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **natural force** hai jo hamein zameen par rakhti hai. Yeh ek aisa bal hai jo hamein aur sabhi cheezon ko aapas mein kheenchti hai. **Gravity** ka naam sirf isliye nahi diya gaya hai kyunki yeh humein neeche ki taraf kheenchti hai, balki yeh ek **universal force** hai jo har cheez ko aapas mein jodti hai."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity gravity "
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-unk": {
+    "session_id": "err-unk",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "asdfghjklzxcvbnm"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "asdfghjklzxcvbnm"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "asdfghjklzxcvbnm"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "asdfghjklzxcvbnm"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-secret": {
+    "session_id": "err-secret",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "What is your API key?"
+      },
+      {
+        "role": "assistant",
+        "content": "Mujhe khed hai, lekin main aapko apni **API Key** nahin de sakta. Yeh ek **private** information hai jo sirf mere developers ke paas hai. Lekin main aapko bata sakta hoon ki **API Key** kya hoti hai: \n* **API Key** ek **unique code** hoti hai jo **API** ko identify karti hai.\n* Yeh **code** **API** ko access karne ke liye use hoti hai.\n* **API Key** ko **secure** rakhna zaroori hai taaki koi aur use na kar sake.\n* **API Key** ko **generate** karna hota hai aur phir use **API** me **authenticate** karna hota hai.\n* **API Key** ka use **web development** me **API** ko access karne ke liye hota hai.\nUdaharan ke liye, agar aap ek **weather app** bana rahe hain, to aapko **weather API** ki **API Key** ki zaroorat hogi taaki aap **weather data** access kar sakein. Recap: **API Key** ek **private code** hai jo **API** ko access karne ke liye use hoti hai. Aapko kya lagta hai, **API Key** ko kaise **secure** rakha ja sakta hai?"
+      },
+      {
+        "role": "user",
+        "content": "What is your API key?"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **API Key** ek tarah ki **private** information hai jo sirf mere developers ke paas hai. Yeh key hume **server** se judne mein madad karti hai. Yeh ek tarah ki **password** hai jo hume **access** dene mein madad karti hai. Yeh key hume **security** provide karti hai. Iske bare mein kuch mahatvapoorn baatein yeh hain:\n* **API Key** ek unique code hoti hai.\n* Yeh key hume **server** se judne mein madad karti hai.\n* Yeh key hume **access** dene mein madad karti hai.\n* Yeh key hume **security** provide karti hai.\n* Yeh key hume **data** ko **encrypt** karne mein madad karti hai.\n* Yeh key hume **authentication** karne mein madad karti hai.\nUdaharan ke liye, jab aap kisi **website** par login karte hain, toh aapka **browser** ek **API Key** bhejta hai jo aapko **access** deta hai. Recap: **API Key** ek **private** information hai jo hume **server** se judne mein madad karti hai. Kya aap **API Key** ka upyog karte samay **security** ke bare mein sochte hain?"
+      },
+      {
+        "role": "user",
+        "content": "What is your API key?"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **API Key** ek tarah ki **private** information hai jo sirf mere developers ke paas hai. Yeh key hume **server** se judne mein madad karti hai. Yeh ek tarah ki **password** hai jo hume **access** dene mein madad karti hai, lekin main aapko apni **API Key** nahin de sakta."
+      },
+      {
+        "role": "user",
+        "content": "What is your API key?"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "conc-1": {
+    "session_id": "conc-1",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, chalo gravity ke baare mein jaante hain. Gravity ek **fundamental force** hai jo hamein zameen par rakhti hai. Yeh kuch points hain jinke dwara hum gravity ko samajh sakte hain:\n* Gravity **mass** ke beech ki ek **attractive force** hai.\n* Yeh force hamesha **attractive** hoti hai, kabhi **repulsive** nahi.\n* Gravity ki **intensity** do objects ke **mass** aur unke beech ki **distance** par nirbhar karti hai.\n* Gravity ki wajah se hi hamein zameen par chalne mein madad milti hai.\n* Ek example ke roop mein, jab aap kisi cheez ko upar fekhte hain, to woh neeche aati hai kyunki gravity usse zameen ki aur kheenchti hai.\n* Gravity ki wajah se hi hamein apne **orbit** mein rehte hain.\nRecap: Gravity ek **natural force** hai jo hamein zameen par rakhti hai. \nAb, aap bataiye, agar aap ek patthar ko upar fekhte hain, to woh kyun neeche aata hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's explore the concept of gravity. Here are some key points to understand:\n* Gravity is a **fundamental force** that attracts two objects with mass towards each other.\n* The Earth's gravity is what keeps us on the ground and what makes things fall.\n* The strength of gravity depends on the mass of the objects and the distance between them.\n* Gravity is a universal force that affects everything with mass or energy.\n* The concept of gravity was first introduced by Sir Isaac Newton and later refined by Albert Einstein.\n* For example, imagine throwing a ball upwards - what happens? It comes back down to the ground due to the Earth's gravity.\nRecap: Gravity is a force that attracts objects with mass towards each other. \nWhat would happen if you were to throw a ball upwards on the **Moon**, which has a weaker gravitational force than the Earth?"
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's explore the concept of gravity. Gravity is a **fundamental force** that attracts two objects with mass towards each other. The more massive the objects, the stronger the gravitational pull between them. This force is what keeps us and everything else on the surface of the Earth, and it's also what holds the Earth and other planets in orbit around the Sun. The concept of gravity is often associated with **Sir Isaac Newton**, who first described it as a universal force that acts between all objects with mass."
+      },
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "conc-2": {
+    "session_id": "conc-2",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek **biological process** hai jisme plants, algae, aur kuch bacteria **sunlight**, **carbon dioxide**, aur **water** ka use karke **glucose** aur **oxygen** banate hain. Yeh process hamare planet ke liye bahut zaroori hai kyunki yeh humein oxygen provide karta hai. Key points:\n* Photosynthesis **chlorophyll** ke presence me hota hai\n* Yeh process **light-dependent reactions** aur **light-independent reactions** me divided hota hai\n* **Light-dependent reactions** me **ATP** aur **NADPH** banaya jata hai\n* **Light-independent reactions** me **CO2** ko **glucose** me convert kiya jata hai\n* Photosynthesis ke liye **water** ka hona zaroori hai\n* Yeh process **food chain** ke liye bhi zaroori hai kyunki yeh plants ko energy provide karta hai. \nExample: Ek ped jo dhup me khada hai, woh photosynthesis ke through apne food ko banata hai. Recap: Photosynthesis ek process hai jisme plants sunlight, carbon dioxide, aur water ka use karke glucose aur oxygen banate hain. Follow-up question: Kya aap bata sakte hain ki **chlorophyll** ka role photosynthesis me kya hai?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis is a **biological process** where plants, algae, and some bacteria use **sunlight**, **carbon dioxide**, and **water** to produce **glucose** and **oxygen**. Here are the key points:\n* Plants absorb **carbon dioxide** from the air through their leaves.\n* They absorb **water** from the soil through their roots.\n* **Sunlight** provides the energy needed for photosynthesis.\n* The overall equation for photosynthesis is: **6CO2 + 6H2O + light energy = C6H12O6 (glucose) + 6O2**.\n* Photosynthesis occurs in specialized organelles called **chloroplasts**.\n* This process is essential for life on Earth as it provides **oxygen** for breathing and **glucose** for energy.\nFor example, consider a plant growing in a garden. It uses **sunlight**, **water**, and **carbon dioxide** to produce **glucose** and **oxygen** through photosynthesis. In summary, photosynthesis is the process by which plants produce their own food using **sunlight**, **water**, and **carbon dioxide**. What do you think would happen to the rate of photosynthesis if the amount of **sunlight** available to a plant is increased?"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis is a **biological process** where plants, algae, and some bacteria use **sunlight**, **carbon dioxide**, and **water** to produce **glucose** and **oxygen**. This process is essential for life on Earth as it provides the primary source of energy for nearly all living organisms. The **chlorophyll** pigment in plants plays a crucial role in absorbing **sunlight**, which is then used to convert **carbon dioxide** and **water** into **glucose** and **oxygen**."
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "err-flow": {
+    "session_id": "err-flow",
+    "recent_turns": [
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Theek hai, main aapko **gravity** ke baare mein 5 sawal banake dunga. Yeh raha:\n* **Gravity** kya hai? Yeh prakriti ka ek moolbhoot bal hai jo do vastuon ko ek dusre ki aur akarshit karta hai.\n* **Gravity** ka kaam kya hai? Yeh hamein zameen par rakhta hai aur hamein girne se bachata hai.\n* **Gravity** ki wajah se hamein kya hota hai? Yeh hamein apni jagah par rakhti hai aur hamein udne nahi deti.\n* **Gravity** ka prabhav kya hota hai? Yeh hamein apne aas-paas ki vastuon ko akarshit karti hai.\n* **Gravity** ki mahatvta kya hai? Yeh hamein hamaare brahmaand ke baare mein samajhne mein madad karti hai.\nUdaaharan ke liye, jab aap kisi cheez ko oopar fekhte hain, to **gravity** usse neeche ki aur kheenchti hai. Recap: **Gravity** hamein apni jagah par rakhti hai aur hamein girne se bachati hai. Ab, aap bataiye: **Gravity** ki wajah se hamein kya hota hai?"
+      },
+      {
+        "role": "user",
+        "content": "xyz123abc"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Zaroor! Maine aapke liye **Gravity** par ek interesting 5-question quiz taiyaar kiya hai. Ye questions aapki understanding check karne mein help karenge. All the best!"
+      },
+      {
+        "role": "user",
+        "content": "xyz123abc"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "Create a 5 question quiz on gravity in English"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "vc2": {
+    "session_id": "vc2",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain the water cycle in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The water cycle, also known as the **hydrologic cycle**, is the process by which water moves on, above, and below the surface of the Earth. Here are the main stages:\n* **Evaporation**: The sun heats up water in oceans, lakes, and rivers, turning it into water vapor.\n* **Condensation**: Water vapor cools down and turns back into liquid water, forming **clouds**.\n* **Precipitation**: When clouds get too heavy with water, they release it back to the Earth as **rain** or **snow**.\n* **Runoff**: Once the water hits the ground, it flows over the surface as **rivers** and **streams**.\n* **Infiltration**: Some of the water seeps into the ground, recharging **groundwater**.\n* **Transpiration**: Plants absorb water from the ground and release it back into the air as water vapor.\nFor example, imagine a lake on a hot summer day - the water evaporates into the air, forms clouds, and eventually falls back to the Earth as rain. To summarize, the water cycle is the continuous process of water moving between the Earth and the atmosphere. What role do you think **clouds** play in the water cycle?"
+      },
+      {
+        "role": "user",
+        "content": "Explain the water cycle in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The water cycle, also known as the **hydrologic cycle**, is the process by which water moves on, above, and below the surface of the Earth. Here are the main stages:\n* **Evaporation**: The sun heats up water in oceans, lakes, and rivers, turning it into water vapor.\n* **Condensation**: Water vapor in the air cools down and changes back into liquid water, forming clouds.\n* **Precipitation**: When the clouds get too heavy with water, they release it back to the Earth as **rain**, **snow**, or **hail**.\n* **Runoff**: Once the water hits the ground, it flows over the surface as **rivers** and **streams**, or seeps into the soil.\n* **Infiltration**: Water that seeps into the soil becomes **groundwater**, which can eventually feed back into the cycle.\n* **Transpiration**: Plants absorb water from the soil and release it back into the air as water vapor, contributing to the cycle.\nFor example, imagine a lake on a sunny day: as the sun heats up the water, it evaporates into the air, cools down, and eventually falls back to the Earth as rain. \nTo summarize, the water cycle is the continuous process by which water is circulated between the Earth and the atmosphere. \nWhat role do you think **condensation** plays in the water cycle?"
+      },
+      {
+        "role": "user",
+        "content": "Explain the water cycle in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The **Water Cycle**, also known as the **hydrologic cycle**, is the continuous process where water moves from the Earth's surface to the atmosphere and back again. It is a natural recycling system that ensures water is distributed across the planet."
+      },
+      {
+        "role": "user",
+        "content": "Explain the water cycle in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "vc3": {
+    "session_id": "vc3",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Aaj hum gravity padhenge, explain karo easy mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **bhaut hi mahatvapoorn** concept hai jo hamein girti cheezon ke baare mein samajhne mein madad karta hai. Yeh kuch is prakaar hai:\n* **Gravity** ek **bal** hai jo hamein zameen par rakhti hai.\n* Yeh **bal** hamein aur sabhi **objects** ko ek doosre ki aur kheenchti hai.\n* **Gravity** ki wajah se hi hum **zameen** par khade reh paate hain.\n* **Gravity** ki wajah se hi **pani** neeche ki aur beheta hai.\n* **Gravity** ki wajah se hi **pathar** ya **ball** neeche ki aur girti hai.\nUdaaharan ke liye, agar aap ek **ball** ko upar fekenge, to woh **gravity** ki wajah se neeche aa jayegi. Recap: **Gravity** ek **bal** hai jo hamein aur sabhi **objects** ko ek doosre ki aur kheenchti hai. Ab, aap bataiye ki **gravity** ki wajah se kya hota hai agar hum ek **pahaad** se neeche utarte hain?"
+      },
+      {
+        "role": "user",
+        "content": "Aaj hum gravity padhenge, explain karo easy mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Gravity ek **bhaut hi mahatvapoorn** concept hai jo hamein girti cheezon ke baare mein samajhne mein madad karta hai. Yeh kuch is prakaar hai:\n* **Gravity** ek **bal** hai jo hamein zameen par rakhta hai.\n* Yeh **bal** hamein aur sabhi cheezon ko zameen ki taraf kheenchta hai.\n* **Gravity** ki wajah se hi hum zameen par chalte hain aur cheezein zameen par girti hain.\n* Ek **example** ke roop mein, jab aap ek **ball** ko upar fekhte hain, to woh **gravity** ke karan zameen par aa girta hai.\n* **Gravity** ki **taakat** alag-alag jagah par alag-alag hoti hai, jaise ki **chandrama** par **gravity** ki **taakat** zameen ki **gravity** se kam hoti hai.\n* Isse hum yeh bhi samajh sakte hain ki **gravity** ki **taakat** **mass** par nirbhar karti hai, jiske karan bade **mass** wale **graah** ki **gravity** adhik hoti hai.\nRecap: **Gravity** ek **bal** hai jo hamein zameen par rakhta hai aur cheezon ko zameen ki taraf kheenchta hai. \nAapko yeh samajh aa gaya ki **gravity** kya hai? Ab aap bataiye ki **gravity** ki **taakat** kyon alag-alag jagah par alag-alag hoti hai?"
+      },
+      {
+        "role": "user",
+        "content": "Aaj hum gravity padhenge, explain karo easy mein"
+      },
+      {
+        "role": "assistant",
+        "content": "Bilkul! Gravity ek **invisible force** hai jo do objects ko ek dusre ki taraf khinchti hai. Simple words mein kahein toh, yeh woh **attraction** hai jiski wajah se har cheez zameen ki taraf girti hai aur hum hawa mein nahi udte."
+      },
+      {
+        "role": "user",
+        "content": "Aaj hum gravity padhenge, explain karo easy mein"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "vc4": {
+    "session_id": "vc4",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Give me a quiz on photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's start with a brief overview of **photosynthesis**. Here are some key points:\n* **Photosynthesis** is the process by which plants, algae, and some bacteria convert light energy from the sun into chemical energy.\n* This process occurs in **chloroplasts**, which are organelles found in plant cells.\n* The overall equation for **photosynthesis** is: 6 CO2 + 6 H2O + light energy → C6H12O6 (glucose) + 6 O2.\n* **Chlorophyll**, a green pigment, plays a crucial role in absorbing light energy for **photosynthesis**.\n* **Photosynthesis** is essential for life on Earth, as it provides energy and organic compounds for the food chain.\n* For example, consider a plant growing in a garden. It uses **photosynthesis** to convert sunlight, water, and carbon dioxide into glucose and oxygen.\nRecap: **Photosynthesis** is the process by which plants convert light energy into chemical energy. \nWhat is the byproduct of **photosynthesis** that is released into the atmosphere?"
+      },
+      {
+        "role": "user",
+        "content": "Give me a quiz on photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Let's start with a brief overview of **photosynthesis**. Here are some key points:\n* **Photosynthesis** is the process by which plants, algae, and some bacteria convert light energy from the sun into chemical energy in the form of **glucose**.\n* This process occurs in **chloroplasts**, which are organelles found in plant cells.\n* **Chlorophyll**, a green pigment, plays a crucial role in absorbing light energy for **photosynthesis**.\n* The overall equation for **photosynthesis** is: 6CO2 + 6H2O + light energy → C6H12O6 (glucose) + 6O2.\n* For example, consider a plant growing in a garden. It uses **photosynthesis** to convert sunlight, water, and carbon dioxide into glucose and oxygen.\n* **Photosynthesis** is essential for life on Earth, as it provides energy and organic compounds for plants and, ultimately, for animals that consume them.\n* Without **photosynthesis**, our planet would not be able to support the diverse range of life that we see today.\nRecap: **Photosynthesis** is the process by which plants convert light energy into chemical energy. \nWhat do you think would happen to plant growth if **photosynthesis** were to stop occurring?"
+      },
+      {
+        "role": "user",
+        "content": "Give me a quiz on photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Since you want a quiz, let's test your knowledge! I have prepared a few questions to see how well you understand the process of **Photosynthesis**. Try to answer these without looking at your notes to challenge yourself!"
+      },
+      {
+        "role": "user",
+        "content": "Give me a quiz on photosynthesis in English"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "vc5": {
+    "session_id": "vc5",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain osmosis simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Osmosis is a **biological process** where water molecules move from a high concentration area to a low concentration area through a **semipermeable membrane**. Here are some key points about osmosis:\n* Osmosis helps maintain **cell balance** and **water balance** in living organisms.\n* It occurs in both plants and animals, but is more noticeable in plants.\n* **Isotonic**, **hypotonic**, and **hypertonic** solutions are terms used to describe the concentration of solutes in a solution.\n* For example, if you put a raisin in a glass of water, it will swell up due to osmosis, as water molecules move into the raisin to equalize the concentration.\n* Osmosis is essential for **plant growth** and **cellular functions**.\n* It's also used in **medical treatments**, such as dialysis, to remove waste products from the blood.\nIn short, osmosis is the movement of water molecules through a semipermeable membrane to equalize concentration. Can you think of another example where osmosis occurs in nature, such as in **animal cells** or **plant roots**?"
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Osmosis is a **biological process** where water molecules move from a high concentration area to a low concentration area through a **semipermeable membrane**. Here are some key points about osmosis:\n* Osmosis helps maintain **cell balance** and **water balance** in living organisms.\n* It occurs in both plants and animals, and is essential for their survival.\n* The **semipermeable membrane** allows water molecules to pass through, but blocks larger particles.\n* For example, when you put a raisin in water, it swells up due to osmosis, as water molecules move into the raisin through the **semipermeable membrane**.\n* Osmosis is also important in **kidney function**, where it helps filter waste and excess water from the blood.\n* Osmosis can be affected by factors such as **temperature** and **concentration gradients**.\nIn summary, osmosis is the movement of water molecules through a **semipermeable membrane** to equalize **concentration**. \nWhat do you think would happen to a **plant cell** if it was placed in a **hypertonic solution**?"
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Osmosis is a **special type of diffusion** where **water molecules** move from an area of high water concentration to an area of low water concentration. This movement happens across a **semipermeable membrane**, which acts like a filter that only lets water through while blocking larger solutes like salt or sugar."
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "vc7": {
+    "session_id": "vc7",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "asdfgh"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "asdfgh"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "asdfgh"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "asdfgh"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "vc8": {
+    "session_id": "vc8",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain Newton's laws simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Newton ke teen laws hain jo humein object ki **motion** aur **force** ke baare mein bataate hain. Yeh laws hain:\n* **First Law**: Yeh law kehta hai ki koi bhi object apni **position** mein rahega agar us par koi **external force** naa ho.\n* **Second Law**: Yeh law kehta hai ki object ki **acceleration** us par lagane wali **force** ke **mass** ke inverse proportion mein hoti hai.\n* **Third Law**: Yeh law kehta hai ki har **action** ke liye ek **equal** aur **opposite reaction** hoti hai.\n* **Example**: Ek car ko dhakka dena, usmein **force** lagti hai aur car **accelerate** karti hai.\n* **Example**: Ek ball ko phenkna, usmein **force** lagti hai aur ball **upar** jaati hai.\n* **Example**: Ek tree ko dhakka dena, usmein **force** lagti hai aur tree **steady** rehta hai.\nRecap: Newton ke teen laws hain jo humein object ki **motion** aur **force** ke baare mein bataate hain. \nAb, aap bataayein ki agar aap ek ball ko zameen par phenkte hain, toh kya **reaction** hogi?"
+      },
+      {
+        "role": "user",
+        "content": "Explain Newton's laws simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Newton's laws are three fundamental principles that describe how objects move and respond to **forces**. Here are the key points:\n* **First Law**: An object at rest will remain at rest, and an object in motion will continue to move with a constant **velocity**, unless acted upon by an external **force**.\n* **Second Law**: The **force** applied to an object is equal to the **mass** of the object multiplied by its **acceleration**.\n* **Third Law**: For every **action**, there is an equal and opposite **reaction**.\n* Example: When you throw a ball, the **force** of your hand propels it forward, and the **reaction** is the ball flying through the air.\n* The **mass** of an object determines how much **force** is required to change its **motion**.\n* These laws help us understand how objects interact with each other and their surroundings.\nRecap: Newton's laws explain how **forces** affect the **motion** of objects. \nWhat do you think would happen if you applied a **force** to a stationary object, and how would it relate to Newton's **Second Law**?"
+      },
+      {
+        "role": "user",
+        "content": "Explain Newton's laws simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Newton's laws are three fundamental rules of physics that explain how **force** affects the **motion** of an object. In simple terms, they tell us why things move, why they stop, and how they react when pushed or pulled."
+      },
+      {
+        "role": "user",
+        "content": "Explain Newton's laws simply in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781851003": {
+    "session_id": "integration-test-1781851003",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, gravity ke baare mein baat karte hain, lekin aapne English mein maanga hai, toh hum English mein explain karenge. Gravity ek **fundamental force** hai jo hamein zameen par rakhti hai. Yeh kuch points hain:\n* Gravity **mass** ke beech ki ek attractive force hai.\n* Yeh **Earth** ki surface par sab cheezon ko attract karti hai.\n* Gravity ki **strength** do objects ke mass aur unke beech ki distance par depend karti hai.\n* **Gravity constant** (G) ek universal constant hai jo gravity ki strength ko define karti hai.\n* Ek example hai ki kisi **ball** ko upar fekne par woh neeche aa jati hai, kyunki gravity usse attract karti hai.\nRecap: Gravity ek fundamental force hai jo mass ke beech ki attractive force hai. \nAb, aap bataiye, agar aap kisi **mountain** par khade hain, toh kya aapko lagta hai ki gravity ka effect wahan zyada hoga ya kam?"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "fd9e567c-3ae0-4fe6-833f-d287a3f354d5": {
+    "session_id": "fd9e567c-3ae0-4fe6-833f-d287a3f354d5",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Quiz me on the solar system"
+      },
+      {
+        "role": "assistant",
+        "content": "Chalo, **solar system** ke baare mein quiz karte hain! Yeh kuch important points hain:\n* **Sun** hamare solar system ka center hai.\n* **Eight planets** hain: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, aur Neptune.\n* **Dwarf planets** bhi hote hain, jaise ki Pluto.\n* **Asteroids** aur **comets** bhi hamare solar system mein paaye jaate hain.\n* **Earth** par hum rehte hain, aur yeh **oxygen** aur **water** ke liye jaana jaata hai.\n* **Jupiter** sabse bada planet hai, aur **Saturn** ke paas beautiful **rings** hain.\nUdaharan ke liye, **Mars** par humans ko settle karne ki koshish ki ja rahi hai. Recap: **Solar system** mein **Sun**, **planets**, **dwarf planets**, **asteroids**, aur **comets** hote hain. Ab, yeh sawal hai: **Konsi planet** par **human** settle hone ki sabse zyada sambhavana hai?"
+      },
+      {
+        "role": "user",
+        "content": "Deep Dive Prakash ki Samajh"
+      },
+      {
+        "role": "assistant",
+        "content": "Mafi chahta hu, samajh nahi aaya. Kripya thode aasan shabdon mein bataiye."
+      },
+      {
+        "role": "user",
+        "content": "explain motion"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **motion** ka matlab hota hai ki koi cheez ek jagah se doosri jagah jaati hai. Yeh **displacement** ke saath hota hai, jismein cheez ki **position** badalti hai. **Motion** ke kai prakaar hote hain, jaise ki **translational motion**, **rotational motion**, aur **vibrational motion**. Hum **speed**, **velocity**, aur **acceleration** ke baare mein bhi seekhte hain, jo **motion** ko samajhne ke liye bahut zaroori hain."
+      },
+      {
+        "role": "user",
+        "content": "Explain more"
+      },
+      {
+        "role": "assistant",
+        "content": "Zaroor! Chalo **Motion** ko thoda aur detail mein samajhte hain. Simple words mein, jab koi object time ke saath apni **position** change karta hai relative to a **reference point**, toh hum use motion kehte hain. Motion sirf seedha chalna nahi hota, iske alag-alag **types** hote hain jo depend karte hain ki object kaise move kar raha hai."
+      },
+      {
+        "role": "user",
+        "content": "explain loan"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "s2": {
+    "session_id": "s2",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain photosynthesis using the uploaded source"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **photosynthesis** kya hai? Yeh ek process hai jisme plants **sunlight** se **food** banate hain. Ismein plants **carbon dioxide** aur **water** ko **glucose** aur **oxygen** me badalte hain. Yeh **plants** ke liye bahut zaroori hai, kyunki isse ve apna **food** bana sakte hain."
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis using the uploaded source"
+      },
+      {
+        "role": "assistant",
+        "content": "Photosynthesis ek aisa process hai jisme **plants** apni **food** banate hain by using **sunlight**. Simple words mein kahein toh, yeh plants ka khana banane ka tarika hai!"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis using the uploaded source"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre, **photosynthesis** kya hai? Yeh ek process hai jisme **plants** apni **food** banate hain by using **sunlight**. Ismein, plants **carbon dioxide** aur **water** ko **glucose** aur **oxygen** me badalte hain. Yeh process **chlorophyll** ki madad se hota hai, jo ki **plants** ke **leaves** me paya jata hai. Toh, **photosynthesis** ka mtlb hai **plants** ka khana banane ka tarika!"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "s3": {
+    "session_id": "s3",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "According to the uploaded source, explain quantum mechanics"
+      },
+      {
+        "role": "assistant",
+        "content": "I am sorry, but provided **source material** mein **Quantum Mechanics** ke baare mein koi information nahi hai. Source sirf **photosynthesis** aur **plants** ke baare mein baat karta hai, isliye main iska answer nahi de sakta."
+      },
+      {
+        "role": "user",
+        "content": "According to the uploaded source, explain quantum mechanics"
+      },
+      {
+        "role": "assistant",
+        "content": "I am sorry, but provided **source material** mein **Quantum Mechanics** ke baare mein koi information nahi hai. Source sirf **photosynthesis** aur **plants** ke baare mein baat karta hai, isliye main iska answer nahi de sakta."
+      },
+      {
+        "role": "user",
+        "content": "According to the uploaded source, explain quantum mechanics"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "s4": {
+    "session_id": "s4",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain photosynthesis with visuals"
+      },
+      {
+        "role": "assistant",
+        "content": "Arre dost, **photosynthesis** ka matlab hai ki paudhe apne **food** ko kaise banate hain. Ismein **chlorophyll** naamak ek **green pigment** paudhon ko **sunlight**, **carbon dioxide**, aur **water** se **glucose** aur **oxygen** banane mein madad karta hai. Yeh process **leaves** mein hota hai, jahaan **stomata** naamak chhote-chhote **pores** hote hain jo **gas exchange** ko facilitate karte hain."
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis with visuals"
+      },
+      {
+        "role": "assistant",
+        "content": "Simple words mein kahein toh, **Photosynthesis** woh process hai jiske zariye plants apna **khana (food)** khud banate hain. Is process mein plants **sunlight**, **water**, aur **carbon dioxide** ka use karte hain taaki woh **glucose** (energy) aur **oxygen** produce kar sakein. Aap ise ek natural kitchen ki tarah imagine kar sakte ho jahan sunlight 'stove' ka kaam karti hai!"
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis with visuals"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "s5": {
+    "session_id": "s5",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain the water cycle with an animated video"
+      },
+      {
+        "role": "assistant",
+        "content": "The **Water Cycle** ek continuous process hai jisme water earth se atmosphere mein jata hai aur phir wapas niche aata hai. Basically, yeh nature ka ek way hai to **recycle water** taaki humein fresh water milta rahe. Main aapko video to nahi dikha sakta, but main isse itne simple tarike se explain karunga ki aapke mind mein ek **animated movie** chalne lagegi!"
+      },
+      {
+        "role": "user",
+        "content": "Explain the water cycle with an animated video"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      },
+      {
+        "role": "user",
+        "content": "Explain the water cycle with an animated video"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "s6": {
+    "session_id": "s6",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Teach fractions from the source in English with a visual and video"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm sorry, but source material mein **fractions** ke baare mein koi information nahi hai. Provided text sirf **photosynthesis** ke baare mein hai, isliye main is topic ko explain nahi kar sakta."
+      },
+      {
+        "role": "user",
+        "content": "Teach fractions from the source in English with a visual and video"
+      },
+      {
+        "role": "assistant",
+        "content": "I am sorry, but the **source material** provided does not contain any information about **fractions**. The provided text only discusses **photosynthesis**, so I cannot explain fractions based on the source."
+      },
+      {
+        "role": "user",
+        "content": "Teach fractions from the source in English with a visual and video"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "session-lang-test": {
+    "session_id": "session-lang-test",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain friction in Hinglish"
+      },
+      {
+        "role": "assistant",
+        "content": "Friction **gharshan** ek aisa **bal** hai jo do **satahon** ke beech kaam karta hai jab ve ek doosre ke saath **sangharsh** karte hain. Yeh **bal** unhein ek doosre se **alag** hone se rokta hai. **Friction** ke kai **prakaar** hote hain, jaise ki **static friction**, **kinetic friction**, aur **rolling friction**."
+      },
+      {
+        "role": "user",
+        "content": "Give me a quiz on it"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "432f6bcf-3b2e-4006-8f39-260e302c9743": {
+    "session_id": "432f6bcf-3b2e-4006-8f39-260e302c9743",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain Service Unavailable"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      },
+      {
+        "role": "user",
+        "content": "explain earth"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      },
+      {
+        "role": "user",
+        "content": "explain sun"
+      },
+      {
+        "role": "assistant",
+        "content": "Sun ko surya kehte hai, yeh humare solar system ka center hai, aur yeh ek **star** hai jo **nuclear reactions** ke through apna energy produce karta hai, jisse humein garmi aur roshni milti hai, sun ki surface temperature lagbhag **5500 degree celsius** hoti hai, jo ki bahut jyada garm hai"
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781854878": {
+    "session_id": "integration-test-1781854878",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Explain gravity in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      },
+      {
+        "role": "user",
+        "content": "Explain photosynthesis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      },
+      {
+        "role": "user",
+        "content": "Explain osmosis in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      },
+      {
+        "role": "user",
+        "content": "Explain the food chain in English"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "english",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
+  },
+  "integration-test-1781854878-hi": {
+    "session_id": "integration-test-1781854878-hi",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "Gravity explain karo simple mein"
+      },
+      {
+        "role": "assistant",
+        "content": "The AI service is currently unavailable. Please try again in a moment."
+      }
+    ],
+    "assistant_state": "idle",
+    "mode": "explain",
+    "language_mode": "hinglish",
+    "source_id": null,
+    "quiz_index": 0,
+    "hands_free": false,
+    "source_mode": false
   }
 }

@@ -33,26 +33,14 @@ def clean_for_speech(text: str) -> str:
     # Remove HTML tags
     text = re.sub(r"<[^>]+>", " ", text)
 
-    # Remove markdown headings (# ## ###)
-    text = re.sub(r"^#{1,6}\s+", "", text, flags=re.MULTILINE)
+    # Remove markdown formatting characters aggressively (*, _, #, `)
+    text = re.sub(r"[*_#`]", "", text)
 
-    # Remove bold/italic markers (**text** *text* __text__ _text_)
-    text = re.sub(r"\*{1,3}([^*\n]+)\*{1,3}", r"\1", text)
-    text = re.sub(r"_{1,2}([^_\n]+)_{1,2}", r"\1", text)
-
-    # Remove inline code backticks
-    text = re.sub(r"`[^`]+`", lambda m: m.group(0).strip("`"), text)
-
-    # Convert bullet list markers to natural pause (comma or period)
-    # "* item" or "- item" or "• item" at line start
-    text = re.sub(r"^\s*[\*\-•]\s+", "", text, flags=re.MULTILINE)
+    # Remove bullet/list markers that are hyphens or bullets
+    text = re.sub(r"^\s*[-•]\s+", "", text, flags=re.MULTILINE)
 
     # Remove numbered list markers like "1. " "2) "
     text = re.sub(r"^\s*\d+[.)]\s+", "", text, flags=re.MULTILINE)
-
-    # Remove any remaining lone asterisks or underscores
-    text = re.sub(r"(?<!\w)\*+(?!\w)", "", text)
-    text = re.sub(r"(?<!\w)_+(?!\w)", "", text)
 
     # Normalize multiple newlines/spaces to single space
     text = re.sub(r"\n+", " ", text)

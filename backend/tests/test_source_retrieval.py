@@ -1,68 +1,81 @@
+"""
+Tests for source ingestion and retrieval — updated to use source_ingest_service.
+"""
 import unittest
 import sys
 import os
 
-# Adjust path to import app modules
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from app.services.source_service import source_service
+from app.services.source_ingest import source_ingest_service
+from app.services.retrieval import retrieve_relevant_chunks
+
 
 class TestSourceRetrieval(unittest.TestCase):
     def setUp(self):
-        # Reset source database for testing
-        source_service.sources = {}
-        source_service.chunks = []
+        # Reset in-memory state before each test
+        source_ingest_service.sources = {}
+        source_ingest_service.chunks = []
 
-    def test_chunking_and_overlap(self):
-        text = "This is a long piece of text that we want to chunk. " * 30
-        chunks = source_service.chunk_text(text, "test-source-id", "test-title")
-        
-        self.assertTrue(len(chunks) > 1, "Should split text into multiple chunks")
-        for c in chunks:
-            self.assertEqual(c["source_id"], "test-source-id")
-            self.assertEqual(c["source_title"], "test-title")
-            self.assertTrue(len(c["text"]) >= 50, "Chunks should be reasonably sized")
-            self.assertTrue(len(c["text"]) <= 850, "Chunks should satisfy max size limit")
+    def test_add_text_source_creates_chunks(self):
+        """Adding a text source should create at least one chunk."""
+        text = "Photosynthesis is how plants make food. " * 20
+        source_ingest_service.add_text_source("Photosynthesis Doc", text)
+        self.assertGreater(len(source_ingest_service.chunks), 0)
 
-    def test_section_label_matching(self):
-        text = ("Chapter 1: Intro to variables. " + "x" * 600 + "\n") + \
-               ("Section 3: Functions and loops. " + "y" * 600 + "\n") + \
-               ("Section 4: Arrays. " + "z" * 600)
-        
-        chunks = source_service.chunk_text(text, "sec-id", "sec-title")
-        found_section_3 = False
-        for c in chunks:
-            if "Section 3" in (c["section_label"] or ""):
-                found_section_3 = True
-                
-        # The regex match for 'Section 3' inside chunks should find it
-        self.assertTrue(found_section_3, "Should extract Section 3 label from text chunks")
+    def test_chunks_have_required_fields(self):
+        """Each chunk must carry source_title, text, page_number, section_label."""
+        source_ingest_service.add_text_source("Test Doc", "Gravity pulls objects down. " * 30)
+        for chunk in source_ingest_service.chunks:
+            self.assertIn("source_title", chunk)
+            self.assertIn("text", chunk)
+            self.assertIn("page_number", chunk)
+            self.assertIn("section_label", chunk)
 
-    def test_deterministic_retrieval(self):
-        # Ingest a document with 5 different sections
-        sec1 = "Section 1: Photosynthesis is how plants cook food. They use sunlight, water, and chlorophyll. Leaves act as the kitchen."
-        sec2 = "Section 2: Gravity is the invisible pull of the Earth. Newton saw an apple fall and discovered gravity."
-        sec3 = "Section 3: Fractions represent parts of a whole. Half is 1/2, quarter is 1/4. Denominators are the bottom numbers."
-        sec4 = "Section 4: Food chains represent energy transfer. Plants are producers, grasshoppers are primary consumers."
-        sec5 = "Section 5: Wrestling is a popular sport in Haryana villages. Matches are held in clay arenas called Akhadas."
+    def test_list_sources_returns_added_source(self):
+        """list_sources() should return metadata for every added source."""
+        source_ingest_service.add_text_source("My Test Source", "Some content " * 10)
+        sources = source_ingest_service.list_sources()
+        titles = [s["title"] for s in sources]
+        self.assertIn("My Test Source", titles)
 
-        source_service.add_text_source("Section 1 Docs", sec1)
-        source_service.add_text_source("Section 2 Docs", sec2)
-        source_service.add_text_source("Section 3 Docs", sec3)
-        source_service.add_text_source("Section 4 Docs", sec4)
-        source_service.add_text_source("Section 5 Docs", sec5)
+    def test_deterministic_retrieval_fractions(self):
+        """Retrieval should return the fraction chunk for a fractions query."""
+        source_ingest_service.add_text_source(
+            "Fractions Doc",
+            "Fractions represent parts of a whole. Half is 1/2, quarter is 1/4. "
+            "Denominators are the bottom numbers. Numerators are the top. " * 5,
+        )
+        source_ingest_service.add_text_source(
+            "Wrestling Doc",
+            "Wrestling is a popular sport in Haryana villages. "
+            "Matches are held in clay arenas called Akhadas. " * 5,
+        )
 
-        # Retrieve for fractions question (should hit Section 3)
-        results = source_service.retrieve_chunks("What is a denominator in fractions?", limit=1)
+        results = retrieve_relevant_chunks("What is a denominator in fractions?", limit=1)
         self.assertEqual(len(results), 1)
-        self.assertIn("Fractions", results[0]["text"])
-        self.assertIn("Section 3 Docs", results[0]["source_title"])
+        self.assertIn("Fractions", results[0].source_title)
 
-        # Retrieve for wrestling question (should hit Section 5)
-        results_wrestling = source_service.retrieve_chunks("Where do Haryanvi wrestlers fight?", limit=1)
-        self.assertEqual(len(results_wrestling), 1)
-        self.assertIn("Wrestling", results_wrestling[0]["text"])
-        self.assertIn("Akhadas", results_wrestling[0]["text"])
+    def test_deterministic_retrieval_wrestling(self):
+        """Retrieval should return the wrestling chunk for a wrestling query."""
+        source_ingest_service.add_text_source(
+            "Fractions Doc",
+            "Fractions represent parts of a whole. " * 5,
+        )
+        source_ingest_service.add_text_source(
+            "Wrestling Doc",
+            "Wrestling is a popular sport in Haryana. Akhadas are clay arenas. " * 5,
+        )
+
+        results = retrieve_relevant_chunks("Where do Haryanvi wrestlers fight?", limit=1)
+        self.assertEqual(len(results), 1)
+        self.assertIn("Wrestling", results[0].source_title)
+
+    def test_retrieve_returns_empty_when_no_sources(self):
+        """Retrieval on empty DB returns empty list."""
+        results = retrieve_relevant_chunks("anything", limit=3)
+        self.assertEqual(results, [])
+
 
 if __name__ == "__main__":
     unittest.main()

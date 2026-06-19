@@ -24,29 +24,29 @@ OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL_GROUPS = {
     "explain": [
         "google/gemma-4-31b-it:free",
-        "mistralai/mistral-7b-instruct:free",
-        "meta-llama/llama-3-8b-instruct:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
+        "meta-llama/llama-3.2-3b-instruct:free",
     ],
     "quiz": [
         "google/gemma-4-31b-it:free",
-        "mistralai/mistral-7b-instruct:free",
-        "meta-llama/llama-3-8b-instruct:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
+        "meta-llama/llama-3.2-3b-instruct:free",
     ],
     "classify": [
-        "meta-llama/llama-3-8b-instruct:free",
-        "mistralai/mistral-7b-instruct:free",
+        "meta-llama/llama-3.2-3b-instruct:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
     ],
     "intent": [
-        "meta-llama/llama-3-8b-instruct:free",
-        "mistralai/mistral-7b-instruct:free",
+        "meta-llama/llama-3.2-3b-instruct:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
     ],
     "clarify": [
-        "meta-llama/llama-3-8b-instruct:free",
-        "mistralai/mistral-7b-instruct:free",
+        "meta-llama/llama-3.2-3b-instruct:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
     ],
     "default": [
         "google/gemma-4-31b-it:free",
-        "mistralai/mistral-7b-instruct:free",
+        "meta-llama/llama-3.2-3b-instruct:free",
     ],
 }
 

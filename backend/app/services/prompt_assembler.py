@@ -1,6 +1,8 @@
 import os
 from typing import List, Dict, Any
 from app.services.system_prompt import get_system_prompt
+from app.services.language_router import detect_language_details
+from app.services.prompts import LANGUAGE_INSTRUCTIONS
 
 PROMPTS_DIR = os.path.join(os.path.dirname(__file__), "..", "prompts")
 
@@ -29,6 +31,15 @@ class PromptAssembler:
             with open(prompt_file, "r", encoding="utf-8") as f:
                 mode_prompt = f"\n### MODE INSTRUCTIONS\n{f.read().strip()}\n"
         
+        # Determine Language Rules
+        language_mode, is_explicit = detect_language_details(query)
+        if language_mode == "hinglish":
+            actual_lang = "hinglish_explicit" if is_explicit else "hinglish"
+        else:
+            actual_lang = language_mode
+        lang_rule = LANGUAGE_INSTRUCTIONS.get(actual_lang, LANGUAGE_INSTRUCTIONS["hinglish"])
+        lang_block = f"\n### LANGUAGE RULES\n{lang_rule}\n"
+        
         # Memory Section
         user_prefs = memory_context["user_preferences"]
         memory_block = f"""
@@ -56,12 +67,14 @@ class PromptAssembler:
         # Final Assembly
         final_prompt = f"""{system_base}
 {mode_prompt}
+{lang_block}
 {memory_block}
 
 {source_block}
 
 ### STUDENT COMMAND
 Language Mode Requested: {memory_context['current_language_mode']}
+Language Mode Explicitly Specified: {is_explicit}
 Student Question: {query}
 
 Response:"""

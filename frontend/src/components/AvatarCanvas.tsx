@@ -81,6 +81,7 @@ function AvatarModel({ state }: { state: string }) {
   const fbx        = useFBX("/juli.fbx");
   const idleAnim   = useFBX("/Idle.fbx");
   const talkAnim   = useFBX("/Talking.fbx");
+  const talkAnim2  = useFBX("/Talking 2.fbx");
   const thinkAnim  = useFBX("/Thinking.fbx");
   const waveAnim   = useFBX("/Waving.fbx");
 
@@ -102,7 +103,8 @@ function AvatarModel({ state }: { state: string }) {
     const rawClips: [string, THREE.AnimationClip | undefined][] = [
       ["idle",     idleAnim.animations[0]],
       ["speaking", talkAnim.animations[0]],
-      ["thinking", thinkAnim.animations[0]],
+      ["speaking2", talkAnim2.animations[0]],
+      ["processing", thinkAnim.animations[0]],
       ["waving",   waveAnim.animations[0]],
     ];
 
@@ -143,8 +145,14 @@ function AvatarModel({ state }: { state: string }) {
     const map = actionsRef.current;
     if (!mixerRef.current || !map) return;
 
-    const targetName = (state === "listening" ? "idle" : state) || "idle";
-    const next    = map[targetName];
+    let targetName = (state === "listening" ? "idle" : state) || "idle";
+    
+    // Use both talking animations randomly
+    if (targetName === "speaking") {
+      targetName = Math.random() > 0.5 ? "speaking" : "speaking2";
+    }
+
+    const next    = map[targetName] || map["idle"];
     const current = activeRef.current;
 
     if (!next || next === current) return;

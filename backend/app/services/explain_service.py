@@ -5,6 +5,7 @@ from app.services.llm_service import llm_service
 from app.services.source_ingest import source_ingest_service
 from app.services.retrieval import retrieve_relevant_chunks
 from app.services.lesson_service import _get_mock_explanation
+from app.services.language_router import detect_language_details
 from app.services.prompts import (
     SYSTEM_PROMPT, EXPLAIN_PROMPT_TEMPLATE, LANGUAGE_INSTRUCTIONS,
     SOURCE_SYSTEM_PROMPT, SOURCE_EXPLAIN_PROMPT_TEMPLATE
@@ -57,7 +58,9 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
     topic = clean_text.title() or "Photosynthesis"
     topic_lower = topic.lower()
 
-    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["hinglish"])
+    _, is_explicit = detect_language_details(text)
+    actual_lang = "hinglish_explicit" if (language_mode == "hinglish" and is_explicit) else language_mode
+    lang_instruction = LANGUAGE_INSTRUCTIONS.get(actual_lang, LANGUAGE_INSTRUCTIONS["hinglish"])
 
     result = {}
 
@@ -147,7 +150,7 @@ async def generate_explanation(session_id: str, text: str, language_mode: str = 
     else:
         # Standard Explain Mode
         sys_prompt = SYSTEM_PROMPT.format(LANGUAGE_MODE=lang_instruction)
-        user_prompt = build_explain_prompt(topic, language_mode)
+        user_prompt = build_explain_prompt(topic, actual_lang)
 
         try:
             response_json = await llm_service.get_chat_completion([

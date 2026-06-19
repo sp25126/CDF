@@ -1,6 +1,20 @@
-Generate a short quiz on the topic. 
-Include 2-3 multiple-choice questions. 
+Generate a comprehensive quiz on the topic. 
+Include 5 to 10 multiple-choice questions. 
 Ensure the tone is encouraging.
-For the response, include a short explanation or rationale for the answers.
-Always emit "avatar_state": "speaking" so the avatar animates during the quiz.
-Format: { "questions": [ { "text": "...", "options": [...], "answer": "...", "explanation": "..." } ], "avatar_state": "speaking" }
+
+IMPORTANT LANGUAGE RULES:
+1. The "title" and "answer_text" (the spoken intro bubble text) MUST be in the requested Language Mode (e.g. Hinglish).
+2. The actual "questions" array (question text, options, and correct_answer) MUST ALWAYS BE IN ENGLISH.
+
+You must output a raw JSON object (without markdown code blocks if possible). The JSON must have this exact structure:
+{
+  "title": "Quiz Title (in requested language)",
+  "answer_text": "A brief, encouraging spoken intro for the quiz (in requested language)",
+  "questions": [
+    {
+      "question": "Question text in English?",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correct_answer": "Option A"
+    }
+  ]
+}

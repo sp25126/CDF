@@ -170,12 +170,26 @@ export default function DemoPage() {
               </code>
             </div>
 
-            {/* Response Details */}
             <ResponseRenderer
-              response={response}
-              onNextAction={handleNextAction}
-              onQuizNavigate={handleQuizNavigate}
-              onQuizAnswerSubmit={handleQuizSubmit}
+              state={((response.mode as any) === 'quiz' || (response.mode as any) === 'ask_question') ? 'quiz' : 'explain'}
+              payload={{
+                explanation: {
+                  title: response.title || 'Explanation',
+                  points: response.bullets && response.bullets.length > 0 ? response.bullets : [response.answer_text || ''],
+                  analogy: response.example || response.recap || ''
+                },
+                quiz: {
+                  questions: (response.questions || []).map((q: any) => ({
+                    question: q.question,
+                    options: q.options || [],
+                    correct_index: q.correct_index != null ? q.correct_index : 0,
+                    explanation: q.explanation || ''
+                  }))
+                },
+                next_actions: response.next_actions || []
+              }}
+              onActionClick={handleNextAction}
+              onRetry={() => handleSubmit(input)}
             />
           </div>
         )}

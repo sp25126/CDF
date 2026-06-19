@@ -46,11 +46,11 @@ class LLMService:
         return result
 
     async def generate_response(
-        self, prompt: str, task_type: str = "default"
+        self, prompt: str, task_type: str = "default", response_format: Optional[dict] = None
     ) -> str:
         """Single-turn prompt convenience wrapper."""
         messages = [{"role": "user", "content": prompt}]
-        response = await self.get_chat_completion(messages, task_type=task_type)
+        response = await self.get_chat_completion(messages, task_type=task_type, response_format=response_format)
         return json.dumps(response) if isinstance(response, dict) else str(response)
 
 

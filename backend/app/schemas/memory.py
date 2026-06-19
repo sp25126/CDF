@@ -10,6 +10,7 @@ class SessionMemory(BaseModel):
     source_id: Optional[str] = None
     quiz_index: int = 0
     hands_free: bool = False
+    source_mode: bool = False
 
 class UserMemory(BaseModel):
     user_id: str

@@ -97,7 +97,7 @@ TOPIC_PROFILES = [
             "cell", "membrane", "nucleus", "organelle", "mitochondria",
             "cytoplasm", "biology", "living", "organism", "prokaryote", "eukaryote"
         ],
-        "forbidden": [\"black hole\", "gravity", "force", "motion"],
+        "forbidden": ["black hole", "gravity", "force", "motion"],
         "min_score": 0.4,
     },
     {

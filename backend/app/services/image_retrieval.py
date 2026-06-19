@@ -45,6 +45,25 @@ def strip_html(text: str) -> str:
     return BeautifulSoup(text, "html.parser").get_text(strip=True)
 
 
+import re
+
+def clean_search_topic(text: str) -> str:
+    clean_text = text.lower()
+    for char in [".", ",", "?", "!", "\"", "'"]:
+        clean_text = clean_text.replace(char, " ")
+        
+    stop_words = [
+        "explain", "samjhao", "batao", "kya hai", "meaning", "how", "why", "about",
+        "for class 6", "for class 7", "for class 8", "for class 5", "in hinglish", 
+        "haryana", "a", "an", "the", "make", "in english", "english mein", "english me",
+        "in hindi", "hindi mein", "hindi me", "pure hindi"
+    ]
+    for word in stop_words:
+        clean_text = re.sub(rf'\b{re.escape(word)}\b', ' ', clean_text)
+        
+    return re.sub(r'\s+', ' ', clean_text).strip()
+
+
 def _build_search_query(topic: str) -> str:
     """
     Build a topic-locked Wikimedia search query.
@@ -53,10 +72,13 @@ def _build_search_query(topic: str) -> str:
     profile = find_topic_profile(topic)
 
     if profile and profile.get("required"):
-        # Anchor the search to the 3 most specific required keywords + the topic itself
-        anchors = profile["required"][:3]
+        # Anchor the search to the 3 most specific required keywords + the topic itself (excluding topic duplication)
+        clean_topic = topic.lower()
+        anchors = [a for a in profile["required"] if a.lower() not in clean_topic][:3]
         anchor_str = " ".join(anchors)
-        return f"{topic} {anchor_str} diagram"
+        if anchor_str:
+            return f"{topic} {anchor_str} diagram"
+        return f"{topic} diagram"
     else:
         # Simple title search — include "diagram" to prefer educational visuals
         return f"{topic} educational diagram"
@@ -69,7 +91,8 @@ async def retrieve_visuals(
     Fetch, validate, and relevance-filter images for a topic.
     Returns 0–3 verified, topic-locked images. Empty list if none qualify.
     """
-    search_query = _build_search_query(topic)
+    cleaned_topic = clean_search_topic(topic) or topic
+    search_query = _build_search_query(cleaned_topic)
     encoded_q = urllib.parse.quote(search_query)
 
     url = (

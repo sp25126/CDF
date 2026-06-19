@@ -4,6 +4,7 @@ from typing import Dict, Any, List
 from app.services.llm_service import llm_service
 from app.services.source_ingest import source_ingest_service
 from app.services.retrieval import retrieve_relevant_chunks
+from app.services.language_router import detect_language_details
 from app.services.prompts import (
     SYSTEM_PROMPT, QUIZ_PROMPT_TEMPLATE, LANGUAGE_INSTRUCTIONS,
     SOURCE_SYSTEM_PROMPT, SOURCE_QUIZ_PROMPT_TEMPLATE
@@ -595,7 +596,9 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "hingli
     topic = clean_text.title() or "Fractions"
     topic_lower = topic.lower()
 
-    lang_instruction = LANGUAGE_INSTRUCTIONS.get(language_mode, LANGUAGE_INSTRUCTIONS["hinglish"])
+    _, is_explicit = detect_language_details(text)
+    actual_lang = "hinglish_explicit" if (language_mode == "hinglish" and is_explicit) else language_mode
+    lang_instruction = LANGUAGE_INSTRUCTIONS.get(actual_lang, LANGUAGE_INSTRUCTIONS["hinglish"])
 
 
     if source_mode:
@@ -694,7 +697,12 @@ async def generate_quiz(session_id: str, text: str, language_mode: str = "hingli
         
         raw_questions = response_json.get("questions", [])
         normalized_questions = [normalize_quiz_question(q) for q in raw_questions]
-        
+
+        # If LLM returned an empty questions list (soft rate-limit or model refusal)
+        # fall through to the mock database rather than returning an empty quiz.
+        if not normalized_questions:
+            raise ValueError("LLM returned 0 questions — triggering mock fallback")
+
         return {
             "title": response_json.get("title", f"Quiz on {topic}"),
             "response_text": response_json.get("response_text") or response_json.get("answer_text"),

@@ -6,10 +6,22 @@ from typing import Dict, Any
 LANGUAGE_INSTRUCTIONS: Dict[str, str] = {
     "hinglish": (
         "CRITICAL LANGUAGE RULES — follow exactly:\n"
-        "1. response_text (the spoken bubble text) MUST be in natural Hinglish "
-        "(mix Hindi and English like a desi teacher talking to village children). "
-        "Do NOT use markdown (*bold*, **text**, bullets with *) in response_text. "
-        "Write it as plain spoken sentences only.\n"
+        "1. response_text (the spoken bubble text) MUST use a hybrid mode:\n"
+        "   - Basic anatomical terms, names of parts/structures (e.g. lung, heart, leaf, roots) and basic intro MUST be in natural Hinglish "
+        "(mix Hindi and English, e.g., 'lung ko phephda kehte hai').\n"
+        "   - ALL other detailed explanations, mechanisms, processes, and deeper details MUST be in clear, natural English.\n"
+        "   - Do NOT use markdown (*bold*, **text**, bullets with *) in response_text. Write it as plain spoken sentences only.\n"
+        "2. title: plain English, no markdown.\n"
+        "3. bullets: plain English points, no asterisks, no markdown symbols.\n"
+        "4. example: plain English with a local Haryana analogy.\n"
+        "5. recap: one plain English sentence.\n"
+        "6. questions (for quiz): question text in Hinglish, options in English."
+    ),
+    "hinglish_explicit": (
+        "CRITICAL LANGUAGE RULES — follow exactly:\n"
+        "1. response_text (the spoken bubble text) MUST be COMPLETELY in natural Hinglish "
+        "(mix Hindi and English like a desi teacher talking to village children for both basic terms and all detailed explanations).\n"
+        "   - Do NOT use markdown (*bold*, **text**, bullets with *) in response_text. Write it as plain spoken sentences only.\n"
         "2. title: plain English, no markdown.\n"
         "3. bullets: plain English points, no asterisks, no markdown symbols.\n"
         "4. example: plain English with a local Haryana analogy.\n"

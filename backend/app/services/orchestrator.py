@@ -161,10 +161,16 @@ async def build_assistant_response(
                 # 4. Call LLM
                 try:
                     task_type = "quiz" if intent in ["quiz", "ask_question"] else "explain"
-                    raw_response = await llm_service.generate_response(final_prompt, task_type=task_type)
+                    raw_response = await llm_service.generate_response(
+                        final_prompt, 
+                        task_type=task_type,
+                        response_format={"type": "json_object"}
+                    )
                     
-                    if raw_response.strip().startswith("{") or raw_response.strip().startswith("["):
-                        sub_res = json.loads(raw_response)
+                    import re
+                    json_match = re.search(r'\{.*\}|\[.*\]', raw_response, re.DOTALL)
+                    if json_match:
+                        sub_res = json.loads(json_match.group(0))
                     else:
                         sub_res = {
                             "title": sub_q.title(),
