@@ -12,7 +12,8 @@ class PromptAssembler:
         query: str,
         memory_context: Dict[str, Any],
         source_chunks: List[Any] = None,
-        source_mode: bool = False
+        source_mode: bool = False,
+        intent_override: str = None
     ) -> str:
         """
         Build a unified, memory-aware prompt for the LLM.
@@ -20,9 +21,9 @@ class PromptAssembler:
         system_base = get_system_prompt()
         
         # Determine Mode Prompt
-        mode = memory_context.get("current_mode", "explain")
+        mode = intent_override if intent_override else memory_context.get("current_mode", "explain")
         mode_prompt = ""
-        if mode == "quiz":
+        if mode in ["quiz", "ask_question"]:
             prompt_file = os.path.join(PROMPTS_DIR, "quiz_prompt.txt")
         else:
             prompt_file = os.path.join(PROMPTS_DIR, "explain_prompt.txt")

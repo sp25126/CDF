@@ -14,7 +14,8 @@ You must output a raw JSON object (without markdown code blocks if possible). Th
     {
       "question": "Question text in English?",
       "options": ["Option A", "Option B", "Option C", "Option D"],
-      "correct_answer": "Option A"
+      "correct_index": 0,
+      "explanation": "A brief explanation of why the correct option is the right answer."
     }
   ]
 }

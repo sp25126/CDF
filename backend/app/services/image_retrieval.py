@@ -61,6 +61,9 @@ def clean_search_topic(text: str) -> str:
     for word in stop_words:
         clean_text = re.sub(rf'\b{re.escape(word)}\b', ' ', clean_text)
         
+    # Prevent "ai" from being confused with "Al" (Aluminium) by Wikimedia search
+    clean_text = re.sub(r'\bai\b', 'artificial intelligence', clean_text)
+        
     return re.sub(r'\s+', ' ', clean_text).strip()
 
 

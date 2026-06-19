@@ -137,6 +137,15 @@ VIDEO_DB: List[Dict[str, Any]] = [
         "duration": 320,
         "video_reason": "Official NatGeo overview of the solar system.",
     },
+    # ── Artificial Intelligence ────────────────────────────────────────────
+    {
+        "video_title": "What Is AI? Crash Course AI #1",
+        "youtube_id": "a0_lo_UdVHw",
+        "topics": ["artificial intelligence", "ai", "machine learning"],
+        "language": "english",
+        "duration": 660,
+        "video_reason": "Excellent overview of Artificial Intelligence and what it actually is.",
+    },
 ]
 
 
@@ -180,8 +189,8 @@ async def search_videos(
             candidates.append(entry)
 
     if not candidates:
-        logger.info(f"[VideoSearch] No matching videos for topic='{topic}'")
-        return None
+        logger.info(f"[VideoSearch] No matching videos in DB for topic='{topic}'. Falling back to dynamic search.")
+        return await _search_videos_dynamic(cleaned_topic, language_mode)
 
     # Rank by language preference + topic relevance
     ranked = rank_videos(candidates, normalized_topic, language_mode)
@@ -215,3 +224,52 @@ async def search_videos(
         f"alternatives={len(result['alternatives'])}"
     )
     return result
+
+async def _search_videos_dynamic(topic: str, language_mode: str) -> Optional[Dict[str, Any]]:
+    """
+    Fallback to dynamic YouTube search using yt-dlp if no DB match is found.
+    """
+    try:
+        import yt_dlp
+    except ImportError:
+        logger.warning("[VideoSearch] yt-dlp not installed, cannot perform dynamic search.")
+        return None
+
+    query = f"{topic} educational video {'in Hindi' if language_mode in ['hindi', 'hinglish'] else 'in English'}"
+    
+    ydl_opts = {
+        'quiet': True,
+        'extract_flat': 'in_playlist',
+        'default_search': 'ytsearch',
+        'max_downloads': 3
+    }
+
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(query, download=False)
+            if 'entries' in info and len(info['entries']) > 0:
+                entries = info['entries']
+                
+                def to_output(vid: dict) -> dict:
+                    vid_id = vid.get('id')
+                    return {
+                        "video": VideoRef(
+                            title=vid.get('title') or "Video",
+                            youtube_id=vid_id,
+                            url=f"https://www.youtube.com/watch?v={vid_id}",
+                            video_id=vid_id,
+                        ),
+                        "reason": "Dynamically retrieved based on your request."
+                    }
+                
+                result = {
+                    "primary": to_output(entries[0]),
+                    "alternatives": [to_output(alt) for alt in entries[1:3] if alt]
+                }
+                
+                logger.info(f"[VideoSearch] Dynamic search success for '{query}' → primary={entries[0].get('id')}")
+                return result
+    except Exception as e:
+        logger.error(f"[VideoSearch] Dynamic search failed: {e}")
+        
+    return None

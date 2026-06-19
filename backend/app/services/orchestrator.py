@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 
 from app.services.explain_interactive import generate_interactive_explanation
 from app.services.quiz_interactive import generate_interactive_quiz, process_quiz_answer
+from app.services.quiz_service import normalize_quiz_question
 from app.services.voice_command_router import voice_command_router
 from app.services.hands_free_state import state_manager
 
@@ -158,7 +159,8 @@ async def build_assistant_response(
                     query=sub_q,
                     memory_context=memory_context,
                     source_chunks=chunks,
-                    source_mode=source_mode
+                    source_mode=source_mode,
+                    intent_override=intent
                 )
                 
                 # 4. Call LLM
@@ -209,7 +211,7 @@ async def build_assistant_response(
                 # Quiz questions compatibility
                 sub_questions = []
                 if intent in ["quiz", "ask_question"] and "questions" in sub_res:
-                    sub_questions = sub_res["questions"]
+                    sub_questions = [normalize_quiz_question(q) for q in sub_res["questions"]]
 
                 sub_results.append({
                     "res": sub_res,

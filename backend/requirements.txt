@@ -10,3 +10,4 @@ beautifulsoup4
 gTTS
 SpeechRecognition
 json_repair
+yt-dlp
