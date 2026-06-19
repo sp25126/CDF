@@ -38,6 +38,7 @@ import {
 import { useWakeWord }        from "./useWakeWord";
 import { useEndOfUtterance }  from "./useEndOfUtterance";
 import { VOICE_CONFIG }       from "./voiceConfig";
+import { appEventBus }        from "../state/appEventBus";
 
 // ─── Browser capability check ─────────────────────────────────────────────────
 
@@ -230,6 +231,18 @@ export function useVoiceSession({
 
   const notifyAnswerEnded = useCallback(() => {
     dispatch({ type: "ANSWER_ENDED" });
+  }, []);
+
+  // ── Event Bus Subscription ────────────────────────────────────────────────
+  useEffect(() => {
+    const unsubscribe = appEventBus.subscribe((event) => {
+      if (event.type === "TTS_START") {
+        dispatch({ type: "ANSWER_STARTED" });
+      } else if (event.type === "TTS_END") {
+        dispatch({ type: "ANSWER_ENDED" });
+      }
+    });
+    return unsubscribe;
   }, []);
 
   // ── Cleanup on unmount ────────────────────────────────────────────────────

@@ -51,6 +51,24 @@ function HomeInner() {
     submitCommand(text, isSaved && apiKey ? { userApiKey: apiKey, userProvider: provider, userModel: model } : undefined);
     setCommand("");
   };
+
+  // Hands-free voice session hook
+  const {
+    enable: enableVoice,
+    disable: disableVoice,
+    isListening: isVoiceListening,
+  } = useVoiceSession({
+    onCommand: (text) => handleCommandSubmit(text),
+  });
+
+  // Sync state.topBar.handsFree with useVoiceSession
+  useEffect(() => {
+    if (state.topBar.handsFree) {
+      enableVoice();
+    } else {
+      disableVoice();
+    }
+  }, [state.topBar.handsFree, enableVoice, disableVoice]);
   
   const handleHandsFreeToggle = () => {
     const isEnabling = !state.topBar.handsFree;
@@ -61,10 +79,12 @@ function HomeInner() {
 
   const handleSourceModeToggle = () => {
     const isEnabling = !state.topBar.sourceMode;
-    transitionTo(isEnabling ? 'source_mode' : 'idle', {
+    transitionTo(state.name, {
         topBar: { ...state.topBar, sourceMode: isEnabling }
     });
-    dispatch({ type: 'SOURCE_MODE_ACTIVATED' });
+    if (isEnabling) {
+      dispatch({ type: 'SOURCE_MODE_ACTIVATED' });
+    }
   }
 
   const handleWhiteboardToggle = () => {
@@ -118,7 +138,7 @@ function HomeInner() {
         <TeacherConsole
           isLoading={isLoading}
           isWhiteboardActive={state.topBar.isWhiteboardActive}
-          isListening={state.name === 'listening'}
+          isListening={state.name === 'listening' || isVoiceListening}
           isHandsFree={state.topBar.handsFree}
           isSourceMode={state.topBar.sourceMode}
           command={command}

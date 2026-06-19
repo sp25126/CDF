@@ -7,11 +7,17 @@ import SummaryCard from './cards/SummaryCard';
 import VisualDiagramCard from './cards/VisualDiagramCard';
 import BestVideoCard from './cards/BestVideoCard';
 import AlternativeVideoCard from './cards/AlternativeVideoCard';
-import SourceChips from './cards/SourceChips';
+import { SourceChips } from './SourceChips';
 import SidebarEmptyState from './cards/SidebarEmptyState';
 import { Visual } from './cards/VisualDiagramCard';
 import { Video } from './cards/BestVideoCard';
-import { Source } from './cards/SourceChips';
+
+interface SourceRef {
+  title: string;
+  snippet: string;
+  page_number?: number;
+  section_label?: string;
+}
 
 interface MediaRailProps {
   payload?: {
@@ -19,7 +25,7 @@ interface MediaRailProps {
     visual?: Visual;
     best_video?: Video;
     alternative_videos?: Video[];
-    source_refs?: Source[];
+    source_refs?: SourceRef[];
   };
 }
 
@@ -63,7 +69,7 @@ export const MediaRail: React.FC<MediaRailProps> = ({ payload }) => {
                         <motion.div variants={itemVariants}><AlternativeVideoCard videos={payload.alternative_videos} /></motion.div>
                     )}
                     {payload?.source_refs && payload.source_refs.length > 0 && (
-                        <motion.div variants={itemVariants}><SourceChips sources={payload.source_refs} /></motion.div>
+                        <motion.div variants={itemVariants}><SourceChips citations={payload.source_refs} /></motion.div>
                     )}
                 </AnimatePresence>
             </motion.div>
