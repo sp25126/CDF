@@ -61,6 +61,8 @@ export const SettingsModal: React.FC = () => {
       });
       if (res.valid) {
         setValidationState('valid');
+        // Automatically refresh model list after a valid key
+        // The ModelSelector's autoFetch will pick this up via the apiKey prop
       } else {
         setValidationState('invalid', res.error ?? 'Key was rejected by the provider.');
       }
@@ -163,7 +165,13 @@ export const SettingsModal: React.FC = () => {
           <ProviderSelector value={provider} onChange={setProvider} />
 
           {/* Model */}
-          <ModelSelector provider={provider} value={model} onChange={setModel} />
+          <ModelSelector
+            provider={provider}
+            apiKey={apiKey}
+            value={model}
+            onChange={setModel}
+            autoFetch={validationState === 'valid' || isSaved}
+          />
 
           {/* API Key */}
           <ApiKeyField

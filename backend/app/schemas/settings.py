@@ -41,3 +41,19 @@ class UsageResponse(BaseModel):
     status: str = "success"
     data: Optional[UsageInfo] = None
     error: Optional[str] = None
+
+
+class ModelsRequest(BaseModel):
+    provider: str = Field(..., description="'groq' | 'openai' | 'anthropic'")
+    api_key: str = Field(..., min_length=10)
+
+
+class ModelInfo(BaseModel):
+    id: str
+    label: str
+
+
+class ModelsResponse(BaseModel):
+    status: str = "success"
+    models: list[ModelInfo] = []
+    error: Optional[str] = None
