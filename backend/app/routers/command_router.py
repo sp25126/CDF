@@ -23,7 +23,10 @@ async def process_text(request: CommandRequest):
         session_id=request.session_id,
         text=request.text,
         mode_hint=request.mode_hint,
-        source_mode=request.source_mode
+        source_mode=request.source_mode,
+        user_api_key=request.user_api_key,
+        user_provider=request.user_provider,
+        user_model=request.user_model,
     )
     
     dump = response_payload.model_dump()

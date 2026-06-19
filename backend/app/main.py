@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 
 from .api.routes import sessions, sources
 from .api.routes import commands as api_commands
-from .routers import command_router, voice_router
+from .routers import command_router, voice_router, settings_router
 from .core.config import get_settings
 
 # Configure Logging
@@ -73,6 +73,9 @@ app.include_router(sources.router, prefix="/api/sources", tags=["sources"])
 
 # Voice / hands-free
 app.include_router(voice_router.router, prefix="/api/voice", tags=["voice"])
+
+# Settings — key validation & usage
+app.include_router(settings_router.router, prefix="/api/settings", tags=["settings"])
 
 # ─── Legacy compatibility routes (keep old tests + direct calls working) ───────
 app.include_router(command_router.router, prefix="/command", tags=["commands-legacy"])

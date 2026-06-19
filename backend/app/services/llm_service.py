@@ -25,9 +25,13 @@ class LLMService:
         messages: list,
         response_format: Optional[dict] = None,
         task_type: str = "default",
+        user_api_key: Optional[str] = None,
+        user_provider: Optional[str] = None,
+        model_override: Optional[str] = None,
     ) -> dict:
         """
         Run a chat completion via the provider router.
+        If user_api_key + user_provider are set, routes to that provider directly.
         Validates the output schema; if validation fails, logs a warning but
         still returns the result (the caller decides what to do with it).
         """
@@ -35,6 +39,9 @@ class LLMService:
             messages=messages,
             task_type=task_type,
             response_format=response_format,
+            user_api_key=user_api_key,
+            user_provider=user_provider,
+            model_override=model_override,
         )
 
         if not validate_response(result, task_type):

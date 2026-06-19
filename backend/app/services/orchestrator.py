@@ -53,7 +53,10 @@ async def build_assistant_response(
     text: str,
     mode_hint: Optional[str] = None,
     source_mode: bool = False,
-    user_id: str = "default_teacher"
+    user_id: str = "default_teacher",
+    user_api_key: Optional[str] = None,
+    user_provider: Optional[str] = None,
+    user_model: Optional[str] = None,
 ) -> AssistantResponse:
     """
     Main orchestrator service that coordinates intent, language, memory,

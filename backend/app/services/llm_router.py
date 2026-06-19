@@ -1,13 +1,16 @@
 """
 LLM Router — single entry point for all LLM calls.
 
-Routing policy:
+Routing policy (no user key):
   Groq    → primary (fast, cheap, strong)
   OpenRouter → fallback (broader model access)
   Ollama  → local emergency fallback
 
-The frontend NEVER knows which provider was used.
-The response contract is identical regardless of provider.
+Routing policy (user key provided):
+  Use the user's chosen provider directly with their key.
+  If that fails, return a structured error — do NOT fall back to the server key.
+
+Security: user_api_key is passed through but NEVER logged in full.
 """
 import logging
 from typing import Optional
@@ -15,6 +18,8 @@ from typing import Optional
 from app.providers.groq_provider import GroqProvider
 from app.providers.openrouter_provider import OpenRouterProvider
 from app.providers.ollama_provider import OllamaProvider
+from app.providers.openai_provider import OpenAIProvider
+from app.providers.anthropic_provider import AnthropicProvider
 
 logger = logging.getLogger(__name__)
 
@@ -22,27 +27,62 @@ logger = logging.getLogger(__name__)
 _groq = GroqProvider()
 _openrouter = OpenRouterProvider()
 _ollama = OllamaProvider()
+_openai = OpenAIProvider()
+_anthropic = AnthropicProvider()
 
-# Provider chain: ordered by preference
+# Default server-key chain: ordered by preference
 PROVIDER_CHAIN = [_groq, _openrouter, _ollama]
+
+# Map provider name → provider instance (for user-key routing)
+USER_PROVIDER_MAP = {
+    "groq": _groq,
+    "openai": _openai,
+    "anthropic": _anthropic,
+}
 
 
 async def route_chat(
     messages: list,
     task_type: str = "default",
     response_format: Optional[dict] = None,
+    user_api_key: Optional[str] = None,
+    user_provider: Optional[str] = None,
+    model_override: Optional[str] = None,
 ) -> dict:
     """
-    Try providers in order: Groq → OpenRouter → Ollama.
-    Returns parsed dict on success.
-    Raises a descriptive RuntimeError if all providers fail.
+    Route an LLM call.
 
-    Logs:
-        - provider attempted
-        - fallback reason
-        - final provider that succeeded
-        - error type if all fail
+    If user_api_key + user_provider are supplied, route directly to that
+    provider with the user's key. On failure, return a structured error
+    (do NOT silently fall back to the server key — user expects their key).
+
+    Otherwise try the default server chain: Groq → OpenRouter → Ollama.
     """
+    # ── User-supplied key path ────────────────────────────────────────────────
+    if user_api_key and user_provider:
+        provider_name = user_provider.lower()
+        provider = USER_PROVIDER_MAP.get(provider_name)
+        if not provider:
+            logger.warning(f"[LLMRouter] Unknown user provider: {provider_name}")
+            return _build_graceful_error(task_type, "Unsupported provider.")
+
+        logger.info(f"[LLMRouter] Using user key for provider={provider_name} task={task_type} (key redacted)")
+        try:
+            result = await provider.chat_completion(
+                messages=messages,
+                task_type=task_type,
+                response_format=response_format,
+                api_key=user_api_key,
+                model_override=model_override,
+            )
+            logger.info(f"[LLMRouter] ✓ User-key success provider={provider_name}")
+            return result
+        except Exception as e:
+            err_str = str(e)
+            logger.warning(f"[LLMRouter] ✗ User-key provider={provider_name} failed: {type(e).__name__}")
+            return _build_graceful_error(task_type, err_str)
+
+    # ── Default server-key chain ──────────────────────────────────────────────
     last_error = None
     attempted = []
 

@@ -2,6 +2,9 @@
 Command request schemas for the CDF classroom assistant.
 
 Defines the input models that the frontend sends to the orchestrator.
+
+Security note: user_api_key is accepted per-request and is NEVER logged,
+stored in the database, or included in error reports.
 """
 
 from pydantic import BaseModel, Field
@@ -30,6 +33,18 @@ class CommandRequest(BaseModel):
     source_mode: Optional[bool] = Field(
         default=False,
         description="Whether to use source-grounded answers (future layer)"
+    )
+    user_api_key: Optional[str] = Field(
+        default=None,
+        description="User-supplied API key. Used for this request only, never persisted."
+    )
+    user_provider: Optional[str] = Field(
+        default=None,
+        description="Provider to use with user_api_key: 'groq' | 'openai' | 'anthropic'"
+    )
+    user_model: Optional[str] = Field(
+        default=None,
+        description="Model override when user_api_key is provided."
     )
 
     class Config:

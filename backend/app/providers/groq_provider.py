@@ -60,11 +60,15 @@ class GroqProvider(BaseProvider):
         messages: list,
         task_type: str = "default",
         response_format: Optional[dict] = None,
+        api_key: Optional[str] = None,
+        model_override: Optional[str] = None,
     ) -> dict:
-        if not settings.GROQ_API_KEY:
+        # Use user-supplied key if provided, otherwise fall back to server key
+        effective_key = api_key or settings.GROQ_API_KEY
+        if not effective_key:
             raise RuntimeError("[Groq] GROQ_API_KEY not configured.")
 
-        model = self._get_model(task_type)
+        model = model_override or self._get_model(task_type)
 
         # Build Groq-compatible payload — no unsupported fields
         payload: dict = {
@@ -77,7 +81,7 @@ class GroqProvider(BaseProvider):
             payload["response_format"] = {"type": "json_object"}
 
         headers = {
-            "Authorization": f"Bearer {settings.GROQ_API_KEY}",
+            "Authorization": f"Bearer {effective_key}",
             "Content-Type": "application/json",
         }
 

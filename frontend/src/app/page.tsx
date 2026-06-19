@@ -10,6 +10,7 @@ import { useTranscriptStore } from "../state/transcriptStore";
 import { clearSession as clearPersistedSession } from '../state/persistence';
 import { rotateSessionId } from '../state/sessionStore';
 import { resetSession } from '../lib/apiClient';
+import { SettingsProvider, useSettings } from '../state/settingsStore';
 
 // Layout Components
 import AppShell from "../components/AppShell";
@@ -21,11 +22,21 @@ import dynamic from 'next/dynamic';
 const SmartWhiteboard = dynamic(() => import("../components/SmartWhiteboard"), { ssr: false });
 import JuliEPanel from "../components/JuliEPanel";
 import MediaRail from "../components/MediaRail";
+import SettingsModal from "../components/settings/SettingsModal";
 
 // Other components
 import { useVoiceSession } from "../voice/voiceRouter";
 
 export default function Home() {
+  return (
+    <SettingsProvider>
+      <HomeInner />
+    </SettingsProvider>
+  );
+}
+
+function HomeInner() {
+  const { apiKey, provider, model, isSaved, openSettings } = useSettings();
   const { state, transitionTo, setPayload } = useAppState();
   const [command, setCommand] = useState("");
   const { history, clearHistory } = useTranscriptStore();
@@ -36,9 +47,8 @@ export default function Home() {
 
   const handleCommandSubmit = (text: string) => {
     if (!text.trim()) return;
-    // useCommandSubmit handles: loading state, transcript entry, API call,
-    // RESPONSE_RECEIVED dispatch, TTS_START, and error recovery.
-    submitCommand(text);
+    // Pass user key if set
+    submitCommand(text, isSaved && apiKey ? { userApiKey: apiKey, userProvider: provider, userModel: model } : undefined);
     setCommand("");
   };
   
@@ -71,15 +81,17 @@ export default function Home() {
   const canvasState = state.name === 'processing' ? 'loading' : state.canvasMode;
 
   return (
-    <AppShell
-      topBar={
-          <TopContextBar
-            currentTopic={state.payload?.title}
-            languageMode={state.topBar.language}
-            isHandsFree={state.topBar.handsFree}
-            isSourceMode={state.topBar.sourceMode}
-          />
-        }
+    <>
+      <AppShell
+        topBar={
+            <TopContextBar
+              currentTopic={state.payload?.title}
+              languageMode={state.topBar.language}
+              isHandsFree={state.topBar.handsFree}
+              isSourceMode={state.topBar.sourceMode}
+              onSettingsOpen={openSettings}
+            />
+          }
       mainContent={
         <MainContent
           isFullWidth={state.topBar.isWhiteboardActive}
@@ -146,5 +158,7 @@ export default function Home() {
         )
       }
     />
+    <SettingsModal />
+    </>
   );
 }

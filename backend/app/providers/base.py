@@ -24,12 +24,23 @@ class BaseProvider(ABC):
         messages: list,
         task_type: str = "default",
         response_format: Optional[dict] = None,
+        api_key: Optional[str] = None,
+        model_override: Optional[str] = None,
     ) -> dict:
         """
         Run a chat completion and return a parsed dict.
+        If api_key is provided, use it instead of the configured server key.
         Must raise on unrecoverable failures so the router can try the next provider.
         """
         ...
+
+    async def get_usage(self, api_key: str) -> None:
+        """
+        Attempt to fetch quota/usage info for the given key.
+        Return None if the provider doesn't expose this information.
+        Subclasses may override to return structured data.
+        """
+        return None
 
     @abstractmethod
     async def health_check(self) -> bool:

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Settings } from 'lucide-react';
 import { theme } from '../design/theme';
 import StatusChip from './StatusChip';
 import TopicBreadcrumb from './TopicBreadcrumb';
@@ -10,6 +11,7 @@ interface TopContextBarProps {
   confidence?: number;
   /** Topic title from the last assistant response. Undefined until first command. */
   currentTopic?: string;
+  onSettingsOpen?: () => void;
 }
 
 /**
@@ -23,6 +25,7 @@ export const TopContextBar: React.FC<TopContextBarProps> = ({
   isSourceMode = false,
   confidence,
   currentTopic,
+  onSettingsOpen,
 }) => {
   return (
     <header
@@ -47,7 +50,7 @@ export const TopContextBar: React.FC<TopContextBarProps> = ({
         }
       </div>
 
-      {/* Right Zone: Status Chips */}
+      {/* Right Zone: Status Chips + Settings */}
       <div className="flex items-center gap-3">
         <StatusChip label="LANG" value={languageMode} color="primary" />
         {isHandsFree && <StatusChip label="HANDS-FREE" value="ON" color="success" />}
@@ -55,6 +58,14 @@ export const TopContextBar: React.FC<TopContextBarProps> = ({
         {confidence && confidence > 0 && (
           <StatusChip label="CONF" value={`${Math.round(confidence * 100)}%`} color="neutral" />
         )}
+        <button
+          onClick={onSettingsOpen}
+          className="p-2 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
+          title="Settings"
+          aria-label="Open settings"
+        >
+          <Settings size={18} />
+        </button>
       </div>
     </header>
   );

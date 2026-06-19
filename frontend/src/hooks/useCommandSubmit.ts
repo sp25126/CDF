@@ -177,7 +177,7 @@ export const useCommandSubmit = () => {
   const highlightIntervalRef = useRef<any>(null);
 
   const submit = useCallback(
-    async (text: string) => {
+    async (text: string, userKeyOpts?: { userApiKey: string; userProvider: string; userModel?: string }) => {
       const trimmed = text.trim();
       if (!trimmed) return;
 
@@ -210,6 +210,7 @@ export const useCommandSubmit = () => {
         text: trimmed,
         sessionId,
         sourceMode: state.topBar.sourceMode ?? false,
+        ...(userKeyOpts ?? {}),
       });
 
       setIsLoading(false);

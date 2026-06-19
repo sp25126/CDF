@@ -213,6 +213,12 @@ export interface SubmitCommandOptions {
   sessionId: string;
   sourceMode?: boolean;
   modeHint?: string;
+  /** User-supplied API key (passed per-request, never stored server-side) */
+  userApiKey?: string;
+  /** Provider to use with the user key: 'groq' | 'openai' | 'anthropic' */
+  userProvider?: string;
+  /** Optional model override when user key is set */
+  userModel?: string;
 }
 
 /**
@@ -231,6 +237,12 @@ export async function submitCommand(
       session_id: opts.sessionId,
       source_mode: opts.sourceMode ?? false,
       mode_hint: opts.modeHint ?? null,
+      // Include user key fields only if provided (omit otherwise to avoid confusion)
+      ...(opts.userApiKey ? {
+        user_api_key: opts.userApiKey,
+        user_provider: opts.userProvider ?? 'groq',
+        user_model: opts.userModel ?? null,
+      } : {}),
     }),
   });
 }
@@ -279,4 +291,46 @@ export async function checkHealth(): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+// ─── Settings (user-supplied keys) ────────────────────────────────────────────
+
+export interface ValidateKeyResult {
+  valid: boolean;
+  provider: string;
+  model_used?: string;
+  error?: string;
+}
+
+export interface UsageInfo {
+  provider: string;
+  used: number | null;
+  remaining: number | null;
+  limit: number | null;
+  reset_at: string | null;
+  last_checked: string | null;
+  available: boolean;
+}
+
+/** Validate a user-supplied API key against the provider. */
+export async function validateUserKey(
+  provider: string,
+  apiKey: string,
+  model?: string
+): Promise<ApiResponse<ValidateKeyResult>> {
+  return apiFetch<ValidateKeyResult>("/settings/validate", {
+    method: "POST",
+    body: JSON.stringify({ provider, api_key: apiKey, model }),
+  }, 15_000);
+}
+
+/** Fetch quota/usage info for a user-supplied key (returns null values if provider doesn't expose it). */
+export async function fetchUserKeyUsage(
+  provider: string,
+  apiKey: string
+): Promise<ApiResponse<UsageInfo>> {
+  return apiFetch<UsageInfo>("/settings/usage", {
+    method: "POST",
+    body: JSON.stringify({ provider, api_key: apiKey }),
+  }, 10_000);
 }
