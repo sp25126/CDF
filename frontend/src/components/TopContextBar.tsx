@@ -26,7 +26,7 @@ export const TopContextBar: React.FC<TopContextBarProps> = ({
 }) => {
   return (
     <header
-      className="h-16 flex items-center justify-between px-8 bg-white border-b"
+      className="flex flex-col md:flex-row md:h-16 items-center justify-between px-4 md:px-8 py-2 md:py-0 gap-2 bg-white border-b"
       style={{ borderColor: theme.colors.canvas.border }}
     >
       {/* Left Zone: App Name */}
@@ -40,7 +40,7 @@ export const TopContextBar: React.FC<TopContextBarProps> = ({
       </div>
 
       {/* Center Zone: Topic — stable DOM node, content changes */}
-      <div className="absolute left-1/2 -translate-x-1/2">
+      <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-center">
         {currentTopic
           ? <TopicBreadcrumb topic={currentTopic} />
           : <span className="text-sm font-medium" style={{ color: theme.colors.canvas.muted }}>Awaiting topic…</span>

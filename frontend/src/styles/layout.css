@@ -2,7 +2,7 @@
 
 .app-grid {
   display: grid;
-  grid-template-rows: 64px 1fr 128px;
+  grid-template-rows: 64px 1fr auto;
   grid-template-areas:
     "top-bar"
     "main-content"
@@ -24,6 +24,11 @@
   grid-template-columns: 60% 40%;
   grid-template-areas: "canvas sidebar";
   overflow: hidden;
+}
+
+.main-content-zone.full-width {
+  grid-template-columns: 100%;
+  grid-template-areas: "canvas";
 }
 
 .teaching-canvas-zone {
@@ -62,4 +67,33 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: oklch(0.8 0.02 260);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .app-grid {
+    grid-template-rows: auto auto auto;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  
+  .main-content-zone {
+    grid-template-columns: 100%;
+    grid-template-areas: 
+      "canvas"
+      "sidebar";
+    overflow: visible;
+  }
+  
+  .teaching-canvas-zone {
+    min-height: 50vh;
+    overflow-y: visible; /* Let the parent main-content-zone scroll it */
+  }
+  
+  .sidebar-zone {
+    border-left: none;
+    border-top: 1px solid oklch(0.9 0.01 260);
+    overflow-y: visible;
+  }
 }
