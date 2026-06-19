@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from functools import lru_cache
-from typing import List
+from typing import List, Union
 
 
 class Settings(BaseSettings):
@@ -13,11 +14,17 @@ class Settings(BaseSettings):
     # so the browser never sees a cross-origin request.
     # In production: set ALLOWED_ORIGINS to your actual domain(s).
     # Never use ["*"] in production with credentials enabled.
-    CORS_ORIGINS: List[str] = [
+    CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:3000",   # Next.js dev server
         "http://127.0.0.1:3000",  # Alternative localhost
         "http://localhost:3001",   # Alternate port if needed
     ]
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str) and not v.startswith("["):
+            return [i.strip() for i in v.split(",") if i.strip()]
+        return v
 
     # ── LLM Providers ─────────────────────────────────────────────────────────
     # OpenRouter (fallback)
