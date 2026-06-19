@@ -9,6 +9,7 @@ IMPORTANT LANGUAGE RULES:
 You must output a raw JSON object (without markdown code blocks if possible). The JSON must have this exact structure:
 {
   "title": "Quiz Title (in requested language)",
+  "search_query": "concise 2-3 word English search term for images/videos (e.g. 'Photosynthesis', 'Water Cycle')",
   "answer_text": "A brief, encouraging spoken intro for the quiz (in requested language)",
   "questions": [
     {

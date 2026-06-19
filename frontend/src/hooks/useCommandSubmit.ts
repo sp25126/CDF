@@ -322,6 +322,7 @@ export const useCommandSubmit = () => {
       updateLastResponse(assistantText, {
         mode,
         languageMode: payload.language_mode,
+        payload,
       });
 
       // ── 4e. Persist lightweight session preferences to the backend ─────────

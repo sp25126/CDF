@@ -22,6 +22,8 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [score, setScore] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   if (!quiz || !quiz.questions || quiz.questions.length === 0) {
     return <div>Quiz data is missing or invalid.</div>;
@@ -37,12 +39,19 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
 
   const handleShowAnswer = () => {
     setShowAnswer(true);
+    if (selectedAnswer === currentQuestion.correct_index) {
+      setScore(prev => prev + 1);
+    }
   };
 
   const handleNextQuestion = () => {
-    setShowAnswer(false);
-    setSelectedAnswer(null);
-    setCurrentIndex(prev => Math.min(prev + 1, totalQuestions - 1));
+    if (currentIndex === totalQuestions - 1) {
+      setIsFinished(true);
+    } else {
+      setShowAnswer(false);
+      setSelectedAnswer(null);
+      setCurrentIndex(prev => prev + 1);
+    }
   };
   
   const getOptionStyle = (index: number) => {
@@ -57,6 +66,36 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
     }
     return 'border-slate-200 bg-white';
   };
+
+  if (isFinished) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="w-full max-w-4xl mx-auto text-center p-12 bg-white rounded-2xl shadow-xl border-2 border-slate-100"
+      >
+        <h2 style={{ fontSize: theme.typography.fontSize['4xl'], color: theme.colors.primary }} className="font-bold mb-6">
+          Quiz Complete!
+        </h2>
+        <p className="text-2xl text-slate-600 mb-8">
+          You scored <span className="font-bold text-slate-800">{score}</span> out of <span className="font-bold text-slate-800">{totalQuestions}</span>
+        </p>
+        <button
+          onClick={() => {
+            setIsFinished(false);
+            setCurrentIndex(0);
+            setScore(0);
+            setShowAnswer(false);
+            setSelectedAnswer(null);
+          }}
+          className="px-8 py-4 rounded-lg font-bold text-white transition-transform hover:scale-105"
+          style={{ backgroundColor: theme.colors.primary }}
+        >
+          Retake Quiz
+        </button>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div

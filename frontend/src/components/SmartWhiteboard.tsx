@@ -216,9 +216,9 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
 
         {/* Canvas Area */}
         <div className="flex-1 relative bg-slate-200 overflow-auto flex p-2 md:p-6 min-w-0 min-h-0">
-          <div className="relative shadow-xl bg-white w-full h-full min-h-[600px] flex-1 mx-auto" style={{ maxWidth: bgType === 'pdf' ? 'none' : '100%' }}>
+          <div className={`relative shadow-xl bg-white w-full min-h-[600px] flex-1 mx-auto ${bgType === 'pdf' ? 'h-max' : 'h-full'}`} style={{ maxWidth: bgType === 'pdf' ? 'none' : '100%' }}>
               {/* Background Layer */}
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+              <div className="relative pointer-events-none flex items-center justify-center w-full min-h-full">
                   {!bgUrl && (
                       <div className="text-slate-400 flex flex-col items-center text-center px-8">
                           <ImageIcon size={48} className="mb-2 opacity-50" />
@@ -226,10 +226,10 @@ export const SmartWhiteboard: React.FC<SmartWhiteboardProps> = ({ initialTitle, 
                       </div>
                   )}
                   {bgType === 'image' && bgUrl && (
-                      <img src={bgUrl} alt="Whiteboard Background" className="w-full h-full object-contain" />
+                      <img src={bgUrl} alt="Whiteboard Background" className="absolute inset-0 w-full h-full object-contain" />
                   )}
                   {bgType === 'pdf' && bgUrl && (
-                      <div className="w-full h-full overflow-auto flex justify-center items-start pt-4">
+                      <div className="w-full flex justify-center items-start pt-4 pb-4">
                         <Document 
                             file={bgUrl} 
                             onLoadSuccess={onDocumentLoadSuccess}

@@ -48,43 +48,37 @@ def strip_html(text: str) -> str:
 import re
 
 def clean_search_topic(text: str) -> str:
+    """
+    Normalize a search topic for Wikimedia Commons.
+    The query is now expected to be LLM-extracted (e.g. 'Photosynthesis', 'Artificial Intelligence')
+    so only basic normalization is needed.
+    """
+    # Just lowercase, strip punctuation, collapse whitespace
     clean_text = text.lower()
     for char in [".", ",", "?", "!", "\"", "'"]:
         clean_text = clean_text.replace(char, " ")
-        
-    stop_words = [
-        "explain", "samjhao", "batao", "kya hai", "meaning", "how", "why", "about",
-        "for class 6", "for class 7", "for class 8", "for class 5", "in hinglish", 
-        "haryana", "a", "an", "the", "make", "in english", "english mein", "english me",
-        "in hindi", "hindi mein", "hindi me", "pure hindi"
-    ]
-    for word in stop_words:
-        clean_text = re.sub(rf'\b{re.escape(word)}\b', ' ', clean_text)
-        
-    # Prevent "ai" from being confused with "Al" (Aluminium) by Wikimedia search
-    clean_text = re.sub(r'\bai\b', 'artificial intelligence', clean_text)
-        
     return re.sub(r'\s+', ' ', clean_text).strip()
 
 
 def _build_search_query(topic: str) -> str:
     """
     Build a topic-locked Wikimedia search query.
-    Avoids generic "science diagram" searches that pull off-topic results.
+    The topic is expected to be a clean LLM-extracted noun phrase like
+    'Photosynthesis' or 'Artificial Intelligence'.
     """
     profile = find_topic_profile(topic)
 
     if profile and profile.get("required"):
-        # Anchor the search to the 3 most specific required keywords + the topic itself (excluding topic duplication)
+        # Anchor the search to the 3 most specific required keywords
         clean_topic = topic.lower()
-        anchors = [a for a in profile["required"] if a.lower() not in clean_topic][:3]
+        anchors = [a for a in profile["required"] if a.lower() not in clean_topic][:2]
         anchor_str = " ".join(anchors)
         if anchor_str:
             return f"{topic} {anchor_str} diagram"
         return f"{topic} diagram"
     else:
-        # Simple title search — include "diagram" to prefer educational visuals
-        return f"{topic} educational diagram"
+        # Clean noun phrase — just append diagram for educational results
+        return f"{topic} diagram"
 
 
 async def retrieve_visuals(

@@ -20,6 +20,7 @@ export interface TranscriptEntry {
   responseSummary: string;
   mode?: string;
   languageMode?: string;
+  payload?: any;
 }
 
 interface TranscriptState {
@@ -27,7 +28,7 @@ interface TranscriptState {
   /** Add a complete turn (user + assistant). */
   addEntry: (command: string, responseSummary: string, meta?: { mode?: string; languageMode?: string }) => void;
   /** Update the most recent entry's assistant response after the API returns. */
-  updateLastResponse: (responseSummary: string, meta?: { mode?: string; languageMode?: string }) => void;
+  updateLastResponse: (responseSummary: string, meta?: { mode?: string; languageMode?: string; payload?: any }) => void;
   clearHistory: () => void;
 }
 
@@ -61,6 +62,7 @@ export const useTranscriptStore = create<TranscriptState>((set) => ({
             responseSummary,
             mode: meta.mode ?? latest.mode,
             languageMode: meta.languageMode ?? latest.languageMode,
+            payload: meta.payload ?? latest.payload,
           },
           ...rest,
         ],

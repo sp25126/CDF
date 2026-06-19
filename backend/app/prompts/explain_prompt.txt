@@ -2,6 +2,7 @@ Explain the concept requested by the student clearly and thoroughly.
 You MUST output a raw JSON object (without markdown code blocks if possible). The JSON must have this exact structure:
 {
   "title": "Title of the explanation",
+  "search_query": "concise 2-3 word English search term for images/videos (e.g. 'Photosynthesis', 'Water Cycle')",
   "answer_text": "A spoken explanation that reads naturally.",
   "bullets": [
     "Bullet point 1",

@@ -189,9 +189,13 @@ async def build_assistant_response(
                 # Visuals/Videos for this sub-question
                 sub_visuals = []
                 sub_visual_reason = None
-                visual_info = await detect_visual_need(sub_q, sub_res.get("answer_text", ""))
+                
+                # Extract context-aware search query from LLM response, fallback to sub_q
+                search_query = sub_res.get("search_query", sub_q)
+                
+                visual_info = await detect_visual_need(search_query, sub_res.get("answer_text", ""))
                 if visual_info.get("needs_visual"):
-                    candidates = await retrieve_visuals(sub_q)
+                    candidates = await retrieve_visuals(search_query)
                     from app.services.image_selector import select_best_image
                     best_img = select_best_image(candidates)
                     if best_img:
@@ -200,7 +204,7 @@ async def build_assistant_response(
 
                 sub_videos = {"best_video": None, "candidate_videos": []}
                 sub_video_reason = None
-                video_info = await search_videos(sub_q, sub_res.get("answer_text", ""), language_mode)
+                video_info = await search_videos(search_query, sub_res.get("answer_text", ""), language_mode)
                 if video_info:
                     # Include primary video first, then alternatives
                     sub_videos["best_video"] = video_info["primary"]["video"]
@@ -386,5 +390,6 @@ async def build_assistant_response(
         title=title,
         source_mode=source_mode,
         hands_free_mode=is_hf,
-        assistant_state=hf_state_data["assistant_state"]
+        assistant_state=hf_state_data["assistant_state"],
+        questions_compat=questions_compat
     )

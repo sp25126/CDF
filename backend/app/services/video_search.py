@@ -168,9 +168,9 @@ async def search_videos(
     Returns {primary, alternatives} or None if nothing valid is found.
     LLM is NOT called; URL fabrication is impossible.
     """
-    from app.services.image_retrieval import clean_search_topic
-    cleaned_topic = clean_search_topic(topic) or topic
-    normalized_topic = cleaned_topic.lower()
+    # The topic is now an LLM-extracted noun phrase (e.g. "Photosynthesis", "Artificial Intelligence")
+    # so no further cleaning is needed — just normalize case for matching
+    normalized_topic = topic.lower().strip()
     normalized_text = text.lower()
 
     # Match candidates from the registry
@@ -180,17 +180,21 @@ async def search_videos(
         if not _validate_db_entry(entry):
             continue
 
-        # Topic keyword match (any topic in the entry's topic list)
-        matched = any(
-            t in normalized_topic or t in normalized_text
-            for t in entry.get("topics", [])
-        )
+        # Topic keyword match (any topic in the entry's topic list as a whole word)
+        import re
+        matched = False
+        for t in entry.get("topics", []):
+            escaped_t = re.escape(t)
+            # Match whole words only to prevent 'ai' matching inside 'explain'
+            if re.search(rf'\b{escaped_t}\b', normalized_topic) or re.search(rf'\b{escaped_t}\b', normalized_text):
+                matched = True
+                break
         if matched:
             candidates.append(entry)
 
     if not candidates:
         logger.info(f"[VideoSearch] No matching videos in DB for topic='{topic}'. Falling back to dynamic search.")
-        return await _search_videos_dynamic(cleaned_topic, language_mode)
+        return await _search_videos_dynamic(topic, language_mode)
 
     # Rank by language preference + topic relevance
     ranked = rank_videos(candidates, normalized_topic, language_mode)
